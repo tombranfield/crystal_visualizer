@@ -8,5 +8,3 @@ class UnitCell:
     A class representing the unit cell of a crystal structure
     """
     pass
-
-
