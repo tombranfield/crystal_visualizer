@@ -130,3 +130,6 @@ dmypy.json
 
 # to_do.txt file
 to_do.txt
+
+# VSCode
+/.vscode
