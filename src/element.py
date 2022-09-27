@@ -48,6 +48,28 @@ Se = Element(34, "Se", "selenium")
 Br = Element(35, "Br", "bromine")
 Kr = Element(36, "Kr", "krypton")
 
+# Period 5
+Rb = Element(37, "Rb", "rubidium")
+Sr = Element(38, "Sr", "strontium")
+Y = Element(39, "Y", "yttrium")
+Zr = Element(40, "Zr", "zirconium")
+Nb = Element(41, "Nb", "niobium")
+Mo = Element(42, "Mo", "molybdenum")
+Tc = Element(43, "Tc", "technetium")
+Ru = Element(44, "Ru", "ruthenium")
+Rh = Element(45, "Rh", "rhodium")
+Pd = Element(46, "Pd", "palladium")
+Ag = Element(47, "Ag", "silver")
+Cd = Element(48, "Cd", "cadmium")
+In = Element(49, "In", "indium")
+Sn = Element(50, "Sn", "tin")
+Sb = Element(51, "Sb", "antimony")
+Te = Element(52, "Te", "tellurium")
+I = Element(53, "I", "iodine")
+Xe = Element(54, "Xe", "xenon")
+
+
+
 
 # A tuple containing the element symbols in ascending atomic number
 # The tuple index corresponds to the atomic number
