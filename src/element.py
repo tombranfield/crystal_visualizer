@@ -2,16 +2,21 @@
 This module contains the Element class that represents a chemical element
 for each atom within a crystal structure.
 
-The user can assign a chemical element using its symbol, for example by
-assigning self.element = Element("Ba"). Properties of the element such as
-the atomic number or element name can be retrieved using
-self.element.atomic_number or self.element.name
+The user can assign a chemical element using either its symbol or its atomic
+number, for example by assigning self.element = Element("Ba") or
+self.element = Element(56).
+
+Properties of the element such as the atomic number or element name can be
+retrieved using self.element.atomic_number or self.element.name, for example.
 """
 
 from collections import namedtuple
 from typing import Union
 
 # Put element properties into a named tuple for readability and immutability
+# Using namedtuple also allows extra properties (eg molar mass or electronic
+# configuration) to be added in the future, if necessary.
+# For now, only the symbol, name, and atomic number is necessary.
 Element = namedtuple("Element", ["atomic_number", "symbol", "name"])
 
 # Period 1
