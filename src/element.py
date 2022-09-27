@@ -28,6 +28,27 @@ S = Element(16, "S", "sulphur")
 Cl = Element(17, "Cl", "chlorine")
 Ar = Element(18, "Ar", "argon")
 
+# Period 4
+K = Element(19, "K", "potassium")
+Ca = Element(20, "Ca", "calcium")
+Sc = Element(21, "Sc", "scandium")
+Ti = Element(22, "Ti", "titanium")
+V = Element(23, "V", "vanadium")
+Cr = Element(24, "Cr", "chromium")
+Mn = Element(25, "Mn", "manganese")
+Fe = Element(26, "Fe", "iron")
+Co = Element(27, "Co", "cobalt")
+Ni = Element(28, "Ni", "nickel")
+Cu = Element(29, "Cu", "copper")
+Zn = Element(30, "Zn", "zinc")
+Ga = Element(31, "Ga", "gallium")
+Ge = Element(32, "Ge", "germanium")
+As = Element(33, "As", "arsenic")
+Se = Element(34, "Se", "selenium")
+Br = Element(35, "Br", "bromine")
+Kr = Element(36, "Kr", "krypton")
+
+
 # A tuple containing the element symbols in ascending atomic number
 # The tuple index corresponds to the atomic number
 ELEMENTS = (
