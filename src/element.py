@@ -135,10 +135,12 @@ ELEMENTS = (
 
 class Element:
     """A class representing a chemical element."""
-    def __init__(self, in_param: Union[str, int]):
-        """Initialize the element using its symbol, name, or atomic number"""
-        if isinstance(in_param, str):
-            if len(str) == 1 or len(str) == 2:
-                # Create an element with the symbol
-            else:
-                # Create an element with its name
+    def __init__(self, chemical_symbol: str):
+        """Initialize the element using its chemical symbol """
+        self.symbol = chemical_symbol
+
+    # This is a read-only property
+    @property
+    def chemical_symbol(self):
+        """Returns the chemical symbol of the element"""
+        return self._chemical_symbol
