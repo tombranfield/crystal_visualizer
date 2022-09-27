@@ -1,5 +1,5 @@
 # A class representing an atom
-# It consists of a Label, an Element, and a position
+# It consists of a Label, an Element, and a fractional position
 
 class Atom:
     """
