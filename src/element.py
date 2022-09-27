@@ -137,6 +137,10 @@ class Element:
     """A class representing a chemical element."""
     def __init__(self, chemical_symbol: str):
         """Initialize the element using its chemical symbol """
+        if notisinstance(chemical_symbol, str):
+            raise TypeError("You must supply a chemical symbol as a string")
+        if chemical_symbol.title() not in ELEMENTS:
+            raise ValueError("Not a valid chemical element symbol")
         self.symbol = chemical_symbol
 
     # This is a read-only property
