@@ -122,8 +122,7 @@ Rn = Element(86, "Rn", "radon")
 
 # A tuple containing the element symbols in ascending atomic number
 # The tuple index corresponds to the atomic number
-ELEMENTS = (
-    None,
+elements = (
     H, He,
     Li, Be, B, C, N, O, F, Ne,
     Na, Mg, Al, Si, P, S, Cl, Ar,
