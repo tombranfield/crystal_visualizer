@@ -11,7 +11,6 @@ retrieved using self.element.atomic_number or self.element.name, for example.
 """
 
 from collections import namedtuple
-from typing import Union
 
 
 class Element:
@@ -19,17 +18,24 @@ class Element:
 
     def __init__(self, chemical_symbol: str):
         """Initialize the element using its chemical symbol """
-        if notisinstance(chemical_symbol, str):
-            raise TypeError("You must supply a chemical symbol as a string")
-        if chemical_symbol.title() not in elements:
-            raise ValueError("Not a valid chemical element symbol")
+        self.verify_symbol(chemical_symbol)
         self.symbol = chemical_symbol
+        self.name = elements[self.symbol].name
+        self.atomic_number = elements[self.symbol].atomic_number
 
     # This is a read-only property
     @property
-    def chemical_symbol(self):
+    def chemical_symbol(self) -> str:
         """Returns the chemical symbol of the element"""
         return self._chemical_symbol
+
+    def verify_symbol(self, chemical_symbol: str):
+        """Verifies that a given string represents a valid chemical symbol"""
+        if not isinstance(chemical_symbol, str):
+            raise TypeError("You must supply a chemical symbol as a string")
+        if chemical_symbol.title() not in elements:
+            raise ValueError("Not a valid chemical element symbol")
+
 
 
 # Put element properties into a named tuple for readability and immutability
@@ -142,6 +148,8 @@ def main():
     """Main function."""
     print(elements["H"].name)
     print(elements["Li"].atomic_number)
+
+    my_element = Element("Ba")
 
 
 
