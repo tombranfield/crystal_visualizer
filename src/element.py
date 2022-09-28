@@ -13,6 +13,25 @@ retrieved using self.element.atomic_number or self.element.name, for example.
 from collections import namedtuple
 from typing import Union
 
+
+class Element:
+    """A class representing a chemical element."""
+
+    def __init__(self, chemical_symbol: str):
+        """Initialize the element using its chemical symbol """
+        if notisinstance(chemical_symbol, str):
+            raise TypeError("You must supply a chemical symbol as a string")
+        if chemical_symbol.title() not in elements:
+            raise ValueError("Not a valid chemical element symbol")
+        self.symbol = chemical_symbol
+
+    # This is a read-only property
+    @property
+    def chemical_symbol(self):
+        """Returns the chemical symbol of the element"""
+        return self._chemical_symbol
+
+
 # Put element properties into a named tuple for readability and immutability
 # Using namedtuple also allows extra properties (eg molar mass or electronic
 # configuration) to be added in the future, if necessary.
@@ -43,7 +62,6 @@ elements = {
     "S": ElementProperties(16, "S", "sulphur"),
     "Cl": ElementProperties(17, "Cl", "chlorine"),
     "Ar": ElementProperties(18, "Ar", "argon"),
-
 
     # Period 4
     "K": ElementProperties(19, "K", "potassium"),
@@ -118,28 +136,7 @@ elements = {
     "Po": ElementProperties(84, "Po", "polonium"),
     "At": ElementProperties(85, "At", "astatine"),
     "Rn": ElementProperties(86, "Rn", "radon"),
-
-
-
 }
-
-class Element:
-    """A class representing a chemical element."""
-    def __init__(self, chemical_symbol: str):
-        """Initialize the element using its chemical symbol """
-        if notisinstance(chemical_symbol, str):
-            raise TypeError("You must supply a chemical symbol as a string")
-        if chemical_symbol.title() not in elements:
-            raise ValueError("Not a valid chemical element symbol")
-        self.symbol = chemical_symbol
-
-    # This is a read-only property
-    @property
-    def chemical_symbol(self):
-        """Returns the chemical symbol of the element"""
-        return self._chemical_symbol
-
-
 
 def main():
     """Main function."""
