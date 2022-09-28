@@ -3,11 +3,9 @@ This module contains the Element class that represents a chemical element
 for each atom within a crystal structure.
 
 The user can assign a chemical element using either its symbol or its atomic
-number, for example by assigning self.element = ElementProperties("Ba") or
-self.element = ElementProperties(56).
-
-Properties of the element such as the atomic number or element name can be
-retrieved using self.element.atomic_number or self.element.name, for example.
+number, for example by assigning (for example) atom_element = Element("Ba").
+Properties of the element such as its atomic number or element name can be
+retrieved using atom_element.atomic_number or atom_element.name, for example.
 """
 
 from collections import namedtuple
@@ -32,7 +30,7 @@ class Element:
     def verify_symbol(self, chemical_symbol: str):
         """Verifies that a given string represents a valid chemical symbol"""
         if not isinstance(chemical_symbol, str):
-            raise TypeError("You must supply a chemical symbol as a string")
+            raise TypeError("You must supply the chemical symbol as a string")
         if chemical_symbol.title() not in elements:
             raise ValueError("Not a valid chemical element symbol")
 
@@ -146,10 +144,14 @@ elements = {
 
 def main():
     """Main function."""
-    print(elements["H"].name)
-    print(elements["Li"].atomic_number)
-
     my_element = Element("Ba")
+    print(my_element.name)
+    print(my_element.symbol)
+    print(my_element.atomic_number)
+
+    my_element = Element("ca")
+    print(my_element.name)
+
 
 
 
