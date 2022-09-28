@@ -2,10 +2,10 @@
 This module contains the Element class that represents a chemical element
 for each atom within a crystal structure.
 
-The user can assign a chemical element using either its symbol or its atomic
-number, for example by assigning (for example) atom_element = Element("Ba").
-Properties of the element such as its atomic number or element name can be
-retrieved using atom_element.atomic_number or atom_element.name, for example.
+The user can assign a chemical element using either its symbol, for example
+by assigning (for example) atom_element = Element("Ba"). Properties of the
+element such as its atomic number or element name can then be retrieved using
+atom_element.atomic_number or atom_element.name, for example.
 """
 
 from collections import namedtuple
@@ -14,18 +14,28 @@ from collections import namedtuple
 class Element:
     """A class representing a chemical element."""
 
-    def __init__(self, chemical_symbol: str):
+    def __init__(self, in_symbol: str):
         """Initialize the element using its chemical symbol """
-        self.verify_symbol(chemical_symbol)
-        self.symbol = chemical_symbol
-        self.name = elements[self.symbol].name
-        self.atomic_number = elements[self.symbol].atomic_number
+        in_symbol = in_symbol.title()
+        self.verify_symbol(in_symbol)
+        self._symbol = elements[in_symbol].symbol
+        self._name = elements[self.symbol].name
+        self._atomic_number = elements[self.symbol].atomic_number
 
-    # This is a read-only property
     @property
-    def chemical_symbol(self) -> str:
+    def symbol(self) -> str:
         """Returns the chemical symbol of the element"""
-        return self._chemical_symbol
+        return self._symbol
+
+    @property
+    def name(self) -> str:
+        """Returns the name of the element"""
+        return self._name
+
+    @property
+    def atomic_number(self) -> int:
+        """Returns the atomic number of the element"""
+        return self._atomic_number
 
     def verify_symbol(self, chemical_symbol: str):
         """Verifies that a given string represents a valid chemical symbol"""
@@ -149,9 +159,8 @@ def main():
     print(my_element.symbol)
     print(my_element.atomic_number)
 
-    my_element = Element("ca")
+    my_element = Element("hG")
     print(my_element.name)
-
 
 
 
