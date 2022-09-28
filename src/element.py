@@ -12,7 +12,21 @@ from collections import namedtuple
 
 
 class Element:
-    """A class representing a chemical element."""
+    """A class representing a chemical element.
+
+    An element is chosen to be an instance for the class. Upon initialization,
+    the instance will take properties of the chosen element from the
+    corresponding named tuple ElementProperties, and assign them as read-only
+    attributes.
+
+    Args:
+        in_symbol: a string of one or two letters corresponding to the
+        chemical symbol of the element from the periodic table. Elements from
+        Z=1 to Z=118 can be selected.
+
+    Returns:
+        a class instance containing the properties of the chosen element.
+    """
 
     def __init__(self, in_symbol: str):
         """Initialize the element using its chemical symbol """
@@ -38,7 +52,11 @@ class Element:
         return self._atomic_number
 
     def verify_symbol(self, chemical_symbol: str):
-        """Verifies that a given string represents a valid chemical symbol"""
+        """Verifies that a given string represents a valid chemical symbol.
+
+        If successful, no action is taken. Otherwise, an appropriate exception
+        is raised.
+        """
         if not isinstance(chemical_symbol, str):
             raise TypeError("You must supply the chemical symbol as a string")
         if chemical_symbol.title() not in elements:
@@ -153,14 +171,8 @@ elements = {
 }
 
 def main():
-    """Main function."""
-    my_element = Element("Ba")
-    print(my_element.name)
-    print(my_element.symbol)
-    print(my_element.atomic_number)
-
-    my_element = Element("hG")
-    print(my_element.name)
+    """Main function. Here for the purpose of quick tests"""
+    pass
 
 
 
