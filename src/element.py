@@ -1,3 +1,6 @@
+#TODO add remaining chemical elements to ElementProperties and elements
+#TODO add tests for Element class
+
 """
 This module contains the Element class that represents a chemical element
 for each atom within a crystal structure.
@@ -16,8 +19,8 @@ class Element:
 
     An element is chosen to be an instance for the class. Upon initialization,
     the instance will take properties of the chosen element from the
-    corresponding named tuple ElementProperties, and assign them as read-only
-    attributes.
+    corresponding named tuple ElementProperties held within the elements
+    dictionary, and assign them as read-only attributes.
 
     Args:
         in_symbol: a string of one or two letters corresponding to the
@@ -61,7 +64,6 @@ class Element:
             raise TypeError("You must supply the chemical symbol as a string")
         if chemical_symbol.title() not in elements:
             raise ValueError("Not a valid chemical element symbol")
-
 
 
 # Put element properties into a named tuple for readability and immutability
@@ -169,6 +171,7 @@ elements = {
     "At": ElementProperties(85, "At", "astatine"),
     "Rn": ElementProperties(86, "Rn", "radon"),
 }
+
 
 def main():
     """Main function. Here for the purpose of quick tests"""
