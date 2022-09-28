@@ -1,5 +1,7 @@
-# A class representing an atom
-# It consists of a Label, an Element, and a fractional position
+"""
+This module contains the Atom class which represents a single
+atom within the unit cell of the crystal structure.
+"""
 
 class Atom:
     """
