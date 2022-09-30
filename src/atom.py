@@ -30,23 +30,30 @@ class Atom:
                         in_fract_x: float,
                         in_fract_y: float,
                         in_fract_z: float):
-        """
-        Initializes the Atom class.
-
-        Note the chemical element of the atom is read-only, but the fractional
-        coordinates and label must be able to be modified.
-        """
-        self._element = Element(in_chemical_symbol)
+        """Initializes the Atom class."""
+        self.element = Element(in_chemical_symbol)
         self.label = self._element.symbol
         self.fract_x = in_fract_x
         self.fract_y = in_fract_y
         self.fract_z = in_fract_z
 
-    # This must be kept read-only; you cannot change the element.
     @property
     def element(self) -> Element:
-        """Returns the chemical element of atom."""
-        return self._element.symbol
+        """Returns the chemical element of atom.
+
+        Note this returns an instance of the Element class, and so can be used to
+        access the properties of that element if required. For example the molar
+        mass or magnetic properties of the element might be included in an expanded
+        version of this program."""
+        return self._element
+
+    @element.setter
+    def element(self, new_element_symbol: str):
+        """Sets the new element for the atom.
+
+        Note that changing the element changes the label"""
+        self._element = Element(new_element_symbol)
+        self.label(new_element_symbol)
 
     @property
     def label(self):
