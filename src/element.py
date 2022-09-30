@@ -39,6 +39,7 @@ class Element:
         self._name = elements[self.symbol].name
         self._atomic_number = elements[self.symbol].atomic_number
 
+    # Note symbol, name, and atomic_number are read-only
     @property
     def symbol(self) -> str:
         """Returns the chemical symbol of the element"""
@@ -54,6 +55,7 @@ class Element:
         """Returns the atomic number of the element"""
         return self._atomic_number
 
+    # Note we do not use a property setter as symbol must be read-only
     def verify_symbol(self, chemical_symbol: str):
         """Verifies that a given string represents a valid chemical symbol.
 
