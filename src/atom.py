@@ -1,6 +1,7 @@
 #TODO id number as a class method
 #TODO input testing for symbol and fractional coordinates
 #TODO testing
+#TODO put max label length in an external constants file
 
 """
 This module contains the Atom class which represents a single
@@ -41,10 +42,26 @@ class Atom:
         self.fract_y = in_fract_y
         self.fract_z = in_fract_z
 
+    # This must be kept read-only; you cannot change the element.
     @property
     def element(self) -> Element:
         """Returns the chemical element of atom."""
         return self._element.symbol
+
+    @property
+    def label(self):
+        """Returns the label of the atom"""
+        return self._label
+
+    @label.setter
+    def label(self, new_label: str):
+        """Sets a new label for the atom"""
+        max_label_length = 10
+        if not isinstance(new_label, str):
+            raise TypeError("The label must be a string")
+        if len(new_label) > max_label_length:
+            raise ValueError(f"The label must be {max_label_length} characters or fewer")
+        self._label = new_label
 
     @property
     def fract_x(self):
@@ -78,8 +95,6 @@ class Atom:
         "Verifies and sets the value of the z-axis fractional coordinate"
         self.__verify_coordinate(in_fract_z)
         self._fract_z = in_fract_z
-
-
 
     def __verify_coordinate(self, in_fract_cood: float):
         """Verifies that a given fractional coordinate is valid.
