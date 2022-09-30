@@ -34,7 +34,7 @@ class Element:
     def __init__(self, in_symbol: str):
         """Initialize the element using its chemical symbol """
         in_symbol = in_symbol.title()
-        self.verify_symbol(in_symbol)
+        self.__verify_symbol(in_symbol)
         self._symbol = elements[in_symbol].symbol
         self._name = elements[self.symbol].name
         self._atomic_number = elements[self.symbol].atomic_number
@@ -56,7 +56,7 @@ class Element:
         return self._atomic_number
 
     # Note we do not use a property setter as symbol must be read-only
-    def verify_symbol(self, chemical_symbol: str):
+    def __verify_symbol(self, chemical_symbol: str):
         """Verifies that a given string represents a valid chemical symbol.
 
         If successful, no action is taken. Otherwise, an appropriate exception
@@ -177,8 +177,8 @@ elements = {
 
 def main():
     """Main function. Here for the purpose of quick tests"""
-    pass
-
+    my_element = Element("123")
+    print(my_element.name)
 
 
 if __name__ == "__main__":
