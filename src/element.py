@@ -1,5 +1,5 @@
-#TODO add remaining chemical elements to ElementProperties and elements
 #TODO add tests for Element class
+#TODO make a web scraper program to get element properties
 
 """
 This module contains the Element class that represents a chemical element
