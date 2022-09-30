@@ -33,7 +33,7 @@ class Atom:
         Initializes the Atom class.
 
         Note the chemical element of the atom is read-only, but the fractional
-        coordinates and label must be able to change.
+        coordinates and label must be able to be modified.
         """
         self._element = Element(in_chemical_symbol)
         self.label = self._element.symbol
@@ -45,3 +45,17 @@ class Atom:
     def element(self) -> Element:
         """Returns the chemical element of atom."""
         return self._element
+
+    @property
+    def fract_x(self):
+        """Returns the fractional coordinate on the x-axis of the atom"""
+        return self._fract_x
+
+    @fract_x.setter
+    def fract_x(self, in_fract_x):
+        """Verifies and sets the value of the x-axis fractional coordinate"""
+        if not isinstance(in_fract_x, float):
+            raise AttributeError("Fractional coordinates must be floating numbers")
+        if in_fract_x < 0 or in_fract_x >= 1:
+            raise ValueError("Fractional coordinates must be in the range [0, 1)")
+        self._fract_x = in_fract_x
