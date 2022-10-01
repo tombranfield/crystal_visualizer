@@ -18,4 +18,16 @@ class Lattice:
         the angle between the basis vectors b and c, a and c, and a and b,
         respectively.
     """
-    pass
+    def __init__(self, length_a, length_b, length_c,
+                        angle_alpha, angle_beta, angle_gamma):
+        """Initialize the lattice using its lattice parameters"""
+        self.length_a = length_a
+        self.length_b = length_b
+        self.length_c = length_c
+        self.angle_alpha = angle_alpha
+        self.angle_beta = angle_beta
+        self.angle_gamma = angle_gamma
+
+    @property
+    
+
