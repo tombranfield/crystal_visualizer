@@ -16,10 +16,14 @@ class Lattice:
         magnitude (length) of the corresponding basic vectors in Angstroms.
         alpha, beta, gamma: floating-point numbers representing
         the angle between the basis vectors b and c, a and c, and a and b,
-        respectively.
+        respectively. In radians (NOT degrees).
     """
     def __init__(self, a, b, c, alpha, beta, gamma):
-        """Initialize the lattice using its lattice parameters"""
+        """Initialize the lattice using its lattice parameters.
+
+        We use single letters to represent the lengths of the basis vectors
+        as this is done by convention for crystallography.
+        """
         self.a = a
         self.b = b
         self.c = c
@@ -44,4 +48,7 @@ class Lattice:
         If the input is valid, no action is taken. Otherwise, an appropriate
         exception is raised.
         """
-        pass
+        if not isinstance(new_length, (float, int)):
+            raise TypeError("Lattice length must be a number")
+        if new_length <= 0:
+            raise ValueError("Lattice length must a positive number")
