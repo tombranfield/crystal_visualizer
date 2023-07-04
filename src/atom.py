@@ -2,6 +2,8 @@
 #TODO input testing for symbol and fractional coordinates
 #TODO testing
 #TODO put max label length in an external constants file
+#TODO add oxidation state
+#TODO add atomic radius (set default, able to change)
 
 """
 This module contains the Atom class which represents a single
