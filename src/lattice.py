@@ -1,3 +1,8 @@
+# Lattices are not defined by lengths and angles, but by symmetry
+# Need to rethink how to do this whole program!
+
+
+
 """
 A module containing classes that represent the lattice.
 
