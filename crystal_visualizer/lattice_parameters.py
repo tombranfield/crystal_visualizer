@@ -61,4 +61,4 @@ class LatticeParameters:
                 raise ValueError("Angle must be a positive number")
 
 if __name__ == "__main__":
-    my_lattice = LatticeParameters(1, 1, 1, 90, 90, 90)
+    my_lattice = LatticeParameters(1, 1, 1, 90, 90)
