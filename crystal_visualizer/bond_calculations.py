@@ -41,22 +41,27 @@ def bond_angle(
     r1 = atom_1.position()
     r2 = atom_2.position()
     r3 = atom_3.position()
-    s = r2 - r1
-    t = r2 - r3
+    s = r1 - r2
+    t = r3 - r2
     g = metric_tensor(lattice_parameters)
-    
+
     # Calculating an intermediate matrix that contains 3 necessary dot products
     # See pg.85 "Structure of Materials for more info
     # This matrix only used for bond angle, hence inside bond angle function
-    m = np.array([s, t]) @ g @ np.array([s, t])
+    m = np.array([s, t]) @ (g @ np.transpose(np.array([s, t])))
+
     s_dot_t = m[0, 1]
     s_dot_s = m[0, 0]
     t_dot_t = m[1, 1]
 
-    bond_angle = s_dot_t / np.sqrt(s_dot_s * t_dot_t)
+    bond_angle = np.arccos(s_dot_t / np.sqrt(s_dot_s * t_dot_t))
     return np.rad2deg(bond_angle)
 
 
-
 if __name__ == "__main__":
-    pass
+    lp = LatticeParameters(1, 1, 1, 90, 90, 90)
+    atom_1 = Atom("Ti", 1/2, 1/2, 0.0)
+    atom_2 = Atom("O", 0.0, 0.0, 0.0)
+    atom_3 = Atom("Ti", 1/2, 0.0, 1/2)
+    angle = bond_angle(atom_1, atom_2, atom_3, lp)
+    print(angle, "deg")
