@@ -48,6 +48,19 @@ class LatticeParameters:
             if length <= 0:
                 raise ValueError("Length must be a positive number")
 
+    def __verify_angle(self, *angles):
+        """
+        Verifies that a given input is a valid angle for the lattice. An
+        appropriate exception is raised if it is not.
+
+        Note that this does not verify that the angles are in the correct units
+        (degrees).
+        """
+        for angle in angles:
+            if not isinstance(angle, (float, int)):
+                raise TypeError("Angle must be a number")
+            if angle <= 0:
+                raise ValueError("Angle must be a positive number")
 
 if __name__ == "__main__":
     my_lattice = LatticeParameters(1, 1, 1, 90, 90, 90)
