@@ -1,4 +1,4 @@
-"""lattice_parameters.py"""                                                   .
+"""lattice_parameters.py"""
 
 
 class LatticeParameters:
@@ -10,16 +10,13 @@ class LatticeParameters:
         in Angstroms. These vectors are defined by a right-hand rule by
         convention. See eg "Structure of Materials" (2012).
         angle_alpha, angle_beta, and angle_gamma are the angles alpha, beta, 
-        and gamma of the lattice in degrees. Alpha is the angle between b and 
-        c, beta the angle between a and c, and gamma the angle between a and b.
+        and gamma of the lattice in degrees (NOT radians). Alpha is the angle 
+        between b and c, beta the angle between a and c, and gamma the is angle
+        between a and b.
     """
-    def __init__(
-        self, 
-        len_a, len_b, len_c, 
-        angle_alpha, angle_beta, angle_gamma
-    ):
+    def __init__(self, len_a, len_b, len_c, angle_alpha, angle_beta, angle_gamma):
         self.__verify_length(len_a, len_b, len_c)
-
+        self.__verify_angle(angle_alpha, angle_beta, angle_gamma)
         self._len_a = len_a
         self._len_b = len_b
         self._len_c = len_c
