@@ -35,7 +35,7 @@ class Atom:
                         in_fract_y: float,
                         in_fract_z: float):
         """Initializes the Atom class."""
-        self.element = Element(in_chemical_symbol)
+        self._element = Element(in_chemical_symbol)
         self.label = self._element.symbol
         self.fract_x = in_fract_x
         self.fract_y = in_fract_y
@@ -56,12 +56,14 @@ class Atom:
         """Sets the new element for the atom.
 
         Note that changing the element changes the label"""
-        self._element = Element(new_element_symbol)
-        self.label(new_element_symbol)
+        #self._element = Element(new_element_symbol)
+        #self.label(new_element_symbol)
+        # TODO
+        pass
 
     def position(self) -> np.array:
         """Returns the position vector the array"""
-        return np.array(fract_x, fract_y, fract_z)
+        return np.array([self.fract_x, self.fract_y, self.fract_z])
         
     @property
     def label(self):
