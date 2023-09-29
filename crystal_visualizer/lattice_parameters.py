@@ -37,6 +37,18 @@ class LatticeParameters:
     def length_c(self):
         return self._len_c
 
+    @property
+    def angle_alpha(self):
+        return self._angle_alpha
+
+    @property
+    def angle_beta(self):
+        return self._angle_beta
+
+    @property
+    def angle_gamma(self):
+        return self._angle_gamma
+
     @length_a.setter
     def length_a(self, new_length):
         """Verifies and sets a new length for the basis vector a"""
@@ -54,6 +66,24 @@ class LatticeParameters:
         """Verifies and sets a new length for the basis vector c"""
         self.__verify_length(new_length)
         self._len_c = new_length
+
+    @angle_alpha.setter
+    def angle_alpha(self, new_angle):
+        """Verifies and sets a new angle for the angle alpha"""
+        self.__verify_angle(new_angle)
+        self._angle_alpha = new_angle
+
+    @angle_beta.setter
+    def angle_beta(self, new_angle):
+        """Verifies and sets a new angle for the angle beta"""
+        self.__verify_angle(new_angle)
+        self._angle_beta = new_angle
+
+    @angle_gamma.setter
+    def angle_gamma(self, new_angle):
+        """Verifies and sets a new angle for the angle gamma"""
+        self.__verify_angle(new_angle)
+        self._angle_gamma = new_angle
 
     def __verify_length(self, *lengths):
         """
