@@ -29,11 +29,31 @@ class LatticeParameters:
     def length_a(self):
         return self._len_a
 
+    @property
+    def length_b(self):
+        return self._len_b
+
+    @property
+    def length_c(self):
+        return self._len_c
+
     @length_a.setter
     def length_a(self, new_length):
         """Verifies and sets a new length for the basis vector a"""
         self.__verify_length(new_length)
         self._len_a = new_length
+
+    @length_b.setter
+    def length_b(self, new_length):
+        """Verifies and sets a new length for the basis vector b"""
+        self.__verify_length(new_length)
+        self._len_b = new_length
+
+    @length_c.setter
+    def length_c(self, new_length):
+        """Verifies and sets a new length for the basis vector c"""
+        self.__verify_length(new_length)
+        self._len_c = new_length
 
     def __verify_length(self, *lengths):
         """
