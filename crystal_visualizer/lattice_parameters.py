@@ -4,7 +4,10 @@
 
 class LatticeParameters:
     """
-    Represents the lattice parameters of the lattice.
+    A class representing the lattice parameters of a 3D lattice.
+
+    Args:
+        len_a, len_b, len_c are the lengths 
     """
     def __init__(
         self, 
@@ -22,3 +25,14 @@ class LatticeParameters:
     def length_a(self):
         return self._len_a
 
+
+
+    def __verify_length(self, length):
+        if not isinstance(length, (float, int)):
+            raise TypeError("Length must be a number")
+        if length <= 0:
+            raise ValueError("Length must be a positive number")
+
+
+if __name__ == "__main__":
+    print("yo")
