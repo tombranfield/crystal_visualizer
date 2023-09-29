@@ -31,7 +31,17 @@ class LatticeParameters:
     def length_a(self):
         return self._len_a
 
+    @length_a.setter
+    def length_a(self, new_length):
+        """Verifies and sets a new length for the basis vector a"""
+        self.__verify_length(new_length)
+        self._len_a = new_length
+
     def __verify_length(self, *lengths):
+        """
+        Verifies that a given input is a valid length for the lattice. If the
+        input is not valid, an appropriate exception is raised.
+        """
         for length in lengths:
             if not isinstance(length, (float, int)):
                 raise TypeError("Length must be a number")
