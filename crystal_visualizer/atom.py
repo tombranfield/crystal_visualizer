@@ -10,6 +10,8 @@ This module contains the Atom class which represents a single
 atom within the unit cell of the crystal structure.
 """
 
+import numpy as np
+
 from element import Element
 
 
@@ -57,6 +59,10 @@ class Atom:
         self._element = Element(new_element_symbol)
         self.label(new_element_symbol)
 
+    def position(self) -> np.array:
+        """Returns the position vector the array"""
+        return np.array(fract_x, fract_y, fract_z)
+        
     @property
     def label(self):
         """Returns the label of the atom"""
