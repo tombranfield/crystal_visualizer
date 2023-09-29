@@ -5,6 +5,11 @@ import pytest
 from crystal_visualizer.lattice_parameters import LatticeParameters
 
 
+@pytest.fixture
+def lattice_parameters():
+    lp = LatticeParameters(1, 2, 3, 30, 60, 90)
+    return lp
+
 def test_successfully_create_lattice_parameters_class():
     lp = LatticeParameters(1, 1, 1, 90, 90, 90)
 
@@ -32,3 +37,31 @@ def test_invalid_negative_angle_raises_exception():
 def test_exception_raised_if_instantiate_with_too_few_parameters():
     with pytest.raises(TypeError):
         lp = LatticeParameters(1, 1, 1, 90, 90)
+
+
+def test_retrieve_length_a_successfully(lattice_parameters):
+    assert lattice_parameters.length_a == 1
+
+
+def test_retrieve_length_b_successfully(lattice_parameters):
+    assert lattice_parameters.length_b == 2
+
+
+def test_retrieve_length_c_successfully(lattice_parameters):
+    assert lattice_parameters.length_c == 3
+
+
+def test_retrieve_angle_alpha_successfully(lattice_parameters):
+    assert lattice_parameters.angle_alpha == 30
+
+
+def test_retrieve_angle_beta_successfully(lattice_parameters):
+    assert lattice_parameters.angle_beta == 60
+
+
+def test_retrieve_angle_gamma_successfully(lattice_parameters):
+    assert lattice_parameters.angle_gamma == 90
+
+
+def test_successfully_change_length_a(lattice_parameters):
+    pass
