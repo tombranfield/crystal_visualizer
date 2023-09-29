@@ -64,4 +64,32 @@ def test_retrieve_angle_gamma_successfully(lattice_parameters):
 
 
 def test_successfully_change_length_a(lattice_parameters):
-    pass
+    lattice_parameters.length_a = 10
+    assert lattice_parameters.length_a == 10
+
+
+def test_successfully_change_length_b(lattice_parameters):
+    lattice_parameters.length_b = 20
+    assert lattice_parameters.length_b == 20
+
+
+def test_successfully_change_length_c(lattice_parameters):
+    lattice_parameters.length_c = 30
+    assert lattice_parameters.length_c == 30
+
+
+def test_successfully_change_angle_alpha(lattice_parameters):
+    lattice_parameters.angle_alpha = 44
+    assert lattice_parameters.angle_alpha == 44
+
+
+def test_successfully_change_angle_beta(lattice_parameters):
+    lattice_parameters.angle_beta = 66
+    assert lattice_parameters.angle_beta == 66
+
+
+def test_successfully_change_angle_gamma(lattice_parameters):
+    lattice_parameters.angle_gamma = 99
+    assert lattice_parameters.angle_gamma == 99
+
+
