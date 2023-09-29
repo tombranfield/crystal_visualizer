@@ -25,9 +25,38 @@ def bond_length(
     return bond_length
 
 
+def bond_angle(
+    atom_1: Atom,
+    atom_2: Atom,
+    atom_3: Atom,
+    lattice_parameters: LatticeParameters
+) -> float:
+    """
+    Calculates the bond angle between 3 atoms. Returns the result in degrees.
+
+    atom_1 is bonded to atom_2. atom_3 is also bonded to atom_2. This function
+    calculates the angle between the vector connecting atom_1 to atom_2, and
+    the vector connecting atom_3 to atom_2.
+    """
+    r1 = atom_1.position()
+    r2 = atom_2.position()
+    r3 = atom_3.position()
+    s = r2 - r1
+    t = r2 - r3
+    g = metric_tensor(lattice_parameters)
+    
+    # Calculating an intermediate matrix that contains 3 necessary dot products
+    # See pg.85 "Structure of Materials for more info
+    # This matrix only used for bond angle, hence inside bond angle function
+    m = np.array([s, t]) @ g @ np.array([s, t])
+    s_dot_t = m[0, 1]
+    s_dot_s = m[0, 0]
+    t_dot_t = m[1, 1]
+
+    bond_angle = s_dot_t / np.sqrt(s_dot_s * t_dot_t)
+    return np.rad2deg(bond_angle)
+
+
+
 if __name__ == "__main__":
-    atom_1 = Atom("Fe", 1/2, 1/3, 1/4)
-    atom_2 = Atom("O", 1/3, 1/2, 3/4)
-    lattice_parameters = LatticeParameters(2, 2, 3, 90, 90, 90)
-    bond_length = bond_length(atom_1, atom_2, lattice_parameters)
-    print(bond_length)
+    pass
