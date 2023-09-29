@@ -12,7 +12,7 @@ atom within the unit cell of the crystal structure.
 
 import numpy as np
 
-from element import Element
+from crystal_visualizer.element import Element
 
 
 class Atom:
