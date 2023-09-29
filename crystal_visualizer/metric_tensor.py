@@ -5,7 +5,7 @@ import numpy as np
 from crystal_visualizer.lattice_parameters import LatticeParameters
 
 
-def MetricTensor(lattice_parameters: LatticeParameters) -> np.array:
+def metric_tensor(lattice_parameters: LatticeParameters) -> np.array:
     """
     A function representing a metric tensor for crystallographic computations.
 
