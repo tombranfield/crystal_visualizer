@@ -1,5 +1,4 @@
-"""lattice_parameters.py"""
-
+"""lattice_parameters.py"""                                                   .
 
 
 class LatticeParameters:
@@ -7,10 +6,12 @@ class LatticeParameters:
     A class representing the lattice parameters of a 3D lattice.
 
     Args:
-        len_a, len_b, len_c are the lengths 
-        Angstroms
-        Angles in radians or degrees?
-
+        len_a, len_b, len_c are the lengths a, b, and c of the lattice vectors
+        in Angstroms. These vectors are defined by a right-hand rule by
+        convention. See eg "Structure of Materials" (2012).
+        angle_alpha, angle_beta, and angle_gamma are the angles alpha, beta, 
+        and gamma of the lattice in degrees. Alpha is the angle between b and 
+        c, beta the angle between a and c, and gamma the angle between a and b.
     """
     def __init__(
         self, 
