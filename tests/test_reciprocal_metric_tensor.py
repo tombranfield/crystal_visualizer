@@ -34,3 +34,13 @@ def test_reciprocal_metric_tensor_for_cubic_lattice():
     calculated = reciprocal_metric_tensor(lp)
     expected = np.array([[1/4, 0, 0], [0, 1/4, 0], [0, 0, 1/4]])
     assert np.allclose(calculated, expected)
+
+
+# From example (ii) pg.115 "Structure of Materials"
+def test_reciprocal_metric_tensor_for_triclinic_lattice():
+    lp = LatticeParameters(3, 4, 5, 90, 90, 120)
+    calculated = reciprocal_metric_tensor(lp)
+    expected = np.array([[4/27, 1/18, 0], [1/18, 1/12, 0], [0, 0, 1/36]])
+    print(calculated)
+    print(expected)
+    assert np.allclose(calculated, expected)

@@ -35,9 +35,7 @@ def reciprocal_metric_tensor(lattice_parameters: LatticeParameters) -> np.array:
         [a*b*c*c*F(alpha, beta, gamma), a*a*c*c*np.sin(beta)**2, a*a*b*c*F(beta, gamma, alpha)],
         [a*b*b*c*F(gamma, alpha, beta), a*a*b*c*F(beta, gamma, alpha), a*a*b*b*np.sin(gamma)**2]
     ])
-
     V = volume(lattice_parameters)
-
     return g / V ** 2
 
 
