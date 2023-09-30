@@ -24,17 +24,23 @@ def reciprocal_metric_tensor(lattice_parameters: LatticeParameters) -> np.array:
 
 
 
-def volume(lattice_parameters: LatticeParameters) -> float:
+def volume(lp: LatticeParameters) -> float:
     """
     Calculates the direct space volume of a unit cell of a lattice.
     """
-    a = lattice_parameters.length_a
-    b = lattice_parameters.length_b
-    c = lattice_parameters.length_c
-    alpha = np.deg2rad(lattice_parameters.angle_alpha)
-    beta = np.deg2rad(lattice_parameters.angle_beta)
-    gamma = np.deg2rad(lattice_parameters.angle_gamma)
+    alpha = np.deg2rad(lp.angle_alpha)
+    beta = np.deg2rad(lp.angle_beta)
+    gamma = np.deg2rad(lp.angle_gamma)
+    V_squared = lp.length_a**2 * lp.length_b**2 * lp.length_c**2 * (1
+                - (np.cos(alpha))**2 - (np.cos(beta))**2
+                - (np.cos(gamma))**2
+                + 2 * np.cos(alpha) * np.cos(beta) * np.cos(gamma))
+    return np.sqrt(V_squared)
 
-    V_squared = a*a * b*b * c*c * [1 - np.cos(alpha)*np.cos(alpha)
-                - np.cos(beta) * np.cos(beta) - np.cos(gamma) * np.cos(gamma)
-                + 2 * np.cos(alpha) * np.cos(beta) * np.cos(gamma)]
+
+if __name__ == "__main__":
+    lattice_parameters = LatticeParameters(2, 3, 4, 90, 90, 90)
+    print(volume(lattice_parameters))
+
+    lattice_parameters = LatticeParameters(10, 10, 10, 90, 90, 90)
+    print(volume(lattice_parameters))
