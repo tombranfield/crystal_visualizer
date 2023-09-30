@@ -133,3 +133,9 @@ dmypy.json
 
 # VSCode
 /.vscode
+
+# TODO/ folder
+TODO/
+
+# .gitignore
+.gitignore
