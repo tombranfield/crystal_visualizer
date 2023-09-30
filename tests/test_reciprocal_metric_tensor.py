@@ -27,3 +27,10 @@ def test_volume_of_triclinic_lattice_correctly_direct_space():
     calculated_volume = volume(lp)
     expected_volume = np.sqrt(3888)
     assert np.allclose(calculated_volume, expected_volume)
+
+# From pg.114 "Structure of Materials"
+def test_reciprocal_metric_tensor_for_cubic_lattice():
+    lp = LatticeParameters(2, 2, 2, 90, 90, 90)
+    calculated = reciprocal_metric_tensor(lp)
+    expected = np.array([[1/4, 0, 0], [0, 1/4, 0], [0, 0, 1/4]])
+    assert np.allclose(calculated, expected)
