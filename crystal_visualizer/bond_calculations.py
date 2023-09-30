@@ -60,10 +60,6 @@ def bond_angle(
 
 
 
-
-
-
-
 if __name__ == "__main__":
     lp = LatticeParameters(1, 1, 1, 90, 90, 90)
     atom_1 = Atom("Ti", 1/2, 1/2, 0.0)

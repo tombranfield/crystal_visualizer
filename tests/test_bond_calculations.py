@@ -3,7 +3,7 @@
 import numpy as np
 
 from crystal_visualizer.atom import Atom
-from crystal_visualizer.bond_calculations import bond_length
+from crystal_visualizer.bond_calculations import bond_length, bond_angle
 from crystal_visualizer.lattice_parameters import LatticeParameters
 from crystal_visualizer.metric_tensor import metric_tensor
 
@@ -26,6 +26,11 @@ def test_bond_length_2():
     assert np.allclose(_bond_length, np.sqrt(13))
 
 
-
-def test_bond_angle_1():
-    pass
+# From pg.84 of "Structure of Materials"
+def test_bond_angle():
+    lp = LatticeParameters(5, 5, 5, 90, 90, 90)
+    atom_1 = Atom("Ti", 1/2, 1/2, 0)
+    atom_2 = Atom("O", 0, 0, 0)
+    atom_3 = Atom("Ti", 1/2, 0, 1/2)
+    calculated_angle = bond_angle(atom_1, atom_2, atom_3, lp)
+    assert np.allclose(calculated_angle, 60)
