@@ -119,9 +119,10 @@ class Atom:
         Raises an error if invalid, otherwise does nothing.
         """
         if not isinstance(in_fract_cood, float):
-            raise AttributeError("Fractional coordinates must be floating numbers")
-        if in_fract_cood < 0 or in_fract_cood >= 1:
-            raise ValueError("Fractional coordinates must be in the range [0, 1)")
+            if in_fract_cood not in [0, 1]:
+                raise AttributeError("Fractional coordinates must be floating numbers")
+        if in_fract_cood < 0 or in_fract_cood > 1:
+            raise ValueError("Fractional coordinates must be in the range [0, 1]")
 
 
 def main():
