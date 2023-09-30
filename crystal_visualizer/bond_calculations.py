@@ -21,7 +21,7 @@ def bond_length(
     r2 = atom_2.position()
     r = r2 - r1
     g = metric_tensor(lattice_parameters)
-    bond_length = np.sqrt(r @ g @ r)
+    bond_length = np.sqrt(r @ (g @ r))
     return bond_length
 
 
@@ -56,6 +56,12 @@ def bond_angle(
 
     bond_angle = np.arccos(s_dot_t / np.sqrt(s_dot_s * t_dot_t))
     return np.rad2deg(bond_angle)
+
+
+
+
+
+
 
 
 if __name__ == "__main__":

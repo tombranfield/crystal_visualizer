@@ -15,15 +15,15 @@ def test_bond_length_1():
     lattice_parameters = LatticeParameters(2, 2, 3, 90, 90, 90)
     _bond_length = bond_length(atom_1, atom_2, lattice_parameters)
     bond_length_3dp = float(str(_bond_length)[:5])
-    assert bond_length_3dp == 1.572    
+    assert bond_length_3dp == 1.572
+
 
 def test_bond_length_2():
     atom_1 = Atom("Fe", 0.0, 0.0, 0.0)
     atom_2 = Atom("O", 1.0, 1.0, 0.0)
     lattice_parameters = LatticeParameters(2, 3, 4, 90, 90, 90)
     _bond_length = bond_length(atom_1, atom_2, lattice_parameters)
-    bond_length_3dp = float(str(_bond_length)[:5])
-    assert bond_length_3dp == 4.102
+    assert np.allclose(_bond_length, np.sqrt(13))
 
 
 
