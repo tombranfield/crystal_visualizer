@@ -14,7 +14,6 @@ def interplanar_distance(
     indices = np.array([hkl.h, hkl.k, hkl.l])
     g = reciprocal_metric_tensor(lattice_parameters)    
     g_length = np.sqrt(indices @ (g @ indices))
-    print(g_length)
     return 1/g_length
 
 
