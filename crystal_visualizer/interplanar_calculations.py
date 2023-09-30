@@ -1,5 +1,11 @@
 """interplanar_calculations.py"""
 
+import numpy as np
+
+from crystal_visualizer.lattice_parameters import LatticeParameters
+from crystal_visualizer.reciprocal_metric_tensor import metric_tensor
+
+
 
 def interplanar_spacing(hkl: HKL, lattice_parameters: LatticeParameters):
 # takes h,k,l and lattice parameters
