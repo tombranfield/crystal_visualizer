@@ -28,4 +28,17 @@ def interplanar_angle(
     (define plane normals etc)
 
     """
-    pass
+    p = np.array([hkl_1.h, hkl_1.k, hkl_1.l])
+    q = np.array([hkl_2.h, hkl_2.k, hkl_2.l])
+    g = reciprocal_metric_tensor(lattice_parameters)
+
+    # Intermediate array that contains 3 necessary dot products
+    m = np.array([p, q]) @ (g @ np.transpose(np.array(p, q])))
+    p_dot_q = m[0, 1]
+    p_dot_p = m[0, 0]
+    q_dot_q = m[1, 1]
+
+    interplanar_angle = np.arccos(p_dot_p / np.sqrt(p_dot_p * q_dot_q)
+    return np.rad2deg(interplanar_angle)
+    
+    
