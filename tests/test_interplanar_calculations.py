@@ -47,10 +47,18 @@ def test_interplanar_distances_of_goethite_calculated_correctly():
     calculated_spacing_1 = round(interplanar_distance(plane_1, lp), 3)
     calculated_spacing_2 = round(interplanar_distance(plane_2, lp), 3)
     calculated_spacing_3 = round(interplanar_distance(plane_3, lp), 3)
-    expected_1 = 0.498
-    expected_2 = 0.230
-    expected_3 = 0.245
-    assert calculated_spacing_1 == expected_1
-    assert calculated_spacing_2 == expected_2
-    assert calculated_spacing_3 == expected_3
+    expected_spacing_1 = 0.498
+    expected_spacing_2 = 0.230
+    expected_spacing_3 = 0.245
+    assert calculated_spacing_1 == expected_spacing_1
+    assert calculated_spacing_2 == expected_spacing_2
+    assert calculated_spacing_3 == expected_spacing_3
     
+
+def test_interplanar_angle_of_goethite_calculated_correctly():
+    lp = LatticeParameters(0.4596, 0.9957, 0.3021, 90, 90, 90)
+    plane_1 = HKL(1, 0, 1)
+    plane_2 = HKL(-1, 0, 1)
+    calculated_angle = round(interplanar_angle(plane_1, plane_2, lp), 1)
+    expected_angle = 66.6
+    assert calculated_angle == expected_angle
