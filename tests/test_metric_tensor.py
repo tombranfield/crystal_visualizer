@@ -4,7 +4,7 @@
 import numpy as np
 
 from crystal_visualizer.lattice_parameters import LatticeParameters
-from crystal_visualizer.metric_tensor import metric_tensor
+from crystal_visualizer.calculations.metric_tensor import metric_tensor
 
 
 def test_metric_tensor_for_cubic_lattice():

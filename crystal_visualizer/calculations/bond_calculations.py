@@ -8,7 +8,7 @@ import numpy as np
 
 from crystal_visualizer.atom import Atom
 from crystal_visualizer.lattice_parameters import LatticeParameters
-from crystal_visualizer.metric_tensor import metric_tensor
+from crystal_visualizer.calculations.metric_tensor import metric_tensor
 
 
 def bond_length(
