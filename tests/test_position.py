@@ -41,9 +41,14 @@ def test_can_test_for_inequality_of_two_equal_positions():
     assert (position_1 != position_2) == False
 
 
-"""
+def test_can_retrieve_individual_coods_successfully():
+    position = Position(0.1, 0.2, 0.5)
+    assert position.x == 0.1
+    assert position.y == 0.2
+    assert position.z == 0.5
+
+
 def test_can_change_position_successfully():
     position = Position(0.25, 0.5, 0.5)
     position.x += 0.5
-    assert position.coods == np.array([0.75, 0.5, 0.5])
-"""
+    assert position.x == 0.75
