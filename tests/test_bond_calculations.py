@@ -34,3 +34,4 @@ def test_bond_angle():
     atom_3 = Atom("Ti", 1/2, 0, 1/2)
     calculated_angle = bond_angle(atom_1, atom_2, atom_3, lp)
     assert np.allclose(calculated_angle, 60)
+

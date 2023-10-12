@@ -28,20 +28,20 @@ class Atom:
         """Initializes the Atom class."""
         self._element = Element(in_chemical_symbol)
         self.label = self._element.symbol
-        self._position = Position(x, y, z)
+        self.position = Position(x, y, z)
 
     @property
     def element(self) -> Element:
         """Returns the chemical element of atom.
 
         Note this returns an instance of the Element class, and so can be used to
-        access the properties of that element if required. For example the molar
-        mass or magnetic properties of the element might be included in an expanded
-        version of this program."""
+        access the properties of that element if required.
+        """
         return self._element
 
-    def position(self):
-        return self._position.coods()
+    @property
+    def position_vector(self):
+        return self.position.coods
     
     @property
     def label(self):

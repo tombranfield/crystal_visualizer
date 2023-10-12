@@ -17,8 +17,8 @@ def bond_length(
     lattice_parameters: LatticeParameters
 ) -> float:
     """Calculates the length of a bond between two atoms in Angstroms"""
-    r1 = atom_1.position()
-    r2 = atom_2.position()
+    r1 = atom_1.position_vector()
+    r2 = atom_2.position_vector()
     r = r2 - r1
     g = metric_tensor(lattice_parameters)
     bond_length = np.sqrt(r @ (g @ r))
@@ -38,9 +38,9 @@ def bond_angle(
     calculates the angle between the vector connecting atom_1 to atom_2, and
     the vector connecting atom_3 to atom_2.
     """
-    r1 = atom_1.position()
-    r2 = atom_2.position()
-    r3 = atom_3.position()
+    r1 = atom_1.position_vector()
+    r2 = atom_2.position_vector()
+    r3 = atom_3.position_vector()
     s = r1 - r2
     t = r3 - r2
     g = metric_tensor(lattice_parameters)
