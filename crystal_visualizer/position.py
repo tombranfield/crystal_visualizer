@@ -29,6 +29,6 @@ class Position:
                 self.x == other.x 
                 and self.y == other.y 
                 and self.z == other.z
-            )
+            ):
                 return True
         return False
