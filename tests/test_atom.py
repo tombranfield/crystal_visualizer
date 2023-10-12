@@ -9,7 +9,7 @@ def test_initialize_atom_successfully():
     atom = Atom("Ba", 0.5, 0.5, 0.5)
 
 
-def test_retrieve_correct_element_properties_from_atom(barium):
+def test_retrieve_correct_element_properties_from_atom():
     atom = Atom("Ba", 0.5, 0.5, 0.5)
     assert atom.element.symbol == "Ba"
     assert atom.element.atomic_number == 56
@@ -18,4 +18,8 @@ def test_retrieve_correct_element_properties_from_atom(barium):
 
 
 def test_can_change_label_successfully():
-    pass
+    atom = Atom("Ba", 0.5, 0.5, 0.5)
+    assert atom.label == "Ba"
+    atom.label = "Barium"
+    assert atom.label == "Barium"
+
