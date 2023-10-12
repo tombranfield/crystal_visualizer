@@ -36,25 +36,39 @@ class CifReader:
             for line in lines:
                 line = line.rstrip().split()
                 if line[0] == "_cell_length_a":
-                    len_a = line[1]
+                    len_a = float(self.__remove_parentheses(line[1]))
                 if line[0] == "_cell_length_b":
-                    len_b = line[1]
+                    len_b = float(self.__remove_parentheses(line[1]))
                 if line[0] == "_cell_length_c":
-                    len_c = line[1]
+                    len_c = float(self.__remove_parentheses(line[1]))
                 if line[0] == "_cell_angle_alpha":
-                    angle_alpha = line[1]
+                    angle_alpha = float(self.__remove_parentheses(line[1]))
                 if line[0] == "_cell_angle_beta":
-                    angle_beta = line[1]
+                    angle_beta = float(self.__remove_parentheses(line[1]))
                 if line[0] == "_cell_angle_gamma":
-                    angle_gamma = line[1]
+                    angle_gamma = float(self.__remove_parentheses(line[1]))
+
+
+
         print("len a", len_a)
         print("len b", len_b)
         print("len c", len_c)
+        print("angle a", angle_alpha)
+        print("angle b", angle_beta)
+        print("angle g", angle_gamma)
 
         return "hello"
-    
 
 
+    def __remove_parentheses(self, number_string):
+        """
+        Some lattice paramters in cif files contain the error in brackets. This
+        function returns a string without these ending brackets.
+        """    
+        starting_bracket_index = number_string.find("(")
+        if starting_bracket_index != -1:        
+            return number_string[:starting_bracket_index]            
+        return number_string
 
 
     # _cell_length_a
