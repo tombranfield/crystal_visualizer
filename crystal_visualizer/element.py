@@ -1,15 +1,5 @@
-#TODO add tests for Element class
-#TODO make a web scraper program to get element properties
+"""element.py"""
 
-"""
-This module contains the Element class that represents a chemical element
-for each atom within a crystal structure.
-
-The user can assign a chemical element using either its symbol, for example
-by assigning (for example) atom_element = Element("Ba"). Properties of the
-element such as its atomic number or element name can then be retrieved using
-atom_element.atomic_number or atom_element.name, for example.
-"""
 
 from collections import namedtuple
 
@@ -48,7 +38,7 @@ class Element:
     @property
     def name(self) -> str:
         """Returns the name of the element"""
-        return self._name
+        return self._name.title()
 
     @property
     def atomic_number(self) -> int:
@@ -71,88 +61,87 @@ class Element:
 # Put element properties into a named tuple for readability and immutability
 # Using namedtuple also allows extra properties (eg molar mass or electronic
 # configuration) to be added in the future, if necessary.
-# For now, only the symbol, name, and atomic number is necessary.
-ElementProperties = namedtuple("Element", ["atomic_number", "symbol", "name"])
+ElementProperties = namedtuple("Element", ["atomic_number", "symbol", "name", "atomic_radius"])
 
 elements = {
     # Period 1
-    "H": ElementProperties(1, "H", "hydrogen"),
-    "He": ElementProperties(2, "He", "helium"),
+    "H": ElementProperties(1, "H", "hydrogen", 0.53),
+    "He": ElementProperties(2, "He", "helium", 0.31),
 
     # Period 2
-    "Li": ElementProperties(3, "Li", "lithium"),
-    "Be": ElementProperties(4, "Be", "beryllium"),
-    "B": ElementProperties(5, "B", "boron"),
-    "C": ElementProperties(6, "C", "carbon"),
-    "N": ElementProperties(7, "N", "nitrogen"),
-    "O": ElementProperties(8, "O", "oxygen"),
-    "F": ElementProperties(9, "F", "fluorine"),
-    "Ne": ElementProperties(10, "Ne", "neon"),
+    "Li": ElementProperties(3, "Li", "lithium", 1.67),
+    "Be": ElementProperties(4, "Be", "beryllium", 1.12),
+    "B": ElementProperties(5, "B", "boron", 0.87),
+    "C": ElementProperties(6, "C", "carbon", 0.67),
+    "N": ElementProperties(7, "N", "nitrogen", 0.56),
+    "O": ElementProperties(8, "O", "oxygen", 0.58),
+    "F": ElementProperties(9, "F", "fluorine", 0.42),
+    "Ne": ElementProperties(10, "Ne", "neon", 0.38),
 
     # Period 3
-    "Na": ElementProperties(11, "Na", "sodium"),
-    "Mg": ElementProperties(12, "Mg", "magnesium"),
-    "Al": ElementProperties(13, "Al", "aluminium"),
-    "Si": ElementProperties(14, "Si", "silicon"),
-    "P": ElementProperties(15, "P", "phosphorus"),
-    "S": ElementProperties(16, "S", "sulphur"),
-    "Cl": ElementProperties(17, "Cl", "chlorine"),
-    "Ar": ElementProperties(18, "Ar", "argon"),
+    "Na": ElementProperties(11, "Na", "sodium", 1.90),
+    "Mg": ElementProperties(12, "Mg", "magnesium", 1.45),
+    "Al": ElementProperties(13, "Al", "aluminium", 1.18),
+    "Si": ElementProperties(14, "Si", "silicon", 1.11),
+    "P": ElementProperties(15, "P", "phosphorus", 0.98),
+    "S": ElementProperties(16, "S", "sulphur", 0.88),
+    "Cl": ElementProperties(17, "Cl", "chlorine", 0.79),
+    "Ar": ElementProperties(18, "Ar", "argon", 0.71),
 
     # Period 4
-    "K": ElementProperties(19, "K", "potassium"),
-    "Ca": ElementProperties(20, "Ca", "calcium"),
-    "Sc": ElementProperties(21, "Sc", "scandium"),
-    "Ti": ElementProperties(22, "Ti", "titanium"),
-    "V": ElementProperties(23, "V", "vanadium"),
-    "Cr": ElementProperties(24, "Cr", "chromium"),
-    "Mn": ElementProperties(25, "Mn", "manganese"),
-    "Fe": ElementProperties(26, "Fe", "iron"),
-    "Co": ElementProperties(27, "Co", "cobalt"),
-    "Ni": ElementProperties(28, "Ni", "nickel"),
-    "Cu": ElementProperties(29, "Cu", "copper"),
-    "Zn": ElementProperties(30, "Zn", "zinc"),
-    "Ga": ElementProperties(31, "Ga", "gallium"),
-    "Ge": ElementProperties(32, "Ge", "germanium"),
-    "As": ElementProperties(33, "As", "arsenic"),
-    "Se": ElementProperties(34, "Se", "selenium"),
-    "Br": ElementProperties(35, "Br", "bromine"),
-    "Kr": ElementProperties(36, "Kr", "krypton"),
+    "K": ElementProperties(19, "K", "potassium", 2.43),
+    "Ca": ElementProperties(20, "Ca", "calcium", 1.94),
+    "Sc": ElementProperties(21, "Sc", "scandium", 1.84),
+    "Ti": ElementProperties(22, "Ti", "titanium", 1.76),
+    "V": ElementProperties(23, "V", "vanadium", 1.71),
+    "Cr": ElementProperties(24, "Cr", "chromium", 1.66),
+    "Mn": ElementProperties(25, "Mn", "manganese", 1.61),
+    "Fe": ElementProperties(26, "Fe", "iron", 1.56),
+    "Co": ElementProperties(27, "Co", "cobalt", 1.52),
+    "Ni": ElementProperties(28, "Ni", "nickel", 1.49),
+    "Cu": ElementProperties(29, "Cu", "copper", 1.45),
+    "Zn": ElementProperties(30, "Zn", "zinc", 1.42),
+    "Ga": ElementProperties(31, "Ga", "gallium", 1.36),
+    "Ge": ElementProperties(32, "Ge", "germanium", 1.25),
+    "As": ElementProperties(33, "As", "arsenic", 1.14),
+    "Se": ElementProperties(34, "Se", "selenium", 1.03),
+    "Br": ElementProperties(35, "Br", "bromine", 0.94),
+    "Kr": ElementProperties(36, "Kr", "krypton", 0.88),
 
     # Period 5
-    "Rb": ElementProperties(37, "Rb", "rubidium"),
-    "Sr": ElementProperties(38, "Sr", "strontium"),
-    "Y": ElementProperties(39, "Y", "yttrium"),
-    "Zr": ElementProperties(40, "Zr", "zirconium"),
-    "Nb": ElementProperties(41, "Nb", "niobium"),
-    "Mo": ElementProperties(42, "Mo", "molybdenum"),
-    "Tc": ElementProperties(43, "Tc", "technetium"),
-    "Ru": ElementProperties(44, "Ru", "ruthenium"),
-    "Rh": ElementProperties(45, "Rh", "rhodium"),
-    "Pd": ElementProperties(46, "Pd", "palladium"),
-    "Ag": ElementProperties(47, "Ag", "silver"),
-    "Cd": ElementProperties(48, "Cd", "cadmium"),
-    "In": ElementProperties(49, "In", "indium"),
-    "Sn": ElementProperties(50, "Sn", "tin"),
-    "Sb": ElementProperties(51, "Sb", "antimony"),
-    "Te": ElementProperties(52, "Te", "tellurium"),
-    "I": ElementProperties(53, "I", "iodine"),
-    "Xe": ElementProperties(54, "Xe", "xenon"),
+    "Rb": ElementProperties(37, "Rb", "rubidium", 2.65),
+    "Sr": ElementProperties(38, "Sr", "strontium", 2.19),
+    "Y": ElementProperties(39, "Y", "yttrium", 2.12),
+    "Zr": ElementProperties(40, "Zr", "zirconium", 2.06),
+    "Nb": ElementProperties(41, "Nb", "niobium", 1.98),
+    "Mo": ElementProperties(42, "Mo", "molybdenum", 1.90),
+    "Tc": ElementProperties(43, "Tc", "technetium", 1.83),
+    "Ru": ElementProperties(44, "Ru", "ruthenium", 1.78),
+    "Rh": ElementProperties(45, "Rh", "rhodium", 1.73),
+    "Pd": ElementProperties(46, "Pd", "palladium", 1.69),
+    "Ag": ElementProperties(47, "Ag", "silver", 1.65),
+    "Cd": ElementProperties(48, "Cd", "cadmium", 1.61),
+    "In": ElementProperties(49, "In", "indium", 1.56),
+    "Sn": ElementProperties(50, "Sn", "tin", 1.45),
+    "Sb": ElementProperties(51, "Sb", "antimony", 1.33),
+    "Te": ElementProperties(52, "Te", "tellurium", 1.23),
+    "I": ElementProperties(53, "I", "iodine", 1.15),
+    "Xe": ElementProperties(54, "Xe", "xenon", 1.08),
 
     # Period 6
-    "Cs": ElementProperties(55, "Cs", "caesium"),
-    "Ba": ElementProperties(56, "Ba", "barium"),
-    "La": ElementProperties(57, "La", "lanthanum"),
-    "Ce": ElementProperties(58, "Ce", "cerium"),
-    "Pr": ElementProperties(59, "Pr", "praesodymium"),
-    "Nd": ElementProperties(60, "Nd", "neodymium"),
-    "Pm": ElementProperties(61, "Pm", "promethium"),
-    "Sm": ElementProperties(62, "Sm", "samarium"),
-    "Eu": ElementProperties(63, "Eu", "europium"),
-    "Gd": ElementProperties(64, "Gd", "gadolinium"),
-    "Tb": ElementProperties(65, "Tb", "terbium"),
-    "Dy": ElementProperties(66, "Dy", "dysprosium"),
-    "Ho": ElementProperties(67, "Ho", "holmium"),
+    "Cs": ElementProperties(55, "Cs", "caesium", 2.98),
+    "Ba": ElementProperties(56, "Ba", "barium", 2.53),
+    "La": ElementProperties(57, "La", "lanthanum", 1.95),
+    "Ce": ElementProperties(58, "Ce", "cerium", 1.85),
+    "Pr": ElementProperties(59, "Pr", "praesodymium", 2.47),
+    "Nd": ElementProperties(60, "Nd", "neodymium", 2.06),
+    "Pm": ElementProperties(61, "Pm", "promethium", 2.05),
+    "Sm": ElementProperties(62, "Sm", "samarium", 2.38),
+    "Eu": ElementProperties(63, "Eu", "europium", 2.31),
+    "Gd": ElementProperties(64, "Gd", "gadolinium", 2.33),
+    "Tb": ElementProperties(65, "Tb", "terbium", 2.25),
+    "Dy": ElementProperties(66, "Dy", "dysprosium", 2.28),
+    "Ho": ElementProperties(67, "Ho", "holmium", ),
     "Er": ElementProperties(68, "Er", "erbium"),
     "Tm": ElementProperties(69, "Tm", "thulium"),
     "Yb": ElementProperties(70, "Yb", "ytterbium"),
@@ -211,9 +200,10 @@ elements = {
 
 def main():
     """Main function. Here for the purpose of quick tests"""
-    my_element = Element("123")
+    my_element = Element("C")
     print(my_element.name)
-
+    print(my_element.atomic_number)
+    print(my_element.symbol)
 
 if __name__ == "__main__":
     main()
