@@ -32,3 +32,17 @@ def test_retrieve_position_vector_successfully():
     expected_position = np.array([0.5, 0.25, 0])
     assert np.array_equal(generated_position, expected_position)
 
+
+def test_retrieve_individual_coordinates_successfully():
+    atom = Atom("Ba", 0.1, 0.2, 0.3)
+    assert atom.position.x == 0.1
+    assert atom.position.y == 0.2
+    assert atom.position.z == 0.3
+
+
+def test_can_alter_individual_coordinates_successfull():
+    atom = Atom("Ba", 0.1, 0.2, 0.3)
+    atom.position.x += 0.5
+    new_position = atom.position_vector()
+    expected_position = np.array([0.6, 0.2, 0.3])
+    assert np.array_equal(new_position, expected_position)
