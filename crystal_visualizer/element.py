@@ -28,8 +28,8 @@ class Element:
         self._symbol = elements[in_symbol].symbol
         self._name = elements[self.symbol].name
         self._atomic_number = elements[self.symbol].atomic_number
+        self._atomic_radius = elements[self.symbol].atomic_radius
 
-    # Note symbol, name, and atomic_number are read-only
     @property
     def symbol(self) -> str:
         """Returns the chemical symbol of the element"""
@@ -45,6 +45,11 @@ class Element:
         """Returns the atomic number of the element"""
         return self._atomic_number
 
+    @property
+    def atomic_radius(self) -> float:
+        """Returns the atomic radius of the element"""
+        return self._atomic_radius
+
     # Note we do not use a property setter as symbol must be read-only
     def __verify_symbol(self, chemical_symbol: str):
         """Verifies that a given string represents a valid chemical symbol.
@@ -58,9 +63,6 @@ class Element:
             raise ValueError("Not a valid chemical element symbol")
 
 
-# Put element properties into a named tuple for readability and immutability
-# Using namedtuple also allows extra properties (eg molar mass or electronic
-# configuration) to be added in the future, if necessary.
 ElementProperties = namedtuple("Element", ["atomic_number", "symbol", "name", "atomic_radius"])
 
 elements = {
@@ -170,6 +172,7 @@ elements = {
     "Np": ElementProperties(93, "Np", "neptunium", 1.75),
     "Pu": ElementProperties(94, "Pu", "plutonium", 1.75),
     "Am": ElementProperties(95, "Am", "americium", 1.75),
+}
 
 
 def main():
@@ -178,6 +181,8 @@ def main():
     print(my_element.name)
     print(my_element.atomic_number)
     print(my_element.symbol)
+    print(my_element.atomic_radius)
+
 
 if __name__ == "__main__":
     main()
