@@ -13,17 +13,48 @@ doi:10.1107/s010876739101067x
 
 from pathlib import Path
 
+from crystal_visualizer.lattice_parameters import LatticeParameters
+
 
 class CifReader:
     """
-    A module that reads CIF files
+    A class that reads CIF files
     """
     PATH = str(Path(__file__).parents[0] / "data" / "cif_files")
 
     def __init__(self, filename: str):
         """Initialize the Cif reader"""
         self.file_path = self.PATH + "/" + filename
-        print(self.file_path)
+        self.lattice_parameters = self.__get_lattice_parameters()
+    
+    def __get_lattice_parameters(self) -> LatticeParameters:
+        """Gets the lattice parameters from the cif file"""
+        len_a, len_b, len_c = 0., 0., 0.
+        angle_alpha, angle_beta, angle_gamma = 0., 0., 0.
+        with open(self.file_path, "r") as file_obj:
+            lines = file_obj.readlines()
+            for line in lines:
+                line = line.rstrip().split()
+                if line[0] == "_cell_length_a":
+                    len_a = line[1]
+                if line[0] == "_cell_length_b":
+                    len_b = line[1]
+                if line[0] == "_cell_length_c":
+                    len_c = line[1]
+                if line[0] == "_cell_angle_alpha":
+                    angle_alpha = line[1]
+                if line[0] == "_cell_angle_beta":
+                    angle_beta = line[1]
+                if line[0] == "_cell_angle_gamma":
+                    angle_gamma = line[1]
+        print("len a", len_a)
+        print("len b", len_b)
+        print("len c", len_c)
+
+        return "hello"
+    
+
+
 
 
     # _cell_length_a
