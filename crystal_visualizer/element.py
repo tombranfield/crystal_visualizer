@@ -177,10 +177,10 @@ elements = {
 
 def main():
     """Main function. Here for the purpose of quick tests"""
-    my_element = Element("C")
+    my_element = Element("Ba")
+    print(my_element.symbol)
     print(my_element.name)
     print(my_element.atomic_number)
-    print(my_element.symbol)
     print(my_element.atomic_radius)
 
 
