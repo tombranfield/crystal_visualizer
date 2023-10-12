@@ -1,6 +1,9 @@
 """position.py"""
 
 
+import numpy as np
+
+
 class Position:
     """
     A class representing position.
@@ -18,3 +21,5 @@ class Position:
     @property
     def coods(self) -> np.array:
         """Returns the position vector of the array"""
+        return np.array([self.fract_x, self.fract_y, self.fract_z])
+        
