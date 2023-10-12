@@ -1,19 +1,10 @@
-#TODO id number as a class method
-#TODO input testing for symbol and fractional coordinates
-#TODO testing
-#TODO put max label length in an external constants file
-#TODO add oxidation state
-#TODO add atomic radius (set default, able to change)
+"""atom.py"""
 
-"""
-This module contains the Atom class which represents a single
-atom within the unit cell of the crystal structure.
-"""
 
 import numpy as np
 
 from crystal_visualizer.element import Element
-
+from crystal_visualizer.position import Position
 
 class Atom:
     """
@@ -23,7 +14,7 @@ class Atom:
         in_chemical_symbol: a one or two-letter string corresponding to the
         symbol of a chemical element as represented in the periodic table.
         Elements 1 to 118 can be chosen.
-        in_fract_x, in_fract_y, int_fract_z: floating point numbers between 0
+        x, y, z: floating point numbers between 0
         (inclusive) and 1 (exclusive) representing the fractional coordinates
         of the atom within the unit cell.
 
@@ -31,15 +22,13 @@ class Atom:
         an instance of Atom representing a single atom.
     """
     def __init__(self,  in_chemical_symbol: str,
-                        in_fract_x: float,
-                        in_fract_y: float,
-                        in_fract_z: float):
+                        x: float, 
+                        y: float,
+                        z: float):
         """Initializes the Atom class."""
         self._element = Element(in_chemical_symbol)
         self.label = self._element.symbol
-        self.fract_x = in_fract_x
-        self.fract_y = in_fract_y
-        self.fract_z = in_fract_z
+        self.position = Position(x, y, z)
 
     @property
     def element(self) -> Element:
@@ -61,10 +50,6 @@ class Atom:
         # TODO
         pass
 
-    def position(self) -> np.array:
-        """Returns the position vector the array"""
-        return np.array([self.fract_x, self.fract_y, self.fract_z])
-        
     @property
     def label(self):
         """Returns the label of the atom"""
@@ -79,39 +64,6 @@ class Atom:
         if len(new_label) > max_label_length:
             raise ValueError(f"The label must be {max_label_length} characters or fewer")
         self._label = new_label
-
-    @property
-    def fract_x(self):
-        """Returns the x-axis fractional coordinate"""
-        return self._fract_x
-
-    @fract_x.setter
-    def fract_x(self, in_fract_x):
-        """Verifies and sets the value of the x-axis fractional coordinate"""
-        self.__verify_coordinate(in_fract_x)
-        self._fract_x = in_fract_x
-
-    @property
-    def fract_y(self):
-        """Returns the y-axis fractional coordinate"""
-        return self._fract_y
-
-    @fract_y.setter
-    def fract_y(self, in_fract_y):
-        """Verifies and sets the value of the y-axis fractional coordinate"""
-        self.__verify_coordinate(in_fract_y)
-        self._fract_y = in_fract_y
-
-    @property
-    def fract_z(self):
-        """Returns the z-axis fractional coordinate"""
-        return self._fract_z
-
-    @fract_z.setter
-    def fract_z(self, in_fract_z):
-        "Verifies and sets the value of the z-axis fractional coordinate"
-        self.__verify_coordinate(in_fract_z)
-        self._fract_z = in_fract_z
 
     def __verify_coordinate(self, in_fract_cood: float):
         """Verifies that a given fractional coordinate is valid.
