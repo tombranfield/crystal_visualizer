@@ -23,3 +23,10 @@ def test_can_change_label_successfully():
     atom.label = "Barium"
     assert atom.label == "Barium"
 
+
+def test_retrieve_position_successfully():
+    atom = Atom("Ba", 0.5, 0.25, 0)
+    position = atom.position()
+    assert position[0] == 0.5
+    assert position[1] == 0.25
+    assert position[2] == 0
