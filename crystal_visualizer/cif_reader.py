@@ -22,7 +22,7 @@ class CifReader:
     """
     PATH = str(Path(__file__).parents[0] / "data" / "cif_files")
 
-    def __init__(self, filename: str):
+    def __init__(self, filename: str, cif_folder=PATH):
         """Initialize the Cif reader"""
         self.file_path = self.PATH + "/" + filename
         self.lattice_parameters = self.__get_lattice_parameters()
