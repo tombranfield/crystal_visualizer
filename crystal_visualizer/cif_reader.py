@@ -18,11 +18,11 @@ class CifReader:
     """
     A module that reads CIF files
     """
-    PATH = str(Path(__file__) / "data" / "cif_files")
+    PATH = str(Path(__file__).parents[0] / "data" / "cif_files")
 
-    def __init__(self, filename: str)
+    def __init__(self, filename: str):
         """Initialize the Cif reader"""
-        self.file_path = PATH + filename
+        self.file_path = self.PATH + "/" + filename
         print(self.file_path)
 
 
@@ -38,3 +38,9 @@ class CifReader:
 
     # _atom_type_oxidation_number
     # _atom_type_radius_bond
+
+
+
+if __name__ == "__main__":
+    filename = "Cu.cif"
+    my_reader = CifReader(filename)
