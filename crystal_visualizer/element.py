@@ -163,8 +163,6 @@ elements = {
     "Rn": ElementProperties(86, "Rn", "radon", 1.20),
 
     # Period 7
-    "Fr": ElementProperties(87, "Fr", "francium"),
-    "Ra": ElementProperties(88, "Ra", "radium"),
     "Ac": ElementProperties(89, "Ac", "actinum", 1.95),
     "Th": ElementProperties(90, "Th", "thorium", 1.80),
     "Pa": ElementProperties(91, "Pa", "protactinum", 1.80),
@@ -172,30 +170,6 @@ elements = {
     "Np": ElementProperties(93, "Np", "neptunium", 1.75),
     "Pu": ElementProperties(94, "Pu", "plutonium", 1.75),
     "Am": ElementProperties(95, "Am", "americium", 1.75),
-    "Cm": ElementProperties(96, "Cm", "curium"),
-    "Bk": ElementProperties(97, "Bk", "berkelium"),
-    "Cf": ElementProperties(98, "Cf", "californium"),
-    "Es": ElementProperties(99, "Es", "einsteinium"),
-    "Fm": ElementProperties(100, "Fm", "fermium"),
-    "Md": ElementProperties(101, "Md", "mendelevium"),
-    "No": ElementProperties(102, "No", "nobelium"),
-    "Lr": ElementProperties(103, "Lr", "lawrencium"),
-    "Rf": ElementProperties(104, "Rf", "rutherfordium"),
-    "Db": ElementProperties(105, "Db", "dubnium"),
-    "Sg": ElementProperties(106, "Sg", "seaborgium"),
-    "Bh": ElementProperties(107, "Bh", "bohrium"),
-    "Hs": ElementProperties(108, "Hs", "hassium"),
-    "Mt": ElementProperties(109, "Mt", "meitnerium"),
-    "Ds": ElementProperties(110, "Ds", "darmstadtium"),
-    "Rg": ElementProperties(111, "Rg", "roentgenium"),
-    "Cn": ElementProperties(112, "Cn", "copernicum"),
-    "Nh": ElementProperties(113, "Nh", "nihonium"),
-    "Fl": ElementProperties(114, "Fl", "flerovium"),
-    "Mc": ElementProperties(115, "Mc", "moscovium"),
-    "Lv": ElementProperties(116, "Lv", "livermorium"),
-    "Ts": ElementProperties(117, "Ts", "tennessine"),
-    "Og": ElementProperties(118, "Og", "oganesson")
-}
 
 
 def main():
