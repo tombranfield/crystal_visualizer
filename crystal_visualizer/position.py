@@ -22,7 +22,6 @@ class Position:
         """Returns the position vector of the array"""
         return np.array([self.x, self.y, self.z])
         
-
     def __eq__(self, other):
         if isinstance(other, Position):
             if (
