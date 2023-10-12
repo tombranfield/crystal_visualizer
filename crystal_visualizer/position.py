@@ -9,17 +9,16 @@ class Position:
     A class representing position.
     
     Args:
-        fract_x, fract_y, fract_z: floating point numbers representing the 
+        x, y, z: floating point numbers representing the 
         fractional coordinates of the atom within the unit cell.
     """
-    def __init__(self, fract_x: float, fract_y: float, fract_z: float):
+    def __init__(self, x: float, y: float, z: float):
         """Initializes the Position class"""
-        self.fract_x = fract_x
-        self.fract_y = fract_y
-        self.fract_z = fract_z
+        self.x = x
+        self.y = y
+        self.z = z
 
-    @property
     def coods(self) -> np.array:
         """Returns the position vector of the array"""
-        return np.array([self.fract_x, self.fract_y, self.fract_z])
+        return np.array([self.x, self.y, self.z])
         
