@@ -4,9 +4,20 @@
 from pathlib import Path
 import pytest
 
+from crystal_visualizer.cif_reader import CifReader
+
 
 CIF_PATH = str( Path(__file__).parents[1] / "data" / "cif_files")
 
+
+def test_generate_correct_lattice_parameters_for_copper():
+    cif_reader = CifReader("Cu.cif")
+    assert cif_reader.lattice_parameters.length_a == 3.59127
+    assert cif_reader.lattice_parameters.length_b == 3.59127
+    assert cif_reader.lattice_parameters.length_c == 3.59127
+    assert cif_reader.lattice_parameters.angle_alpha == 90.0
+    assert cif_reader.lattice_parameters.angle_beta == 90.0
+    assert cif_reader.lattice_parameters.angle_gamma == 90.0
 
 
 if __name__ == "__main__":
