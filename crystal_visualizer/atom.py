@@ -28,7 +28,7 @@ class Atom:
         """Initializes the Atom class."""
         self._element = Element(in_chemical_symbol)
         self.label = self._element.symbol
-        self.position = Position(x, y, z)
+        self._position = Position(x, y, z)
 
     @property
     def element(self) -> Element:
@@ -40,16 +40,9 @@ class Atom:
         version of this program."""
         return self._element
 
-    @element.setter
-    def element(self, new_element_symbol: str):
-        """Sets the new element for the atom.
-
-        Note that changing the element changes the label"""
-        #self._element = Element(new_element_symbol)
-        #self.label(new_element_symbol)
-        # TODO
-        pass
-
+    def position(self):
+        return self._position.coods()
+    
     @property
     def label(self):
         """Returns the label of the atom"""
