@@ -47,18 +47,9 @@ class CifReader:
                     angle_beta = float(self.__remove_parentheses(line[1]))
                 if line[0] == "_cell_angle_gamma":
                     angle_gamma = float(self.__remove_parentheses(line[1]))
-
-
-
-        print("len a", len_a)
-        print("len b", len_b)
-        print("len c", len_c)
-        print("angle a", angle_alpha)
-        print("angle b", angle_beta)
-        print("angle g", angle_gamma)
-
-        return "hello"
-
+        return LatticeParameters(
+            len_a, len_b, len_c, angle_alpha, angle_beta, angle_gamma
+        )
 
     def __remove_parentheses(self, number_string):
         """
