@@ -10,7 +10,7 @@ class Element:
     An element is chosen to be an instance for the class. Upon initialization,
     the instance will take properties of the chosen element from the
     corresponding named tuple ElementProperties held within the elements
-    dictionary, and assign them as read-only attributes.
+    dictionary below this class, and assign them as read-only attributes.
 
     Args:
         in_symbol: a string of one or two letters corresponding to the
