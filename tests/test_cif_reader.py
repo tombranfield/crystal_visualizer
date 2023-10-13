@@ -26,11 +26,11 @@ def test_read_correct_atom_sites_for_copper():
 def test_read_correct_atom_sites_for_CaF2():
     cif_reader = CifReader("CaF2.cif")
     assert len(cif_reader.atoms) == 2
-    assert atoms[0].symbol == "Ca"
-    assert np.array_equal(atoms[0].position_vector(), np.array([0.5, 0.5, 0.5])
-    assert atoms[1].symbol == "F"
-    assert np.array_equal(atoms[1].position_vector(), np.array([0.25. 0.75, 0.75])
-
+    assert cif_reader.atoms[0].symbol == "Ca"
+    assert np.array_equal(cif_reader.atoms[0].position_vector(), np.array([0.5, 0.5, 0.5]))
+    assert cif_reader.atoms[1].symbol == "F"
+    assert np.array_equal(cif_reader.atoms[1].position_vector(), np.array([0.25, 0.75, 0.75]))
+   
 
 
 
