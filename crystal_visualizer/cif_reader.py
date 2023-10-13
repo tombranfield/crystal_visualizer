@@ -26,6 +26,18 @@ class CifReader:
         """Initialize the Cif reader"""
         self.file_path = self.PATH + "/" + filename
         self.lattice_parameters = self.__get_lattice_parameters()
+
+    def __get_atoms(self) -> Atom:
+        """Gets a list of Atoms from the cif file"""
+        atoms = []
+        # Reading file twice for atoms and lattice parameters for clarity
+        # and testability
+        with open(self.file_path, "r") as file_obj:
+            is_reading_atoms = False
+            lines = file_obj.readlines()
+            for line in lines:
+                pass
+
     
     def __get_lattice_parameters(self) -> LatticeParameters:
         """Gets the lattice parameters from the cif file"""
