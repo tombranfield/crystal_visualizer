@@ -74,9 +74,9 @@ class CifReader:
                         is_atom_site_refinement_flags_occupancy = False
                         continue
                     element_symbol = line[1]
-                    x = float(line[2])
-                    y = float(line[3])
-                    z = float(line[4])
+                    x = float(self.__remove_parentheses(line[2]))
+                    y = float(self.__remove_parentheses(line[3]))
+                    z = float(self.__remove_parentheses(line[4]))
                     atom = Atom(element_symbol, x, y, z)
                     atoms.append(atom)
 
@@ -90,9 +90,9 @@ class CifReader:
                     if first_digit_match:
                         element_symbol = element_symbol[:first_digit_match.start()]
                     element_symbol = element_symbol.title()
-                    x = float(line[-6])
-                    y = float(line[-5])
-                    z = float(line[-4])
+                    x = float(self.__remove_parentheses(line[-6]))
+                    y = float(self.__remove_parentheses(line[-5]))
+                    z = float(self.__remove_parentheses(line[-4]))
                     atom = Atom(element_symbol, x, y, z)
                     atoms.append(atom)
 
