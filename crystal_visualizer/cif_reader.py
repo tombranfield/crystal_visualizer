@@ -35,6 +35,7 @@ class CifReader:
             lines = file_obj.readlines()
             for line in lines:
                 line = line.rstrip().split()
+                if not line: continue
                 if line[0] == "_cell_length_a":
                     len_a = float(self.__remove_parentheses(line[1]))
                 if line[0] == "_cell_length_b":
