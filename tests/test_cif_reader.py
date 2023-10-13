@@ -30,6 +30,15 @@ def test_read_correct_atom_sites_for_CaF2():
     assert np.array_equal(cif_reader.atoms[0].position_vector(), np.array([0.5, 0.5, 0.5]))
     assert cif_reader.atoms[1].symbol == "F"
     assert np.array_equal(cif_reader.atoms[1].position_vector(), np.array([0.25, 0.75, 0.75]))
+
+
+def test_read_correct_atom_sites_for_NaCl():
+    cif_reader = CifReader("NaCl.cif")
+    assert len(cif_reader.atoms) == 2
+    assert cif_reader.atoms[0].symbol == "Na"
+    assert np.array_equal(cif_reader.atoms[0].position_vector(), np.array([0., 0., 0.]))
+    assert cif_reader.atoms[1].symbol == "Cl"
+    assert np.array_equal(cif_reader.atoms[1].position_vector(), np.array([0.5, 0.5, 0.5]))
    
 
 
