@@ -68,6 +68,16 @@ class CifReader:
                     atom = Atom(element_symbol, x, y, z)
                     atoms.append(atom)
 
+                if is_atom_site_refinement_flags_occupancy:
+                    if line[0] in ["loop", "loop_"] or line[0][0] == "_":
+                        return atoms
+                    element_symbol = line[1]
+                    x = float(line[2])
+                    y = float(line[3])
+                    z = float(line[4])
+                    atom = Atom(element_symbol, x, y, z)
+                    atoms.append(atom)
+
         
     def __get_lattice_parameters(self) -> LatticeParameters:
         """Gets the lattice parameters from the cif file"""
