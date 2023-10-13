@@ -12,7 +12,9 @@ doi:10.1107/s010876739101067x
 """
 
 from pathlib import Path
+import re
 
+from crystal_visualizer.atom import Atom
 from crystal_visualizer.lattice_parameters import LatticeParameters
 
 
@@ -26,6 +28,7 @@ class CifReader:
         """Initialize the Cif reader"""
         self.file_path = self.PATH + "/" + filename
         self.lattice_parameters = self.__get_lattice_parameters()
+        self.atoms = self.__get_atoms()
 
     def __get_atoms(self) -> Atom:
         """Gets a list of Atoms from the cif file"""
@@ -40,16 +43,25 @@ class CifReader:
             lines = file_obj.readlines()
             for line in lines:
                 line = line.rstrip().split()
+                if not line: continue
                 if line[0] == "_atom_site_symmetry_multiplicity":
                     is_atom_site_symmetry_multiplicity = True
+                    continue
                 if line[0] == "_atom_site_refinement_flags_occupancy":
                     is_atom_site_refinement_flags_occupancy = True
+                    continue
                 if line[0] == "_atom_site_calc_flag":
                     is_atom_site_calc_flag = True
+                    continue
 
-    
+                if is_atom_site_symmetry_multiplicity:
+                    element = line[0]
+                    first_digit_match = re.search(r"\d+", element)
+                    if first_digit_match:
+                        element = element[:first_digit_match.start()]
+                    return element.title()
 
-
+        
     def __get_lattice_parameters(self) -> LatticeParameters:
         """Gets the lattice parameters from the cif file"""
         len_a, len_b, len_c = 0., 0., 0.
@@ -86,21 +98,14 @@ class CifReader:
         return number_string
 
 
-    # _cell_length_a
-    # _cell_length_b
-    # _cell_length_c
-    # _cell_angle_alpha
-    # _cell_angle_beta
-    # _cell_angle_gamma
-
-    # _atom_site_fract_x
-    # _atom_site_fract_y
-
-    # _atom_type_oxidation_number
-    # _atom_type_radius_bond
-
-
 
 if __name__ == "__main__":
     filename = "Cu.cif"
     my_reader = CifReader(filename)
+    print(my_reader.lattice_parameters.length_a)
+    print(my_reader.lattice_parameters.length_b)
+    print(my_reader.lattice_parameters.length_c)
+    print(my_reader.lattice_parameters.angle_alpha)
+    print(my_reader.lattice_parameters.angle_beta)
+    print(my_reader.lattice_parameters.angle_gamma)
+    print(my_reader.atoms)
