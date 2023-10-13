@@ -33,12 +33,23 @@ class CifReader:
         # Reading file twice for atoms and lattice parameters for clarity
         # and testability
         with open(self.file_path, "r") as file_obj:
-            is_reading_atoms = False
+            is_atom_site_symmetry_multiplicity = False
+            is_atom_site_refinement_flags_occupancy = False
+            is_atom_site_calc_flag = False
+
             lines = file_obj.readlines()
             for line in lines:
-                pass
+                line = line.rstrip().split()
+                if line[0] == "_atom_site_symmetry_multiplicity":
+                    is_atom_site_symmetry_multiplicity = True
+                if line[0] == "_atom_site_refinement_flags_occupancy":
+                    is_atom_site_refinement_flags_occupancy = True
+                if line[0] == "_atom_site_calc_flag":
+                    is_atom_site_calc_flag = True
 
     
+
+
     def __get_lattice_parameters(self) -> LatticeParameters:
         """Gets the lattice parameters from the cif file"""
         len_a, len_b, len_c = 0., 0., 0.
