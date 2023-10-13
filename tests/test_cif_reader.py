@@ -20,5 +20,25 @@ def test_generate_correct_lattice_parameters_for_copper():
     assert cif_reader.lattice_parameters.angle_gamma == 90.0
 
 
+def test_generate_correct_lattice_parameters_for_NaCl():
+    cif_reader = CifReader("NaCl.cif")
+    assert cif_reader.lattice_parameters.length_a == 5.62
+    assert cif_reader.lattice_parameters.length_b == 5.62
+    assert cif_reader.lattice_parameters.length_c == 5.62
+    assert cif_reader.lattice_parameters.angle_alpha == 90
+    assert cif_reader.lattice_parameters.angle_beta == 90
+    assert cif_reader.lattice_parameters.angle_gamma == 90
+
+
+def test_generate_correct_lattice_parameters_for_CaF2():
+    cif_reader = CifReader("CaF2.cif")
+    assert cif_reader.lattice_parameters.length_a == 5.45095
+    assert cif_reader.lattice_parameters.length_b == 5.45095
+    assert cif_reader.lattice_parameters.length_c == 5.45095
+    assert cif_reader.lattice_parameters.angle_alpha == 90
+    assert cif_reader.lattice_parameters.angle_beta == 90
+    assert cif_reader.lattice_parameters.angle_gamma == 90
+
+
 if __name__ == "__main__":
     print(CIF_PATH)
