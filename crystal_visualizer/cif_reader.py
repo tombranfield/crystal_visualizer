@@ -55,11 +55,15 @@ class CifReader:
                     continue
 
                 if is_atom_site_symmetry_multiplicity:
-                    element = line[0]
-                    first_digit_match = re.search(r"\d+", element)
+                    if line[0] in ["loop", "loop_"] or line[0][0] == "_":
+                        return atoms
+                    element_symbol = line[0]
+                    first_digit_match = re.search(r"\d+", element_symbol)
                     if first_digit_match:
-                        element = element[:first_digit_match.start()]
-                    return element.title()
+                        element_symbol = element_symbol[:first_digit_match.start()]
+                    element_symbol = element_symbol.title()
+                    atom = Atom(element_symbol, line[1], line[2], line[3])
+                    atoms.append(atom)
 
         
     def __get_lattice_parameters(self) -> LatticeParameters:
