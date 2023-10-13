@@ -112,4 +112,6 @@ if __name__ == "__main__":
     print(my_reader.lattice_parameters.angle_alpha)
     print(my_reader.lattice_parameters.angle_beta)
     print(my_reader.lattice_parameters.angle_gamma)
-    print(my_reader.atoms)
+    for atom in my_reader.atoms:
+        print(atom.symbol)
+        print(atom.position_vector())

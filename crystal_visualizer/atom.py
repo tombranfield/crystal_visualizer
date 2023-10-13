@@ -40,6 +40,11 @@ class Atom:
         return self._element
 
     @property
+    def symbol(self):
+        """Returns the chemical symbol of the atom"""
+        return self._element.symbol
+
+    @property
     def position_vector(self):
         return self.position.coods
     

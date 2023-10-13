@@ -1,6 +1,7 @@
 """test_cif_reader.py"""
 
 
+import numpy as np
 from pathlib import Path
 import pytest
 
@@ -8,6 +9,24 @@ from crystal_visualizer.cif_reader import CifReader
 
 
 CIF_PATH = str( Path(__file__).parents[1] / "data" / "cif_files")
+
+
+
+
+def test_read_correct_atom_sites_for_copper():
+    cif_reader = CifReader("Cu.cif")
+    assert len(cif_reader.atoms) == 1
+    for atom in cif_reader.atoms:
+        assert atom.symbol == "Cu"
+        generated_position = atom.position_vector()
+        expected_position = np.array([0.0, 0.0, 0.0])
+        assert np.array_equal(generated_position, expected_position)
+
+
+
+
+
+
 
 
 def test_generate_correct_lattice_parameters_for_copper():
