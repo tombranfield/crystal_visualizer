@@ -117,7 +117,7 @@ class CifReader:
 
 
 if __name__ == "__main__":
-    filename = "Cu.cif"
+    filename = "CaF2.cif"
     my_reader = CifReader(filename)
     print(my_reader.lattice_parameters.length_a)
     print(my_reader.lattice_parameters.length_b)
