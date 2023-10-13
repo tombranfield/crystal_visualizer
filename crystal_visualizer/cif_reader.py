@@ -1,3 +1,11 @@
+# TODO
+"""
+don't just continue when end of the loop
+might be important
+eg Cu we have site symmetry after site Uiso
+Need to recognize it
+"""
+
 """
 The crystallographic information file (CIF) is the standard archival format
 for storing the information of crystal structures.
@@ -100,6 +108,7 @@ class CifReader:
                     atoms.append(atom)
 
                 if is_atom_site_U_iso_or_equiv:
+                    print(line)
                     if line[0] in ["loop", "loop_"] or line[0][0] == "_":
                         is_atom_site_U_iso_or_equiv = False
                         continue
