@@ -39,6 +39,7 @@ class CifReader:
             is_atom_site_symmetry_multiplicity = False
             is_atom_site_refinement_flags_occupancy = False
             is_atom_site_calc_flag = False
+            is_atom_site_U_iso_or_equiv = True
 
             lines = file_obj.readlines()
             for line in lines:
@@ -53,6 +54,9 @@ class CifReader:
                 if line[0] == "_atom_site_calc_flag":
                     is_atom_site_calc_flag = True
                     continue
+                if line[0] == "_atom_site_U_iso_or_equiv":
+                    is_atom_site_U_iso_or_equiv = True
+
 
                 if is_atom_site_symmetry_multiplicity:
                     if line[0] in ["loop", "loop_"] or line[0][0] == "_":
@@ -95,6 +99,23 @@ class CifReader:
                     z = float(self.__remove_parentheses(line[-4]))
                     atom = Atom(element_symbol, x, y, z)
                     atoms.append(atom)
+
+                if is_atom_site_U_iso_or_equiv:
+                    if line[0] in ["loop", "loop_"] or line[0][0] == "_":
+                        is_atom_site_U_iso_or_equiv = False
+                        continue
+                    element_symbol = line[0]
+                    first_digit_match = re.search(r"\d+", element_symbol)
+                    if first_digit_match:
+                        element_symbol = element_symbol[:first_digit_match$
+                    element_symbol = element_symbol.title()
+                    element_symbol = element_symbol.title()
+                    x = float(self.__remove_parentheses(line[-5]))
+                    y = float(self.__remove_parentheses(line[-4]))
+                    z = float(self.__remove_parentheses(line[-3]))
+                    atom = Atom(element_symbol, x, y, z)
+                    atoms.append(atom)
+
 
         return atoms
 
