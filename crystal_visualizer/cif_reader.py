@@ -62,7 +62,10 @@ class CifReader:
                     if first_digit_match:
                         element_symbol = element_symbol[:first_digit_match.start()]
                     element_symbol = element_symbol.title()
-                    atom = Atom(element_symbol, line[1], line[2], line[3])
+                    x = float(line[1])
+                    y = float(line[2])
+                    z = float(line[3])
+                    atom = Atom(element_symbol, x, y, z)
                     atoms.append(atom)
 
         
