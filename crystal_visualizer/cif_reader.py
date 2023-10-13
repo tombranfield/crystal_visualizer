@@ -39,7 +39,7 @@ class CifReader:
             is_atom_site_symmetry_multiplicity = False
             is_atom_site_refinement_flags_occupancy = False
             is_atom_site_calc_flag = False
-            is_atom_site_U_iso_or_equiv = True
+            is_atom_site_U_iso_or_equiv = False
 
             lines = file_obj.readlines()
             for line in lines:
@@ -56,7 +56,7 @@ class CifReader:
                     continue
                 if line[0] == "_atom_site_U_iso_or_equiv":
                     is_atom_site_U_iso_or_equiv = True
-
+                    continue
 
                 if is_atom_site_symmetry_multiplicity:
                     if line[0] in ["loop", "loop_"] or line[0][0] == "_":
@@ -85,7 +85,6 @@ class CifReader:
                     atoms.append(atom)
 
                 if is_atom_site_calc_flag:
-                    # get sites by counting from end
                     if line[0] in ["loop", "loop_"] or line[0][0] == "_":
                         is_atom_site_calc_flag = False
                         continue
@@ -107,7 +106,7 @@ class CifReader:
                     element_symbol = line[0]
                     first_digit_match = re.search(r"\d+", element_symbol)
                     if first_digit_match:
-                        element_symbol = element_symbol[:first_digit_match$
+                        element_symbol = element_symbol[:first_digit_match.start()]
                     element_symbol = element_symbol.title()
                     element_symbol = element_symbol.title()
                     x = float(self.__remove_parentheses(line[-5]))
@@ -158,7 +157,7 @@ class CifReader:
 
 
 if __name__ == "__main__":
-    filename = "NaCl.cif"
+    filename = "C.cif"
     my_reader = CifReader(filename)
     print(my_reader.lattice_parameters.length_a)
     print(my_reader.lattice_parameters.length_b)
