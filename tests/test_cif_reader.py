@@ -60,5 +60,46 @@ def test_generate_correct_lattice_parameters_for_CsCl():
     assert cif_reader.lattice_parameters.angle_gamma == 90
 
 
+def test_generate_correct_lattice_parameters_for_spinel():
+    cif_reader = CifReader("MgAl2O4.cif")
+    assert cif_reader.lattice_parameters.length_a == 8.2065
+    assert cif_reader.lattice_parameters.length_b == 8.2065
+    assert cif_reader.lattice_parameters.length_c == 8.2065
+    assert cif_reader.lattice_parameters.angle_alpha == 90
+    assert cif_reader.lattice_parameters.angle_beta == 90
+    assert cif_reader.lattice_parameters.angle_gamma == 90
+
+
+def test_generate_correct_lattice_parameters_for_quartz():
+    cif_reader = CifReader("SiO2.cif")
+    assert cif_reader.lattice_parameters.length_a == 4.9019
+    assert cif_reader.lattice_parameters.length_b == 4.9019
+    assert cif_reader.lattice_parameters.length_c == 5.3988
+    assert cif_reader.lattice_parameters.angle_alpha == 90
+    assert cif_reader.lattice_parameters.angle_beta == 90
+    assert cif_reader.lattice_parameters.angle_gamma == 120
+
+
+def test_generate_correct_lattice_parameters_for_perovskite():
+    cif_reader = CifReader("SrTiO3.cif")
+    assert cif_reader.lattice_parameters.length_a == 3.899
+    assert cif_reader.lattice_parameters.length_b == 3.899
+    assert cif_reader.lattice_parameters.length_c == 3.899
+    assert cif_reader.lattice_parameters.angle_alpha == 90.0
+    assert cif_reader.lattice_parameters.angle_beta == 90.0
+    assert cif_reader.lattice_parameters.angle_gamma == 90
+
+
+def test_generate_correct_lattice_parameters_for_YBCO():
+    cif_reader = CifReader("YBa2Cu3O7-x.cif")
+    assert cif_reader.lattice_parameters.length_a == 3.8203
+    assert cif_reader.lattice_parameters.length_b == 3.88548
+    assert cif_reader.lattice_parameters.length_c == 11.68349
+    assert cif_reader.lattice_parameters.angle_alpha == 90
+    assert cif_reader.lattice_parameters.angle_beta == 90
+    assert cif_reader.lattice_parameters.angle_gamma == 90
+
+
+
 if __name__ == "__main__":
     print(CIF_PATH)
