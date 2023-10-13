@@ -56,7 +56,8 @@ class CifReader:
 
                 if is_atom_site_symmetry_multiplicity:
                     if line[0] in ["loop", "loop_"] or line[0][0] == "_":
-                        return atoms
+                        is_atom_site_symmetry_multiplicity = False
+                        continue
                     element_symbol = line[0]
                     first_digit_match = re.search(r"\d+", element_symbol)
                     if first_digit_match:
@@ -70,13 +71,32 @@ class CifReader:
 
                 if is_atom_site_refinement_flags_occupancy:
                     if line[0] in ["loop", "loop_"] or line[0][0] == "_":
-                        return atoms
+                        is_atom_site_refinement_flags_occupancy = False
+                        continue
                     element_symbol = line[1]
                     x = float(line[2])
                     y = float(line[3])
                     z = float(line[4])
                     atom = Atom(element_symbol, x, y, z)
                     atoms.append(atom)
+
+                if is_atom_site_calc_flag:
+                    # get sites by counting from end
+                    if line[0] in ["loop", "loop_"] or line[0][0] == "_":
+                        is_atom_site_calc_flag = False
+                        continue
+                    element_symbol = line[0]
+                    first_digit_match = re.search(r"\d+", element_symbol)
+                    if first_digit_match:
+                        element_symbol = element_symbol[:first_digit_match.start()]
+                    element_symbol = element_symbol.title()
+                    x = float(line[-6])
+                    y = float(line[-5])
+                    z = float(line[-4])
+                    atom = Atom(element_symbol, x, y, z)
+                    atoms.append(atom)
+
+        return atoms
 
         
     def __get_lattice_parameters(self) -> LatticeParameters:
@@ -117,7 +137,7 @@ class CifReader:
 
 
 if __name__ == "__main__":
-    filename = "CaF2.cif"
+    filename = "NaCl.cif"
     my_reader = CifReader(filename)
     print(my_reader.lattice_parameters.length_a)
     print(my_reader.lattice_parameters.length_b)
