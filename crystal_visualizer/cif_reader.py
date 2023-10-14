@@ -64,15 +64,27 @@ class CifReader:
                 line = line.rstrip().split()
                 if not line: continue
                 if line[0] == "_atom_site_symmetry_multiplicity":
+                    is_atom_site_refinement_flags_occupancy = False
+                    is_atom_site_calc_flag = False
+                    is_atom_site_U_iso_or_equiv = False
                     is_atom_site_symmetry_multiplicity = True
                     continue
                 if line[0] == "_atom_site_refinement_flags_occupancy":
+                    is_atom_site_symmetry_multiplicity = False
+                    is_atom_site_calc_flag = False
+                    is_atom_site_U_iso_or_equiv = False
                     is_atom_site_refinement_flags_occupancy = True
                     continue
                 if line[0] == "_atom_site_calc_flag":
+                    is_atom_site_symmetry_multiplicity = False
+                    is_atom_site_refinement_flags_occupancy = False
+                    is_atom_site_U_iso_or_equiv = False
                     is_atom_site_calc_flag = True
                     continue
                 if line[0] == "_atom_site_U_iso_or_equiv":
+                    is_atom_site_symmetry_multiplicity = False
+                    is_atom_site_refinement_flags_occupancy = False
+                    is_atom_site_calc_flag = False
                     is_atom_site_U_iso_or_equiv = True
                     continue
 
@@ -100,6 +112,7 @@ class CifReader:
             "_atom_site_calc_flag"
             "_atom_site_U_iso_or_equiv"
 
+            """
             lines = file_obj.readlines()
             for line in lines:
                 line = line.rstrip().split()
@@ -116,6 +129,38 @@ class CifReader:
                 if line[0] == "_atom_site_U_iso_or_equiv":
                     is_atom_site_U_iso_or_equiv = True
                     continue
+            """
+
+            lines = file_obj.readlines()
+            for line in lines:
+                line = line.rstrip().split()
+                if not line: continue
+                if line[0] == "_atom_site_symmetry_multiplicity":
+                    is_atom_site_refinement_flags_occupancy = False
+                    is_atom_site_calc_flag = False
+                    is_atom_site_U_iso_or_equiv = False
+                    is_atom_site_symmetry_multiplicity = True
+                    continue
+                if line[0] == "_atom_site_refinement_flags_occupancy":
+                    is_atom_site_symmetry_multiplicity = False
+                    is_atom_site_calc_flag = False
+                    is_atom_site_U_iso_or_equiv = False
+                    is_atom_site_refinement_flags_occupancy = True
+                    continue
+                if line[0] == "_atom_site_calc_flag":
+                    is_atom_site_symmetry_multiplicity = False
+                    is_atom_site_refinement_flags_occupancy = False
+                    is_atom_site_U_iso_or_equiv = False
+                    is_atom_site_calc_flag = True
+                    continue
+                if line[0] == "_atom_site_U_iso_or_equiv":
+                    is_atom_site_symmetry_multiplicity = False
+                    is_atom_site_refinement_flags_occupancy = False
+                    is_atom_site_calc_flag = False
+                    is_atom_site_U_iso_or_equiv = True
+                    continue
+
+
 
                 if is_atom_site_symmetry_multiplicity:
                     if line[0] in ["loop", "loop_"] or line[0][0] == "_":
