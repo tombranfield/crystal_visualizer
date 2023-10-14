@@ -110,6 +110,36 @@ def test_read_correct_atom_sites_for_perovskite():
     assert np.array_equal(cif_reader.atoms[2].position_vector(), np.array([0.5, 0., 0.]))
 
 
+def test_read_correct_atom_sites_for_quartz():
+    cif_reader = CifReader("SiO2.cif")
+    assert len(cif_reader.atoms) == 2
+    assert cif_reader.atoms[0].symbol == "O"
+    assert np.array_equal(cif_reader.atoms[0].position_vector(), np.array([0.413, 0.2711, 0.2172]))
+    assert cif_reader.atoms[1].symbol == "Si"
+    assert np.array_equal(cif_reader.atoms[1].position_vector(), np.array([0.4673, 0., 0.3333]))
+
+
+def test_read_correct_atom_sites_for_YBCO():
+    cif_reader = CifReader("YBa2Cu3O7-x.cif")
+    assert len(cif_reader.atoms) == 8
+    assert cif_reader.atoms[0].symbol == "Y"
+    assert np.array_equal(cif_reader.atoms[0].position_vector(), np.array([0.5, 0.5, 0.5]))
+    assert cif_reader.atoms[1].symbol == "Ba"
+    assert np.array_equal(cif_reader.atoms[1].position_vector(), np.array([0.5, 0.5, 0.5]))
+    assert cif_reader.atoms[2].symbol == "Cu"
+    assert np.array_equal(cif_reader.atoms[2].position_vector(), np.array([0., 0., 0.]))
+    assert cif_reader.atoms[3].symbol == "Cu"
+    assert np.array_equal(cif_reader.atoms[3].position_vector(), np.array([0., 0., 0.35501]))
+    assert cif_reader.atoms[4].symbol == "O"
+    assert np.array_equal(cif_reader.atoms[4].position_vector(), np.array([0.5, 0., 0.910]))
+    assert cif_reader.atoms[5].symbol == "O"
+    assert np.array_equal(cif_reader.atoms[5].position_vector(), np.array([0.5, 0., 0.37819]))
+    assert cif_reader.atoms[6].symbol == "O"
+    assert np.array_equal(cif_reader.atoms[6].position_vector(), np.array([0., 0.5, 0.37693]))
+    assert cif_reader.atoms[7].symbol == "O"
+    assert np.array_equal(cif_reader.atoms[7].position_vector(), np.array([0., 0., 0.1584]))
+
+
 
 def test_generate_correct_lattice_parameters_for_copper():
     cif_reader = CifReader("Cu.cif")
