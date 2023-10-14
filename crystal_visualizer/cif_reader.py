@@ -52,7 +52,7 @@ class CifReader:
 
             def set_all_atom_site_types_to_false():
                 for atom_site_type in atom_site_types:
-                    atom_site_type = False
+                    atom_site_types[atom_site_type] = False
 
             set_all_atom_site_types_to_false()
 
@@ -69,6 +69,7 @@ class CifReader:
                     atom_site_types["atom_site_refinement_flags_occupancy"] = True
                     continue
                 if line[0] == "_atom_site_calc_flag":
+                    print("in here")
                     set_all_atom_site_types_to_false()
                     atom_site_types["atom_site_calc_flag"] = True
                     continue
@@ -76,7 +77,7 @@ class CifReader:
                     set_all_atom_site_types_to_false()
                     atom_site_types["atom_site_U_iso_or_equiv"] = True
                     continue
-            
+
             for atom_site_type in atom_site_types:
                 if atom_site_types[atom_site_type]:
                     return atom_site_type
@@ -252,7 +253,7 @@ class CifReader:
 
 
 if __name__ == "__main__":
-    filename = "Cu.cif"
+    filename = "NaCl.cif"
     my_reader = CifReader(filename)
 
     print(my_reader._get_atom_site_type())
