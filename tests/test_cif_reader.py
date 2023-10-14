@@ -17,6 +17,18 @@ def test_get_correct_atom_site_type_for_copper():
     assert atom_site_type == "atom_site_symmetry_multiplicity"
 
 
+def test_get_correct_atom_site_type_for_CaF2():
+    cif_reader = CifReader("CaF2.cif")
+    atom_site_type = cif_reader._get_atom_site_type()
+    assert atom_site_type == "atom_site_refinement_flags_occupancy"
+
+
+def test_get_correct_atom_site_type_for_NaCl():
+    cif_reader = CifReader("NaCl.cif")
+    atom_site_type = cif_reader._get_atom_site_type()
+    assert atom_site_type == "atom_site_calc_flag"
+
+
 
 def test_read_correct_atom_sites_for_copper():
     cif_reader = CifReader("Cu.cif")
