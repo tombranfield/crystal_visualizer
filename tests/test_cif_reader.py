@@ -12,7 +12,6 @@ CIF_PATH = str( Path(__file__).parents[1] / "data" / "cif_files")
 
 
 
-@pytest.mark.current
 def test_read_correct_atom_sites_for_copper():
     cif_reader = CifReader("Cu.cif")
     assert len(cif_reader.atoms) == 1
