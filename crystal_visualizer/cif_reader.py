@@ -38,16 +38,67 @@ class CifReader:
         self.lattice_parameters = self.__get_lattice_parameters()
         self.atoms = self.__get_atoms()
 
+
+    def _get_atom_site_type(self):
+        """Returns the type of atom site used in the cif file"""
+        with open(self.file_path, "r") as file_obj:
+
+            # First find the atom site type
+            # Write function that returns atom site type
+            # Then function that accepts the type, and forwards it
+            # to another relevant function that does the processing
+            is_atom_site_symmetry_multiplicity = False
+            is_atom_site_refinement_flags_occupancy = False
+            is_atom_site_calc_flag = False
+            is_atom_site_U_iso_or_equiv = False
+
+            atom_site_types = [
+                "_atom_site_symmetry_multiplicity",
+                "_atom_site_refinement_flags_occupancy",
+                "_atom_site_calc_flag",
+                "_atom_site_U_iso_or_equiv",
+            ]
+
+            lines = file_obj.readlines()
+            for line in lines:
+                line = line.rstrip().split()
+                if not line: continue
+                if line[0] == "_atom_site_symmetry_multiplicity":
+                    is_atom_site_symmetry_multiplicity = True
+                    continue
+                if line[0] == "_atom_site_refinement_flags_occupancy":
+                    is_atom_site_refinement_flags_occupancy = True
+                    continue
+                if line[0] == "_atom_site_calc_flag":
+                    is_atom_site_calc_flag = True
+                    continue
+                if line[0] == "_atom_site_U_iso_or_equiv":
+                    is_atom_site_U_iso_or_equiv = True
+                    continue
+
+
+
+
     def __get_atoms(self) -> Atom:
         """Gets a list of Atoms from the cif file"""
         atoms = []
         # Reading file twice for atoms and lattice parameters for clarity
         # and testability
         with open(self.file_path, "r") as file_obj:
+
+            # First find the atom site type
+            # Write function that returns atom site type
+            # Then function that accepts the type, and forwards it
+            # to another relevant function that does the processing
             is_atom_site_symmetry_multiplicity = False
             is_atom_site_refinement_flags_occupancy = False
             is_atom_site_calc_flag = False
             is_atom_site_U_iso_or_equiv = False
+
+            "_atom_site_symmetry_multiplicity"
+            "_atom_site_refinement_flags_occupancy"
+            "_atom_site_calc_flag"
+            "_atom_site_U_iso_or_equiv"
 
             lines = file_obj.readlines()
             for line in lines:
