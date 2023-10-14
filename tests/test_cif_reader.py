@@ -125,7 +125,7 @@ def test_read_correct_atom_sites_for_YBCO():
     assert cif_reader.atoms[0].symbol == "Y"
     assert np.array_equal(cif_reader.atoms[0].position_vector(), np.array([0.5, 0.5, 0.5]))
     assert cif_reader.atoms[1].symbol == "Ba"
-    assert np.array_equal(cif_reader.atoms[1].position_vector(), np.array([0.5, 0.5, 0.5]))
+    assert np.array_equal(cif_reader.atoms[1].position_vector(), np.array([0.5, 0.5, 0.18393]))
     assert cif_reader.atoms[2].symbol == "Cu"
     assert np.array_equal(cif_reader.atoms[2].position_vector(), np.array([0., 0., 0.]))
     assert cif_reader.atoms[3].symbol == "Cu"
