@@ -3,8 +3,8 @@
 import numpy as np
 
 from crystal_visualizer.lattice_parameters import LatticeParameters
-from crystal_visualizer.calculations.reciprocal_metric_tensor import reciprocal_metric_tensor
-from crystal_visualizer.calculations.reciprocal_metric_tensor import volume
+from crystal_visualizer.reciprocal_metric_tensor import reciprocal_metric_tensor
+from crystal_visualizer.reciprocal_metric_tensor import volume
 
 
 

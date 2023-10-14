@@ -3,7 +3,7 @@
 import numpy as np
 
 from crystal_visualizer.hkl import HKL
-from crystal_visualizer.calculations.interplanar_calculations import interplanar_distance, interplanar_angle
+from crystal_visualizer.interplanar_calculations import interplanar_distance, interplanar_angle
 from crystal_visualizer.lattice_parameters import LatticeParameters
 
 
