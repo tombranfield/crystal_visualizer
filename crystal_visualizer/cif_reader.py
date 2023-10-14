@@ -252,7 +252,7 @@ class CifReader:
 
 
 if __name__ == "__main__":
-    filename = "C.cif"
+    filename = "Cu.cif"
     my_reader = CifReader(filename)
 
     print(my_reader._get_atom_site_type())
