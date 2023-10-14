@@ -53,8 +53,6 @@ def test_get_correct_atom_site_type_for_quartz():
     assert atom_site_type == "atom_site_U_iso_or_equiv"
 
 
-
-
 def test_read_correct_atom_sites_for_copper():
     cif_reader = CifReader("Cu.cif")
     assert len(cif_reader.atoms) == 1
@@ -89,6 +87,27 @@ def test_read_correct_atom_sites_for_diamond():
     assert cif_reader.atoms[0].symbol == "C"
     assert np.array_equal(cif_reader.atoms[0].position_vector(), np.array([0.96, 0.96, 0.96]))
    
+
+def test_read_correct_atom_sites_for_spinel():
+    cif_reader = CifReader("MgAl2O4.cif")
+    assert len(cif_reader.atoms) == 3
+    assert cif_reader.atoms[0].symbol == "Mg"
+    assert np.array_equal(cif_reader.atoms[0].position_vector(), np.array([0., 0., 0.]))
+    assert cif_reader.atoms[1].symbol == "Al"
+    assert np.array_equal(cif_reader.atoms[1].position_vector(), np.array([0.625, 0.625, 0.625]))
+    assert cif_reader.atoms[2].symbol == "O"
+    assert np.array_equal(cif_reader.atoms[2].position_vector(), np.array([0.3855, 0.3855, 0.3855]))
+    
+
+def test_read_correct_atom_sites_for_perovskite():
+    cif_reader = CifReader("SrTiO3.cif")
+    assert len(cif_reader.atoms) == 3
+    assert cif_reader.atoms[0].symbol == "Sr"
+    assert np.array_equal(cif_reader.atoms[0].position_vector(), np.array([0.5, 0.5, 0.5]))
+    assert cif_reader.atoms[1].symbol == "Ti"
+    assert np.array_equal(cif_reader.atoms[1].position_vector(), np.array([0., 0., 0.]))
+    assert cif_reader.atoms[2].symbol == "O"
+    assert np.array_equal(cif_reader.atoms[2].position_vector(), np.array([0.5, 0., 0.]))
 
 
 
