@@ -43,52 +43,43 @@ class CifReader:
         """Returns the type of atom site used in the cif file"""
         with open(self.file_path, "r") as file_obj:
 
-            # First find the atom site type
-            # Write function that returns atom site type
-            # Then function that accepts the type, and forwards it
-            # to another relevant function that does the processing
-            is_atom_site_symmetry_multiplicity = False
-            is_atom_site_refinement_flags_occupancy = False
-            is_atom_site_calc_flag = False
-            is_atom_site_U_iso_or_equiv = False
+            atom_site_types = {
+                "atom_site_symmetry_multiplicity": False,
+                "atom_site_refinement_flags_occupancy": False,
+                "atom_site_calc_flag": False,
+                "atom_site_U_iso_or_equiv": False,
+            }
 
-            atom_site_types = [
-                "_atom_site_symmetry_multiplicity",
-                "_atom_site_refinement_flags_occupancy",
-                "_atom_site_calc_flag",
-                "_atom_site_U_iso_or_equiv",
-            ]
+            def set_all_atom_site_types_to_false():
+                for atom_site_type in atom_site_types:
+                    atom_site_type = False
+
+            set_all_atom_site_types_to_false()
 
             lines = file_obj.readlines()
             for line in lines:
                 line = line.rstrip().split()
                 if not line: continue
                 if line[0] == "_atom_site_symmetry_multiplicity":
-                    is_atom_site_refinement_flags_occupancy = False
-                    is_atom_site_calc_flag = False
-                    is_atom_site_U_iso_or_equiv = False
-                    is_atom_site_symmetry_multiplicity = True
+                    set_all_atom_site_types_to_false()
+                    atom_site_types["atom_site_symmetry_multiplicity"] = True
                     continue
                 if line[0] == "_atom_site_refinement_flags_occupancy":
-                    is_atom_site_symmetry_multiplicity = False
-                    is_atom_site_calc_flag = False
-                    is_atom_site_U_iso_or_equiv = False
-                    is_atom_site_refinement_flags_occupancy = True
+                    set_all_atom_site_types_to_false()
+                    atom_site_types["atom_site_refinement_flags_occupancy"] = True
                     continue
                 if line[0] == "_atom_site_calc_flag":
-                    is_atom_site_symmetry_multiplicity = False
-                    is_atom_site_refinement_flags_occupancy = False
-                    is_atom_site_U_iso_or_equiv = False
-                    is_atom_site_calc_flag = True
+                    set_all_atom_site_types_to_false()
+                    atom_site_types["atom_site_calc_flag"] = True
                     continue
                 if line[0] == "_atom_site_U_iso_or_equiv":
-                    is_atom_site_symmetry_multiplicity = False
-                    is_atom_site_refinement_flags_occupancy = False
-                    is_atom_site_calc_flag = False
-                    is_atom_site_U_iso_or_equiv = True
+                    set_all_atom_site_types_to_false()
+                    atom_site_types["atom_site_U_iso_or_equiv"] = True
                     continue
-
-
+            
+            for atom_site_type in atom_site_types:
+                if atom_site_types[atom_site_type]:
+                    return atom_site_type
 
 
     def __get_atoms(self) -> Atom:
@@ -204,7 +195,6 @@ class CifReader:
                     atoms.append(atom)
 
                 if is_atom_site_U_iso_or_equiv:
-                    print(line)
                     if line[0] in ["loop", "loop_"] or line[0][0] == "_":
                         is_atom_site_U_iso_or_equiv = False
                         continue
@@ -264,6 +254,9 @@ class CifReader:
 if __name__ == "__main__":
     filename = "C.cif"
     my_reader = CifReader(filename)
+
+    print(my_reader._get_atom_site_type())
+
     print(my_reader.lattice_parameters.length_a)
     print(my_reader.lattice_parameters.length_b)
     print(my_reader.lattice_parameters.length_c)
