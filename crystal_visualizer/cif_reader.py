@@ -1,11 +1,3 @@
-# TODO
-"""
-don't just continue when end of the loop
-might be important
-eg Cu we have site symmetry after site Uiso
-Need to recognize it
-"""
-
 """
 The crystallographic information file (CIF) is the standard archival format
 for storing the information of crystal structures.
@@ -69,7 +61,6 @@ class CifReader:
                     atom_site_types["atom_site_refinement_flags_occupancy"] = True
                     continue
                 if line[0] == "_atom_site_calc_flag":
-                    print("in here")
                     set_all_atom_site_types_to_false()
                     atom_site_types["atom_site_calc_flag"] = True
                     continue
@@ -90,6 +81,14 @@ class CifReader:
         # and testability
         with open(self.file_path, "r") as file_obj:
 
+            # TODO incorporate above atom_site_type here
+            atom_site_type = self._get_atom_site_type()
+            print(atom_site_type)
+
+            # TODO
+            # if atom_site_type == atom_site_calc_flag:
+
+
             # First find the atom site type
             # Write function that returns atom site type
             # Then function that accepts the type, and forwards it
@@ -99,29 +98,6 @@ class CifReader:
             is_atom_site_calc_flag = False
             is_atom_site_U_iso_or_equiv = False
 
-            "_atom_site_symmetry_multiplicity"
-            "_atom_site_refinement_flags_occupancy"
-            "_atom_site_calc_flag"
-            "_atom_site_U_iso_or_equiv"
-
-            """
-            lines = file_obj.readlines()
-            for line in lines:
-                line = line.rstrip().split()
-                if not line: continue
-                if line[0] == "_atom_site_symmetry_multiplicity":
-                    is_atom_site_symmetry_multiplicity = True
-                    continue
-                if line[0] == "_atom_site_refinement_flags_occupancy":
-                    is_atom_site_refinement_flags_occupancy = True
-                    continue
-                if line[0] == "_atom_site_calc_flag":
-                    is_atom_site_calc_flag = True
-                    continue
-                if line[0] == "_atom_site_U_iso_or_equiv":
-                    is_atom_site_U_iso_or_equiv = True
-                    continue
-            """
 
             lines = file_obj.readlines()
             for line in lines:
@@ -255,8 +231,6 @@ class CifReader:
 if __name__ == "__main__":
     filename = "NaCl.cif"
     my_reader = CifReader(filename)
-
-    print(my_reader._get_atom_site_type())
 
     print(my_reader.lattice_parameters.length_a)
     print(my_reader.lattice_parameters.length_b)
