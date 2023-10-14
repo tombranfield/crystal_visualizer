@@ -29,6 +29,21 @@ def test_get_correct_atom_site_type_for_NaCl():
     assert atom_site_type == "atom_site_calc_flag"
 
 
+def test_get_correct_atom_site_type_for_diamond():
+    cif_reader = CifReader("C.cif")
+    atom_site_type = cif_reader._get_atom_site_type()
+    assert atom_site_type == "atom_site_U_iso_or_equiv"
+
+
+def test_get_correct_atom_site_type_for_spinel():
+    cif_reader = CifReader("MgAl2O4.cif")
+    atom_site_type = cif_reader._get_atom_site_type()
+    assert atom_site_type == "atom_site_calc_flag"
+
+
+
+
+
 
 def test_read_correct_atom_sites_for_copper():
     cif_reader = CifReader("Cu.cif")
