@@ -90,6 +90,9 @@ class CifReader:
     def _read_line_of_atom_data(self, line, atom_site_type) -> Atom:
         if atom_site_type == "atom_site_calc_flag":
             return self._read_line_atom_site_calc_flag(line)
+        if atom_site_type == "atom_site_symmetry_multiplicity":
+            return self._read_line_atom_site_symmetry_multiplicity(line)
+
 
     def _read_line_atom_site_calc_flag(self, line) -> Atom:
         element_symbol = line[0]
@@ -103,7 +106,17 @@ class CifReader:
             atom = Atom(element_symbol, x, y, z)
             return atom
 
-
+    def _read_line_atom_site_symmetry_multiplicity(self, line) -> Atom:
+        element_symbol = line[0]
+        first_digit_match = re.search(r"\d+", element_symbol)
+        if first_digit_match:
+            element_symbol = element_symbol[:first_digit_match.start()]
+            element_symbol = element_symbol.title()
+            x = self.__float_from_string_with_brackets(line[1])
+            y = self.__float_from_string_with_brackets(line[2])
+            z = self.__float_from_string_with_brackets(line[3])
+            atom = Atom(element_symbol, x, y, z)
+            return atom
 
 
     def __new_get_atoms(self) -> Atom:
