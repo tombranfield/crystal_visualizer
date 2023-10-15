@@ -19,7 +19,6 @@ class CifReader:
     """
     PATH = str(Path(__file__).parents[0] / "data" / "cif_files")
 
-
     def __init__(self, filename: str, cif_folder=PATH):
         """Initialize the Cif reader"""
         self.file_path = self.PATH + "/" + filename
@@ -51,6 +50,28 @@ class CifReader:
 
         return LatticeParameters(
             len_a, len_b, len_c, angle_alpha, angle_beta, angle_gamma)
+
+
+    def __get_atoms(self) -> Atom:
+        atoms = []
+        atom_site_type = self._get_atom_site_type()
+        print(atom_site_type)
+        is_reading = False
+        with open(self.file_path, "r") as file_obj:
+            lines = file_obj.readlines()
+            for line in lines:
+                line = line.strip().split()
+                if not line: continue
+                if line[0] == "_" + atom_site_type:
+                    is_reading = True
+                    continue
+                if is_reading:
+                    if line[0] in ["loop", "loop_"] or line[0][0] == "_":
+                        is_reading = False
+                        continue
+                    atom = self._read_line_of_atom_data(line, atom_site_type)
+                    atoms.append(atom)
+            return atoms
 
 
     def _set_all_atom_site_types_to_false(self, atom_site_types):
@@ -148,28 +169,6 @@ class CifReader:
         return atom
 
 
-    def __get_atoms(self) -> Atom:
-        atoms = []
-        atom_site_type = self._get_atom_site_type()
-        print(atom_site_type)
-        is_reading = False
-        with open(self.file_path, "r") as file_obj:
-            lines = file_obj.readlines()
-            for line in lines:
-                line = line.strip().split()
-                if not line: continue
-                if line[0] == "_" + atom_site_type:
-                    is_reading = True
-                    continue
-                if is_reading:
-                    if line[0] in ["loop", "loop_"] or line[0][0] == "_":
-                        is_reading = False
-                        continue
-                    atom = self._read_line_of_atom_data(line, atom_site_type)
-                    atoms.append(atom)
-            return atoms
-
-
     def __float_from_string_with_brackets(self, number_string):
         """
         Some lattice parameters in cif files contain the error in brackets. This
@@ -183,21 +182,4 @@ class CifReader:
 
 
 if __name__ == "__main__":
-    filename = "SrTiO3.cif"
-
-    my_reader = CifReader(filename)
-
-    print(my_reader.lattice_parameters.length_a)
-    print(my_reader.lattice_parameters.length_b)
-    print(my_reader.lattice_parameters.length_c)
-    print(my_reader.lattice_parameters.angle_alpha)
-    print(my_reader.lattice_parameters.angle_beta)
-    print(my_reader.lattice_parameters.angle_gamma)
-    """
-    for atom in my_reader.atoms:
-        print(atom.symbol)
-        print(atom.position_vector())
-    """
-    for atom in my_reader.new_atoms:
-        print(atom.symbol)
-        print(atom.position_vector())
+    pass
