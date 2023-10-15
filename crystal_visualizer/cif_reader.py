@@ -160,9 +160,15 @@ class CifReader:
                     if first_digit_match:
                         element_symbol = element_symbol[:first_digit_match.start()]
                     element_symbol = element_symbol.title()
+                    """
                     x = float(line[1])
                     y = float(line[2])
                     z = float(line[3])
+                    """
+                    x = self.__float_from_string_with_brackets(line[1])
+                    y = self.__float_from_string_with_brackets(line[2])
+                    z = self.__float_from_string_with_brackets(line[3])
+
                     atom = Atom(element_symbol, x, y, z)
                     atoms.append(atom)
 
@@ -171,9 +177,14 @@ class CifReader:
                         is_atom_site_refinement_flags_occupancy = False
                         continue
                     element_symbol = line[1]
+                    """
                     x = float(self.__remove_parentheses(line[2]))
                     y = float(self.__remove_parentheses(line[3]))
                     z = float(self.__remove_parentheses(line[4]))
+                    """
+                    x = self.__float_from_string_with_brackets(line[2])
+                    y = self.__float_from_string_with_brackets(line[3])
+                    z = self.__float_from_string_with_brackets(line[4])
                     atom = Atom(element_symbol, x, y, z)
                     atoms.append(atom)
 
@@ -186,9 +197,17 @@ class CifReader:
                     if first_digit_match:
                         element_symbol = element_symbol[:first_digit_match.start()]
                     element_symbol = element_symbol.title()
+
+                    """
                     x = float(self.__remove_parentheses(line[-6]))
                     y = float(self.__remove_parentheses(line[-5]))
                     z = float(self.__remove_parentheses(line[-4]))
+                    """
+                    x = self.__float_from_string_with_brackets(line[-6])
+                    y = self.__float_from_string_with_brackets(line[-5])
+                    z = self.__float_from_string_with_brackets(line[-4])
+                    
+
                     atom = Atom(element_symbol, x, y, z)
                     atoms.append(atom)
 
@@ -236,7 +255,7 @@ class CifReader:
         """    
         starting_bracket_index = number_string.find("(")
         if starting_bracket_index != -1:        
-            return number_string[:starting_bracket_index]            
+            return float(number_string[:starting_bracket_index])
         return float(number_string)
 
 
