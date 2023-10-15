@@ -30,7 +30,6 @@ class CifReader:
         self.lattice_parameters = self.__get_lattice_parameters()
         self.atoms = self.__get_atoms()
 
-
     def _get_atom_site_type(self):
         """Returns the type of atom site used in the cif file"""
         with open(self.file_path, "r") as file_obj:
@@ -47,10 +46,13 @@ class CifReader:
                     atom_site_types[atom_site_type] = False
 
             def check_atom_site_type(line_str, atom_site_type):
-                print("doing the check")
                 if line_str == "_" + atom_site_type:
                     set_all_atom_site_types_to_false()
                     atom_site_types[atom_site_type] = True
+
+            def check_atom_site_types():
+                for atom_site_type in atom_site_types.keys():
+                    check_atom_site_type(line[0], atom_site_type)
 
             set_all_atom_site_types_to_false()
 
@@ -58,12 +60,7 @@ class CifReader:
             for line in lines:
                 line = line.rstrip().split()
                 if not line: continue
-
-                check_atom_site_type(line[0], "atom_site_symmetry_multiplicity")
-                check_atom_site_type(line[0], "atom_site_refinement_flags_occupancy")
-                check_atom_site_type(line[0], "atom_site_calc_flag")
-                check_atom_site_type(line[0], "atom_site_U_iso_or_equiv")
-
+                check_atom_site_types()
             for atom_site_type in atom_site_types:
                 if atom_site_types[atom_site_type]:
                     return atom_site_type
