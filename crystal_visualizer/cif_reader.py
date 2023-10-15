@@ -94,6 +94,8 @@ class CifReader:
             return self._read_line_atom_site_symmetry_multiplicity(line)
         if atom_site_type == "atom_site_refinement_flags_occupancy":
             return self._read_line_atom_site_refinement_flags_occupancy(line)
+        if atom_site_type == "atom_site_U_iso_or_equiv":
+            return self._read_line_atom_site_U_iso_or_equiv(line)
 
 
     def _read_line_atom_site_calc_flag(self, line) -> Atom:
@@ -118,6 +120,20 @@ class CifReader:
             x = self.__float_from_string_with_brackets(line[1])
             y = self.__float_from_string_with_brackets(line[2])
             z = self.__float_from_string_with_brackets(line[3])
+            atom = Atom(element_symbol, x, y, z)
+            return atom
+
+
+    def _read_line_atom_site_U_iso_or_equiv(self, line) -> Atom:
+        element_symbol = line[0]
+        first_digit_match = re.search(r"\d+", element_symbol)
+        if first_digit_match:
+            element_symbol = element_symbol[:first_digit_match.start()]
+            element_symbol = element_symbol.title()
+            element_symbol = element_symbol.title()
+            x = self.__float_from_string_with_brackets(line[-5])
+            y = self.__float_from_string_with_brackets(line[-4])
+            z = self.__float_from_string_with_brackets(line[-3])
             atom = Atom(element_symbol, x, y, z)
             return atom
 
