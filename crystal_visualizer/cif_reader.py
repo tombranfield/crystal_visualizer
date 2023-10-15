@@ -35,7 +35,6 @@ class CifReader:
             for line in lines:
                 line = line.rstrip().split()
                 if not line: continue
-
                 if line[0] == "_cell_length_a":
                     len_a = self.__float_from_string_with_brackets(line[1])
                 if line[0] == "_cell_length_b":
@@ -50,8 +49,7 @@ class CifReader:
                     angle_gamma = self.__float_from_string_with_brackets(line[1])
 
         return LatticeParameters(
-            len_a, len_b, len_c, angle_alpha, angle_beta, angle_gamma
-        )
+            len_a, len_b, len_c, angle_alpha, angle_beta, angle_gamma)
 
 
     def _get_atom_site_type(self):
@@ -68,16 +66,11 @@ class CifReader:
             for atom_site_type in atom_site_types:
                 atom_site_types[atom_site_type] = False
 
-        def check_atom_site_type(line_str, atom_site_type):
-            if line_str == "_" + atom_site_type:
-                set_all_atom_site_types_to_false()
-                atom_site_types[atom_site_type] = True
-
-        def check_atom_site_types():
+        def check_line_for_atom_site_type(line_str):
             for atom_site_type in atom_site_types.keys():
-                check_atom_site_type(line[0], atom_site_type)
-
-        set_all_atom_site_types_to_false()
+                if line_str == "_" + atom_site_type:
+                    set_all_atom_site_types_to_false()
+                    atom_site_types[atom_site_type] = True
 
         # Read the file and look for the atom site type lines
         with open(self.file_path, "r") as file_obj:
@@ -85,7 +78,7 @@ class CifReader:
             for line in lines:
                 line = line.rstrip().split()
                 if not line: continue
-                check_atom_site_types()
+                check_line_for_atom_site_type(line[0])
 
         # Return the atom site type
         for atom_site_type in atom_site_types:
