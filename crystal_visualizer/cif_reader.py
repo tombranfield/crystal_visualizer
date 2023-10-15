@@ -95,6 +95,7 @@ class CifReader:
 
             # TODO incorporate above atom_site_type here
             atom_site_type = self._get_atom_site_type()
+            print(atom_site_type)
 
             # TODO
             # if atom_site_type == atom_site_calc_flag:
