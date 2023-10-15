@@ -202,9 +202,14 @@ class CifReader:
                         element_symbol = element_symbol[:first_digit_match.start()]
                     element_symbol = element_symbol.title()
                     element_symbol = element_symbol.title()
+                    """
                     x = float(self.__remove_parentheses(line[-5]))
                     y = float(self.__remove_parentheses(line[-4]))
                     z = float(self.__remove_parentheses(line[-3]))
+                    """
+                    x = self.__float_from_string_with_brackets(line[-5])
+                    y = self.__float_from_string_with_brackets(line[-4])
+                    z = self.__float_from_string_with_brackets(line[-3])
                     atom = Atom(element_symbol, x, y, z)
                     atoms.append(atom)
 
@@ -222,6 +227,17 @@ class CifReader:
         if starting_bracket_index != -1:        
             return number_string[:starting_bracket_index]            
         return number_string
+
+
+    def __float_from_string_with_brackets(self, number_string):
+        """
+        Some lattice parameters in cif files contain the error in brackets. This
+        function returns a string without these ending brackets.
+        """    
+        starting_bracket_index = number_string.find("(")
+        if starting_bracket_index != -1:        
+            return number_string[:starting_bracket_index]            
+        return float(number_string)
 
 
 
