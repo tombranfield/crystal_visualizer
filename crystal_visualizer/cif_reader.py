@@ -92,6 +92,8 @@ class CifReader:
             return self._read_line_atom_site_calc_flag(line)
         if atom_site_type == "atom_site_symmetry_multiplicity":
             return self._read_line_atom_site_symmetry_multiplicity(line)
+        if atom_site_type == "atom_site_refinement_flags_occupancy":
+            return self._read_line_atom_site_refinement_flags_occupancy(line)
 
 
     def _read_line_atom_site_calc_flag(self, line) -> Atom:
@@ -106,6 +108,7 @@ class CifReader:
             atom = Atom(element_symbol, x, y, z)
             return atom
 
+
     def _read_line_atom_site_symmetry_multiplicity(self, line) -> Atom:
         element_symbol = line[0]
         first_digit_match = re.search(r"\d+", element_symbol)
@@ -119,9 +122,19 @@ class CifReader:
             return atom
 
 
+    def _read_line_atom_site_refinement_flags_occupancy(self, line) -> Atom:
+        element_symbol = line[1]
+        x = self.__float_from_string_with_brackets(line[2])
+        y = self.__float_from_string_with_brackets(line[3])
+        z = self.__float_from_string_with_brackets(line[4])
+        atom = Atom(element_symbol, x, y, z)
+        return atom
+
+
     def __new_get_atoms(self) -> Atom:
         atoms = []
         atom_site_type = self._get_atom_site_type()
+        print(atom_site_type)
         is_reading = False
         with open(self.file_path, "r") as file_obj:
             lines = file_obj.readlines()
@@ -266,7 +279,7 @@ class CifReader:
 
 
 if __name__ == "__main__":
-    filename = "NaCl.cif"
+    filename = "C.cif"
     my_reader = CifReader(filename)
 
     print(my_reader.lattice_parameters.length_a)
