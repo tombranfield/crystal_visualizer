@@ -205,18 +205,6 @@ class CifReader:
         return atoms
 
         
-
-    def __remove_parentheses(self, number_string):
-        """
-        Some lattice parameters in cif files contain the error in brackets. This
-        function returns a string without these ending brackets.
-        """    
-        starting_bracket_index = number_string.find("(")
-        if starting_bracket_index != -1:        
-            return number_string[:starting_bracket_index]            
-        return number_string
-
-
     def __float_from_string_with_brackets(self, number_string):
         """
         Some lattice parameters in cif files contain the error in brackets. This
