@@ -4,11 +4,6 @@ for storing the information of crystal structures.
 
 For more information about CIF files, please see:
 https://www.icur.org/resources/cif/spec/version1.1/cifsyntax
-or
-Hall, S.R., Allen, F.H, Brown, I.D. (1991). The Crystallographic Information
-File (CIF): A new standard archive file for Crystallography. Acta Crystallographica
-Section A Foundations of Crystallography, 47(6), 655-685.
-doi:10.1107/s010876739101067x
 """
 
 from pathlib import Path
@@ -30,40 +25,79 @@ class CifReader:
         self.lattice_parameters = self.__get_lattice_parameters()
         self.atoms = self.__get_atoms()
 
+    def __get_lattice_parameters(self) -> LatticeParameters:
+        """Gets the lattice parameters from the cif file"""
+        len_a, len_b, len_c = 0., 0., 0.
+        angle_alpha, angle_beta, angle_gamma = 0., 0., 0.
+
+        def check_for_lattice_parameter(line, lattice_var, search_string):
+            if line[0] == search_string:
+                lattice_var = float(self.__remove_parentheses(line[1]))
+
+
+        with open(self.file_path, "r") as file_obj:
+            lines = file_obj.readlines()
+            for line in lines:
+                line = line.rstrip().split()
+                if not line: continue
+
+
+                if line[0] == "_cell_length_a":
+                    len_a = float(self.__remove_parentheses(line[1]))
+                if line[0] == "_cell_length_b":
+                    len_b = float(self.__remove_parentheses(line[1]))
+                if line[0] == "_cell_length_c":
+                    len_c = float(self.__remove_parentheses(line[1]))
+                if line[0] == "_cell_angle_alpha":
+                    angle_alpha = float(self.__remove_parentheses(line[1]))
+                if line[0] == "_cell_angle_beta":
+                    angle_beta = float(self.__remove_parentheses(line[1]))
+                if line[0] == "_cell_angle_gamma":
+                    angle_gamma = float(self.__remove_parentheses(line[1]))
+
+
+        return LatticeParameters(
+            len_a, len_b, len_c, angle_alpha, angle_beta, angle_gamma
+        )
+
+
     def _get_atom_site_type(self):
         """Returns the type of atom site used in the cif file"""
+
+        atom_site_types = {
+            "atom_site_symmetry_multiplicity": False,
+            "atom_site_refinement_flags_occupancy": False,
+            "atom_site_calc_flag": False,
+            "atom_site_U_iso_or_equiv": False,
+        }
+
+        def set_all_atom_site_types_to_false():
+            for atom_site_type in atom_site_types:
+                atom_site_types[atom_site_type] = False
+
+        def check_atom_site_type(line_str, atom_site_type):
+            if line_str == "_" + atom_site_type:
+                set_all_atom_site_types_to_false()
+                atom_site_types[atom_site_type] = True
+
+        def check_atom_site_types():
+            for atom_site_type in atom_site_types.keys():
+                check_atom_site_type(line[0], atom_site_type)
+
+        set_all_atom_site_types_to_false()
+
+        # Read the file and look for the atom site type lines
         with open(self.file_path, "r") as file_obj:
-
-            atom_site_types = {
-                "atom_site_symmetry_multiplicity": False,
-                "atom_site_refinement_flags_occupancy": False,
-                "atom_site_calc_flag": False,
-                "atom_site_U_iso_or_equiv": False,
-            }
-
-            def set_all_atom_site_types_to_false():
-                for atom_site_type in atom_site_types:
-                    atom_site_types[atom_site_type] = False
-
-            def check_atom_site_type(line_str, atom_site_type):
-                if line_str == "_" + atom_site_type:
-                    set_all_atom_site_types_to_false()
-                    atom_site_types[atom_site_type] = True
-
-            def check_atom_site_types():
-                for atom_site_type in atom_site_types.keys():
-                    check_atom_site_type(line[0], atom_site_type)
-
-            set_all_atom_site_types_to_false()
-
             lines = file_obj.readlines()
             for line in lines:
                 line = line.rstrip().split()
                 if not line: continue
                 check_atom_site_types()
-            for atom_site_type in atom_site_types:
-                if atom_site_types[atom_site_type]:
-                    return atom_site_type
+
+        # Return the atom site type
+        for atom_site_type in atom_site_types:
+            if atom_site_types[atom_site_type]:
+                return atom_site_type
 
 
     def __get_atoms(self) -> Atom:
@@ -183,30 +217,6 @@ class CifReader:
         return atoms
 
         
-    def __get_lattice_parameters(self) -> LatticeParameters:
-        """Gets the lattice parameters from the cif file"""
-        len_a, len_b, len_c = 0., 0., 0.
-        angle_alpha, angle_beta, angle_gamma = 0., 0., 0.
-        with open(self.file_path, "r") as file_obj:
-            lines = file_obj.readlines()
-            for line in lines:
-                line = line.rstrip().split()
-                if not line: continue
-                if line[0] == "_cell_length_a":
-                    len_a = float(self.__remove_parentheses(line[1]))
-                if line[0] == "_cell_length_b":
-                    len_b = float(self.__remove_parentheses(line[1]))
-                if line[0] == "_cell_length_c":
-                    len_c = float(self.__remove_parentheses(line[1]))
-                if line[0] == "_cell_angle_alpha":
-                    angle_alpha = float(self.__remove_parentheses(line[1]))
-                if line[0] == "_cell_angle_beta":
-                    angle_beta = float(self.__remove_parentheses(line[1]))
-                if line[0] == "_cell_angle_gamma":
-                    angle_gamma = float(self.__remove_parentheses(line[1]))
-        return LatticeParameters(
-            len_a, len_b, len_c, angle_alpha, angle_beta, angle_gamma
-        )
 
     def __remove_parentheses(self, number_string):
         """
