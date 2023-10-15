@@ -30,13 +30,8 @@ class CifReader:
         len_a, len_b, len_c = 0., 0., 0.
         angle_alpha, angle_beta, angle_gamma = 0., 0., 0.
 
-        def check_for_lattice_parameter(line, lattice_var, search_string):
-            if line[0] == search_string:
-                lattice_var = float(self.__remove_parentheses(line[1]))
-        
         def get_numeric_lattice_parameter_from_string(line_str):
             return float(self.__remove_parentheses(line_str))
-
 
         with open(self.file_path, "r") as file_obj:
             lines = file_obj.readlines()
@@ -55,8 +50,7 @@ class CifReader:
                 if line[0] == "_cell_angle_beta":
                     angle_beta = get_numeric_lattice_parameter_from_string(line[1])
                 if line[0] == "_cell_angle_gamma":
-                    angle_gamma = get_numeric_lattice_paramter_from_string(line[1])
-
+                    angle_gamma = get_numeric_lattice_parameter_from_string(line[1])
 
         return LatticeParameters(
             len_a, len_b, len_c, angle_alpha, angle_beta, angle_gamma
@@ -221,7 +215,7 @@ class CifReader:
 
     def __remove_parentheses(self, number_string):
         """
-        Some lattice paramters in cif files contain the error in brackets. This
+        Some lattice parameters in cif files contain the error in brackets. This
         function returns a string without these ending brackets.
         """    
         starting_bracket_index = number_string.find("(")
