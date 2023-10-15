@@ -36,21 +36,21 @@ class CifReader:
         with open(self.file_path, "r") as file_obj:
 
             atom_site_types = {
-                "_atom_site_symmetry_multiplicity": False,
-                "_atom_site_refinement_flags_occupancy": False,
-                "_atom_site_calc_flag": False,
-                "_atom_site_U_iso_or_equiv": False,
+                "atom_site_symmetry_multiplicity": False,
+                "atom_site_refinement_flags_occupancy": False,
+                "atom_site_calc_flag": False,
+                "atom_site_U_iso_or_equiv": False,
             }
 
             def set_all_atom_site_types_to_false():
                 for atom_site_type in atom_site_types:
                     atom_site_types[atom_site_type] = False
 
-            def check_and_set_atom_site_type(line_str, atom_site_type):
-                if line_str == atom_site_type:
+            def check_atom_site_type(line_str, atom_site_type):
+                print("doing the check")
+                if line_str == "_" + atom_site_type:
                     set_all_atom_site_types_to_false()
                     atom_site_types[atom_site_type] = True
-                    continue
 
             set_all_atom_site_types_to_false()
 
@@ -58,22 +58,11 @@ class CifReader:
             for line in lines:
                 line = line.rstrip().split()
                 if not line: continue
-                if line[0] == "_atom_site_symmetry_multiplicity":
-                    set_all_atom_site_types_to_false()
-                    atom_site_types["_atom_site_symmetry_multiplicity"] = True
-                    continue
-                if line[0] == "_atom_site_refinement_flags_occupancy":
-                    set_all_atom_site_types_to_false()
-                    atom_site_types["_atom_site_refinement_flags_occupancy"] = True
-                    continue
-                if line[0] == "_atom_site_calc_flag":
-                    set_all_atom_site_types_to_false()
-                    atom_site_types["_atom_site_calc_flag"] = True
-                    continue
-                if line[0] == "_atom_site_U_iso_or_equiv":
-                    set_all_atom_site_types_to_false()
-                    atom_site_types["_atom_site_U_iso_or_equiv"] = True
-                    continue
+
+                check_atom_site_type(line[0], "atom_site_symmetry_multiplicity")
+                check_atom_site_type(line[0], "atom_site_refinement_flags_occupancy")
+                check_atom_site_type(line[0], "atom_site_calc_flag")
+                check_atom_site_type(line[0], "atom_site_U_iso_or_equiv")
 
             for atom_site_type in atom_site_types:
                 if atom_site_types[atom_site_type]:
