@@ -19,11 +19,13 @@ class CifReader:
     """
     PATH = str(Path(__file__).parents[0] / "data" / "cif_files")
 
+
     def __init__(self, filename: str, cif_folder=PATH):
         """Initialize the Cif reader"""
         self.file_path = self.PATH + "/" + filename
         self.lattice_parameters = self.__get_lattice_parameters()
         self.atoms = self.__get_atoms()
+        #self.new_atoms = self.__new_get_atoms()
 
     def __get_lattice_parameters(self) -> LatticeParameters:
         """Gets the lattice parameters from the cif file"""
@@ -52,54 +54,89 @@ class CifReader:
             len_a, len_b, len_c, angle_alpha, angle_beta, angle_gamma)
 
 
+    def _set_all_atom_site_types_to_false(self, atom_site_types):
+        for atom_site_type in atom_site_types:
+            atom_site_types[atom_site_type] = False
+
+
+    def _check_line_for_atom_site_type(self, atom_site_types, line_str):
+        for atom_site_type in atom_site_types.keys():
+            if line_str == "_" + atom_site_type:
+                self._set_all_atom_site_types_to_false(atom_site_types)
+                atom_site_types[atom_site_type] = True
+
+
     def _get_atom_site_type(self):
         """Returns the type of atom site used in the cif file"""
-
         atom_site_types = {
             "atom_site_symmetry_multiplicity": False,
             "atom_site_refinement_flags_occupancy": False,
             "atom_site_calc_flag": False,
             "atom_site_U_iso_or_equiv": False,
         }
-
-        def set_all_atom_site_types_to_false():
-            for atom_site_type in atom_site_types:
-                atom_site_types[atom_site_type] = False
-
-        def check_line_for_atom_site_type(line_str):
-            for atom_site_type in atom_site_types.keys():
-                if line_str == "_" + atom_site_type:
-                    set_all_atom_site_types_to_false()
-                    atom_site_types[atom_site_type] = True
-
-        # Read the file and look for the atom site type lines
+        
         with open(self.file_path, "r") as file_obj:
             lines = file_obj.readlines()
             for line in lines:
                 line = line.rstrip().split()
                 if not line: continue
-                check_line_for_atom_site_type(line[0])
-
-        # Return the atom site type
+                self._check_line_for_atom_site_type(atom_site_types, line[0])
+        
         for atom_site_type in atom_site_types:
             if atom_site_types[atom_site_type]:
                 return atom_site_type
 
 
+
+
+
+    def _read_line_of_atom_data(self, atom_site_type):
+        pass
+
+
+    def __new_get_atoms(self) -> Atom:
+        atoms = []
+        atom_site_type = self._get_atom_site_type()
+        is_reading = False
+        with open(self.file_path, "r") as file_obj:
+            lines = file_obj.readlines()
+            for line in lines:
+                line = line.strip().split()
+                if not line: continue
+                if line[0] == "_" + atom_site_type:
+                    is_reading = True
+                    continue
+                if is_reading:
+                    if line[0] in ["loop", "loop_"] or line[0][0] == "_":
+                        is_reading = False
+                        continue
+
+
+                    element_symbol = line[0]
+                    first_digit_match = re.search(r"\d+", element_symbol)
+                    if first_digit_match:
+                        element_symbol = element_symbol[:first_digit_match.start()]
+                    element_symbol = element_symbol.title()
+                    x = self.__float_from_string_with_brackets(line[-6])
+                    y = self.__float_from_string_with_brackets(line[-5])
+                    z = self.__float_from_string_with_brackets(line[-4])
+
+
+                    atom = Atom(element_symbol, x, y, z)
+                    atoms.append(atom)
+
+            return atoms
+
+
+
+
+    #TODO old
     def __get_atoms(self) -> Atom:
         """Gets a list of Atoms from the cif file"""
         atoms = []
         # Reading file twice for atoms and lattice parameters for clarity
         # and testability
         with open(self.file_path, "r") as file_obj:
-
-            # TODO incorporate above atom_site_type here
-            atom_site_type = self._get_atom_site_type()
-            print(atom_site_type)
-
-            # TODO
-            # if atom_site_type == atom_site_calc_flag:
-
 
             # First find the atom site type
             # Write function that returns atom site type
@@ -110,11 +147,11 @@ class CifReader:
             is_atom_site_calc_flag = False
             is_atom_site_U_iso_or_equiv = False
 
-
             lines = file_obj.readlines()
             for line in lines:
                 line = line.rstrip().split()
                 if not line: continue
+
                 if line[0] == "_atom_site_symmetry_multiplicity":
                     is_atom_site_refinement_flags_occupancy = False
                     is_atom_site_calc_flag = False
@@ -139,9 +176,7 @@ class CifReader:
                     is_atom_site_calc_flag = False
                     is_atom_site_U_iso_or_equiv = True
                     continue
-
-
-
+                
                 if is_atom_site_symmetry_multiplicity:
                     if line[0] in ["loop", "loop_"] or line[0][0] == "_":
                         is_atom_site_symmetry_multiplicity = False
@@ -228,6 +263,11 @@ if __name__ == "__main__":
     print(my_reader.lattice_parameters.angle_alpha)
     print(my_reader.lattice_parameters.angle_beta)
     print(my_reader.lattice_parameters.angle_gamma)
+    """
     for atom in my_reader.atoms:
+        print(atom.symbol)
+        print(atom.position_vector())
+    """
+    for atom in my_reader.new_atoms:
         print(atom.symbol)
         print(atom.position_vector())
