@@ -33,6 +33,9 @@ class CifReader:
         def check_for_lattice_parameter(line, lattice_var, search_string):
             if line[0] == search_string:
                 lattice_var = float(self.__remove_parentheses(line[1]))
+        
+        def get_numeric_lattice_parameter_from_string(line_str):
+            return float(self.__remove_parentheses(line_str))
 
 
         with open(self.file_path, "r") as file_obj:
@@ -41,19 +44,18 @@ class CifReader:
                 line = line.rstrip().split()
                 if not line: continue
 
-
                 if line[0] == "_cell_length_a":
-                    len_a = float(self.__remove_parentheses(line[1]))
+                    len_a = get_numeric_lattice_parameter_from_string(line[1])
                 if line[0] == "_cell_length_b":
-                    len_b = float(self.__remove_parentheses(line[1]))
+                    len_b = get_numeric_lattice_parameter_from_string(line[1])
                 if line[0] == "_cell_length_c":
-                    len_c = float(self.__remove_parentheses(line[1]))
+                    len_c = get_numeric_lattice_parameter_from_string(line[1])
                 if line[0] == "_cell_angle_alpha":
-                    angle_alpha = float(self.__remove_parentheses(line[1]))
+                    angle_alpha = get_numeric_lattice_parameter_from_string(line[1])
                 if line[0] == "_cell_angle_beta":
-                    angle_beta = float(self.__remove_parentheses(line[1]))
+                    angle_beta = get_numeric_lattice_parameter_from_string(line[1])
                 if line[0] == "_cell_angle_gamma":
-                    angle_gamma = float(self.__remove_parentheses(line[1]))
+                    angle_gamma = get_numeric_lattice_paramter_from_string(line[1])
 
 
         return LatticeParameters(
@@ -109,7 +111,6 @@ class CifReader:
 
             # TODO incorporate above atom_site_type here
             atom_site_type = self._get_atom_site_type()
-            print(atom_site_type)
 
             # TODO
             # if atom_site_type == atom_site_calc_flag:
