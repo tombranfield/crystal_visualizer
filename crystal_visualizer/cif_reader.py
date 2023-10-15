@@ -25,7 +25,7 @@ class CifReader:
         self.file_path = self.PATH + "/" + filename
         self.lattice_parameters = self.__get_lattice_parameters()
         self.atoms = self.__get_atoms()
-        #self.new_atoms = self.__new_get_atoms()
+        self.new_atoms = self.__new_get_atoms()
 
     def __get_lattice_parameters(self) -> LatticeParameters:
         """Gets the lattice parameters from the cif file"""
@@ -87,11 +87,23 @@ class CifReader:
                 return atom_site_type
 
 
+    def _read_line_of_atom_data(self, line, atom_site_type) -> Atom:
+        if atom_site_type == "atom_site_calc_flag":
+            return self._read_line_atom_site_calc_flag(line)
+
+    def _read_line_atom_site_calc_flag(self, line) -> Atom:
+        element_symbol = line[0]
+        first_digit_match = re.search(r"\d+", element_symbol)
+        if first_digit_match:
+            element_symbol = element_symbol[:first_digit_match.start()]
+            element_symbol = element_symbol.title()
+            x = self.__float_from_string_with_brackets(line[-6])
+            y = self.__float_from_string_with_brackets(line[-5])
+            z = self.__float_from_string_with_brackets(line[-4])
+            atom = Atom(element_symbol, x, y, z)
+            return atom
 
 
-
-    def _read_line_of_atom_data(self, atom_site_type):
-        pass
 
 
     def __new_get_atoms(self) -> Atom:
@@ -110,21 +122,8 @@ class CifReader:
                     if line[0] in ["loop", "loop_"] or line[0][0] == "_":
                         is_reading = False
                         continue
-
-
-                    element_symbol = line[0]
-                    first_digit_match = re.search(r"\d+", element_symbol)
-                    if first_digit_match:
-                        element_symbol = element_symbol[:first_digit_match.start()]
-                    element_symbol = element_symbol.title()
-                    x = self.__float_from_string_with_brackets(line[-6])
-                    y = self.__float_from_string_with_brackets(line[-5])
-                    z = self.__float_from_string_with_brackets(line[-4])
-
-
-                    atom = Atom(element_symbol, x, y, z)
+                    atom = self._read_line_of_atom_data(line, atom_site_type)
                     atoms.append(atom)
-
             return atoms
 
 
