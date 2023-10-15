@@ -25,7 +25,6 @@ class CifReader:
         self.file_path = self.PATH + "/" + filename
         self.lattice_parameters = self.__get_lattice_parameters()
         self.atoms = self.__get_atoms()
-        self.new_atoms = self.__new_get_atoms()
 
     def __get_lattice_parameters(self) -> LatticeParameters:
         """Gets the lattice parameters from the cif file"""
@@ -99,16 +98,18 @@ class CifReader:
 
 
     def _read_line_atom_site_calc_flag(self, line) -> Atom:
+        print(line)
         element_symbol = line[0]
+        print("element symbol", element_symbol)
         first_digit_match = re.search(r"\d+", element_symbol)
         if first_digit_match:
             element_symbol = element_symbol[:first_digit_match.start()]
             element_symbol = element_symbol.title()
-            x = self.__float_from_string_with_brackets(line[-6])
-            y = self.__float_from_string_with_brackets(line[-5])
-            z = self.__float_from_string_with_brackets(line[-4])
-            atom = Atom(element_symbol, x, y, z)
-            return atom
+        x = self.__float_from_string_with_brackets(line[-6])
+        y = self.__float_from_string_with_brackets(line[-5])
+        z = self.__float_from_string_with_brackets(line[-4])
+        atom = Atom(element_symbol, x, y, z)
+        return atom
 
 
     def _read_line_atom_site_symmetry_multiplicity(self, line) -> Atom:
@@ -117,11 +118,11 @@ class CifReader:
         if first_digit_match:
             element_symbol = element_symbol[:first_digit_match.start()]
             element_symbol = element_symbol.title()
-            x = self.__float_from_string_with_brackets(line[1])
-            y = self.__float_from_string_with_brackets(line[2])
-            z = self.__float_from_string_with_brackets(line[3])
-            atom = Atom(element_symbol, x, y, z)
-            return atom
+        x = self.__float_from_string_with_brackets(line[1])
+        y = self.__float_from_string_with_brackets(line[2])
+        z = self.__float_from_string_with_brackets(line[3])
+        atom = Atom(element_symbol, x, y, z)
+        return atom
 
 
     def _read_line_atom_site_U_iso_or_equiv(self, line) -> Atom:
@@ -131,11 +132,11 @@ class CifReader:
             element_symbol = element_symbol[:first_digit_match.start()]
             element_symbol = element_symbol.title()
             element_symbol = element_symbol.title()
-            x = self.__float_from_string_with_brackets(line[-5])
-            y = self.__float_from_string_with_brackets(line[-4])
-            z = self.__float_from_string_with_brackets(line[-3])
-            atom = Atom(element_symbol, x, y, z)
-            return atom
+        x = self.__float_from_string_with_brackets(line[-5])
+        y = self.__float_from_string_with_brackets(line[-4])
+        z = self.__float_from_string_with_brackets(line[-3])
+        atom = Atom(element_symbol, x, y, z)
+        return atom
 
 
     def _read_line_atom_site_refinement_flags_occupancy(self, line) -> Atom:
@@ -147,7 +148,7 @@ class CifReader:
         return atom
 
 
-    def __new_get_atoms(self) -> Atom:
+    def __get_atoms(self) -> Atom:
         atoms = []
         atom_site_type = self._get_atom_site_type()
         print(atom_site_type)
@@ -169,119 +170,6 @@ class CifReader:
             return atoms
 
 
-
-
-    #TODO old
-    def __get_atoms(self) -> Atom:
-        """Gets a list of Atoms from the cif file"""
-        atoms = []
-        # Reading file twice for atoms and lattice parameters for clarity
-        # and testability
-        with open(self.file_path, "r") as file_obj:
-
-            # First find the atom site type
-            # Write function that returns atom site type
-            # Then function that accepts the type, and forwards it
-            # to another relevant function that does the processing
-            is_atom_site_symmetry_multiplicity = False
-            is_atom_site_refinement_flags_occupancy = False
-            is_atom_site_calc_flag = False
-            is_atom_site_U_iso_or_equiv = False
-
-            lines = file_obj.readlines()
-            for line in lines:
-                line = line.rstrip().split()
-                if not line: continue
-
-                if line[0] == "_atom_site_symmetry_multiplicity":
-                    is_atom_site_refinement_flags_occupancy = False
-                    is_atom_site_calc_flag = False
-                    is_atom_site_U_iso_or_equiv = False
-                    is_atom_site_symmetry_multiplicity = True
-                    continue
-                if line[0] == "_atom_site_refinement_flags_occupancy":
-                    is_atom_site_symmetry_multiplicity = False
-                    is_atom_site_calc_flag = False
-                    is_atom_site_U_iso_or_equiv = False
-                    is_atom_site_refinement_flags_occupancy = True
-                    continue
-                if line[0] == "_atom_site_calc_flag":
-                    is_atom_site_symmetry_multiplicity = False
-                    is_atom_site_refinement_flags_occupancy = False
-                    is_atom_site_U_iso_or_equiv = False
-                    is_atom_site_calc_flag = True
-                    continue
-                if line[0] == "_atom_site_U_iso_or_equiv":
-                    is_atom_site_symmetry_multiplicity = False
-                    is_atom_site_refinement_flags_occupancy = False
-                    is_atom_site_calc_flag = False
-                    is_atom_site_U_iso_or_equiv = True
-                    continue
-                
-                if is_atom_site_symmetry_multiplicity:
-                    if line[0] in ["loop", "loop_"] or line[0][0] == "_":
-                        is_atom_site_symmetry_multiplicity = False
-                        continue
-                    element_symbol = line[0]
-                    first_digit_match = re.search(r"\d+", element_symbol)
-                    if first_digit_match:
-                        element_symbol = element_symbol[:first_digit_match.start()]
-                    element_symbol = element_symbol.title()
-                    x = self.__float_from_string_with_brackets(line[1])
-                    y = self.__float_from_string_with_brackets(line[2])
-                    z = self.__float_from_string_with_brackets(line[3])
-
-                    atom = Atom(element_symbol, x, y, z)
-                    atoms.append(atom)
-
-                if is_atom_site_refinement_flags_occupancy:
-                    if line[0] in ["loop", "loop_"] or line[0][0] == "_":
-                        is_atom_site_refinement_flags_occupancy = False
-                        continue
-                    element_symbol = line[1]
-                    x = self.__float_from_string_with_brackets(line[2])
-                    y = self.__float_from_string_with_brackets(line[3])
-                    z = self.__float_from_string_with_brackets(line[4])
-                    atom = Atom(element_symbol, x, y, z)
-                    atoms.append(atom)
-
-                if is_atom_site_calc_flag:
-                    if line[0] in ["loop", "loop_"] or line[0][0] == "_":
-                        is_atom_site_calc_flag = False
-                        continue
-                    element_symbol = line[0]
-                    first_digit_match = re.search(r"\d+", element_symbol)
-                    if first_digit_match:
-                        element_symbol = element_symbol[:first_digit_match.start()]
-                    element_symbol = element_symbol.title()
-                    x = self.__float_from_string_with_brackets(line[-6])
-                    y = self.__float_from_string_with_brackets(line[-5])
-                    z = self.__float_from_string_with_brackets(line[-4])
-                    
-
-                    atom = Atom(element_symbol, x, y, z)
-                    atoms.append(atom)
-
-                if is_atom_site_U_iso_or_equiv:
-                    if line[0] in ["loop", "loop_"] or line[0][0] == "_":
-                        is_atom_site_U_iso_or_equiv = False
-                        continue
-                    element_symbol = line[0]
-                    first_digit_match = re.search(r"\d+", element_symbol)
-                    if first_digit_match:
-                        element_symbol = element_symbol[:first_digit_match.start()]
-                    element_symbol = element_symbol.title()
-                    element_symbol = element_symbol.title()
-                    x = self.__float_from_string_with_brackets(line[-5])
-                    y = self.__float_from_string_with_brackets(line[-4])
-                    z = self.__float_from_string_with_brackets(line[-3])
-                    atom = Atom(element_symbol, x, y, z)
-                    atoms.append(atom)
-
-
-        return atoms
-
-        
     def __float_from_string_with_brackets(self, number_string):
         """
         Some lattice parameters in cif files contain the error in brackets. This
@@ -295,7 +183,8 @@ class CifReader:
 
 
 if __name__ == "__main__":
-    filename = "C.cif"
+    filename = "SrTiO3.cif"
+
     my_reader = CifReader(filename)
 
     print(my_reader.lattice_parameters.length_a)
