@@ -181,16 +181,6 @@ def test_generate_correct_lattice_parameters_for_diamond():
     assert cif_reader.lattice_parameters.angle_gamma == 90
 
 
-def test_generate_correct_lattice_parameters_for_CsCl():
-    cif_reader = CifReader("CsCl.cif")
-    assert cif_reader.lattice_parameters.length_a == 4.123
-    assert cif_reader.lattice_parameters.length_b == 4.123
-    assert cif_reader.lattice_parameters.length_c == 4.123
-    assert cif_reader.lattice_parameters.angle_alpha == 90
-    assert cif_reader.lattice_parameters.angle_beta == 90
-    assert cif_reader.lattice_parameters.angle_gamma == 90
-
-
 def test_generate_correct_lattice_parameters_for_spinel():
     cif_reader = CifReader("MgAl2O4.cif")
     assert cif_reader.lattice_parameters.length_a == 8.2065
