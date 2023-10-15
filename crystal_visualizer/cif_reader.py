@@ -30,9 +30,6 @@ class CifReader:
         len_a, len_b, len_c = 0., 0., 0.
         angle_alpha, angle_beta, angle_gamma = 0., 0., 0.
 
-        def get_numeric_lattice_parameter_from_string(line_str):
-            return float(self.__remove_parentheses(line_str))
-
         with open(self.file_path, "r") as file_obj:
             lines = file_obj.readlines()
             for line in lines:
@@ -40,17 +37,17 @@ class CifReader:
                 if not line: continue
 
                 if line[0] == "_cell_length_a":
-                    len_a = get_numeric_lattice_parameter_from_string(line[1])
+                    len_a = self.__float_from_string_with_brackets(line[1])
                 if line[0] == "_cell_length_b":
-                    len_b = get_numeric_lattice_parameter_from_string(line[1])
+                    len_b = self.__float_from_string_with_brackets(line[1])
                 if line[0] == "_cell_length_c":
-                    len_c = get_numeric_lattice_parameter_from_string(line[1])
+                    len_c = self.__float_from_string_with_brackets(line[1])
                 if line[0] == "_cell_angle_alpha":
-                    angle_alpha = get_numeric_lattice_parameter_from_string(line[1])
+                    angle_alpha = self.__float_from_string_with_brackets(line[1])
                 if line[0] == "_cell_angle_beta":
-                    angle_beta = get_numeric_lattice_parameter_from_string(line[1])
+                    angle_beta = self.__float_from_string_with_brackets(line[1])
                 if line[0] == "_cell_angle_gamma":
-                    angle_gamma = get_numeric_lattice_parameter_from_string(line[1])
+                    angle_gamma = self.__float_from_string_with_brackets(line[1])
 
         return LatticeParameters(
             len_a, len_b, len_c, angle_alpha, angle_beta, angle_gamma
@@ -160,11 +157,6 @@ class CifReader:
                     if first_digit_match:
                         element_symbol = element_symbol[:first_digit_match.start()]
                     element_symbol = element_symbol.title()
-                    """
-                    x = float(line[1])
-                    y = float(line[2])
-                    z = float(line[3])
-                    """
                     x = self.__float_from_string_with_brackets(line[1])
                     y = self.__float_from_string_with_brackets(line[2])
                     z = self.__float_from_string_with_brackets(line[3])
@@ -177,11 +169,6 @@ class CifReader:
                         is_atom_site_refinement_flags_occupancy = False
                         continue
                     element_symbol = line[1]
-                    """
-                    x = float(self.__remove_parentheses(line[2]))
-                    y = float(self.__remove_parentheses(line[3]))
-                    z = float(self.__remove_parentheses(line[4]))
-                    """
                     x = self.__float_from_string_with_brackets(line[2])
                     y = self.__float_from_string_with_brackets(line[3])
                     z = self.__float_from_string_with_brackets(line[4])
@@ -197,12 +184,6 @@ class CifReader:
                     if first_digit_match:
                         element_symbol = element_symbol[:first_digit_match.start()]
                     element_symbol = element_symbol.title()
-
-                    """
-                    x = float(self.__remove_parentheses(line[-6]))
-                    y = float(self.__remove_parentheses(line[-5]))
-                    z = float(self.__remove_parentheses(line[-4]))
-                    """
                     x = self.__float_from_string_with_brackets(line[-6])
                     y = self.__float_from_string_with_brackets(line[-5])
                     z = self.__float_from_string_with_brackets(line[-4])
@@ -221,11 +202,6 @@ class CifReader:
                         element_symbol = element_symbol[:first_digit_match.start()]
                     element_symbol = element_symbol.title()
                     element_symbol = element_symbol.title()
-                    """
-                    x = float(self.__remove_parentheses(line[-5]))
-                    y = float(self.__remove_parentheses(line[-4]))
-                    z = float(self.__remove_parentheses(line[-3]))
-                    """
                     x = self.__float_from_string_with_brackets(line[-5])
                     y = self.__float_from_string_with_brackets(line[-4])
                     z = self.__float_from_string_with_brackets(line[-3])
