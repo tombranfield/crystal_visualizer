@@ -55,6 +55,13 @@ class GeneralPositions:
             output -= z
         return output
 
+
+    def fraction_str_to_float(self, fraction_str):
+        try:
+            return float(fraction_str)
+        except ValueError:
+            print("yo")
+
     
     def print_new_pos(self, new_pos_array):
         for new_pos in new_pos_array:
