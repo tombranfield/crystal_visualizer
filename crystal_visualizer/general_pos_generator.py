@@ -6,7 +6,7 @@ from crystal_visualizer.cif_reader import CifReader
 from crystal_visualizer.position import Position
 
 
-class GeneralPositions:
+class GeneralPositionGenerator:
     """
     Generate a set of general positions given some starting atoms
     and a set of symmetry operations.
