@@ -18,17 +18,17 @@ class GeneralPositionGenerator:
 
     def generate(self) -> Atom:
         for atom in self.starting_atoms:
-            atom_pos = atom.position_vector()
-            new_positions = []
+            orig_atom_pos = atom.position_vector()
+            atom_positions = []
             for sym_op in self.symmetry_ops:
                 x_op, y_op, z_op = sym_op[0], sym_op[1], sym_op[2]
-                new_x = self._sym_op_str_to_pos(atom_pos, x_op)
-                new_y = self._sym_op_str_to_pos(atom_pos, y_op)
-                new_z = self._sym_op_str_to_pos(atom_pos, z_op)
+                new_x = self._sym_op_str_to_pos(orig_atom_pos, x_op)
+                new_y = self._sym_op_str_to_pos(orig_atom_pos, y_op)
+                new_z = self._sym_op_str_to_pos(orig_atom_pos, z_op)
                 new_position = Position(new_x, new_y, new_z)
-                new_positions.append(new_position)
-            self.print_new_pos(new_positions)
-            self.remove_duplicate_pos(new_positions)
+                if new_position not in atom_positions:
+                    atom_positions.append(new_position)
+            self.print_new_pos(atom_positions)
 
 
     def _sym_op_str_to_pos(self, atom_pos, sym_op_str) -> float:
@@ -38,7 +38,7 @@ class GeneralPositionGenerator:
             op_parts = sym_op_str.split("+")
             for op_part in op_parts:
                 if "/" in op_part:
-                    output += float(op_part)
+                    output += self._fraction_str_to_float(op_part)
                 else:
                     sym_op_str = op_part
         if "x" and not "-x" in sym_op_str:
@@ -56,7 +56,7 @@ class GeneralPositionGenerator:
         return output
 
 
-    def fraction_str_to_float(self, fraction_str):
+    def _fraction_str_to_float(self, fraction_str):
         try:
             return float(fraction_str)
         except ValueError:
@@ -78,5 +78,5 @@ if __name__ == "__main__":
     atoms = cif_reader.atoms
     sym_ops = cif_reader.symmetry_ops.sym_ops
     print(sym_ops)
-    general_positions = GeneralPositions(atoms, sym_ops)
+    general_positions = GeneralPositionGenerator(atoms, sym_ops)
     general_positions.generate()
