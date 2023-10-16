@@ -57,7 +57,7 @@ class CifReader:
                     for index, element in enumerate(line):
                         if element[0] == "+":
                             line[index] = element[1:]
-                        symmetry_ops.add_sym_op(line)
+                    symmetry_ops.add_sym_op(line)
                     
 
     def __get_lattice_parameters(self) -> LatticeParameters:
