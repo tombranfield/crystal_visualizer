@@ -53,7 +53,11 @@ class CifReader:
 
                 # Read from the symmetry block
                 if is_reading:
-                    line = line[0].split(",")
+                    if len(line) > 1:
+                        sym_ops_string = line[1]
+                    else:
+                        sym_ops_string = line[0]
+                    line = sym_ops_string.split(",")
                     for index, element in enumerate(line):
                         if element[0] == "+":
                             line[index] = element[1:]
@@ -214,6 +218,8 @@ class CifReader:
 
 
 if __name__ == "__main__":
-    cif_reader = CifReader("Cu.cif")
+    cif_reader = CifReader("NaCl.cif")
     print(cif_reader._get_atom_site_type())
+    for sym_op in cif_reader.symmetry_ops.sym_ops:
+        print(sym_op)
     print(len(cif_reader.symmetry_ops))
