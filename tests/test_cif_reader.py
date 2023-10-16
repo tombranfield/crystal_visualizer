@@ -226,5 +226,43 @@ def test_generate_correct_number_of_symmetry_ops_for_Cu():
     assert len(cif_reader.symmetry_ops) == 192 
 
 
+def test_generate_correct_number_of_symmetry_ops_for_NaCl():
+    cif_reader = CifReader("NaCl.cif")
+    assert len(cif_reader.symmetry_ops) == 192 
+
+
+def test_generate_correct_number_of_symmetry_ops_for_CaF2():
+    cif_reader = CifReader("CaF2.cif")
+    assert len(cif_reader.symmetry_ops) == 192 
+
+
+def test_generate_correct_number_of_symmetry_ops_for_diamond():
+    cif_reader = CifReader("C.cif")
+    assert len(cif_reader.symmetry_ops) == 192 
+
+
+def test_generate_correct_number_of_symmetry_ops_for_perovskite():
+    cif_reader = CifReader("SrTiO3.cif")
+    assert len(cif_reader.symmetry_ops) == 48 
+
+
+def test_generate_correct_number_of_symmetry_ops_for_spinel():
+    cif_reader = CifReader("MgAl2O4.cif")
+    assert len(cif_reader.symmetry_ops) == 192 
+
+
+def test_generate_correct_number_of_symmetry_ops_for_quartz():
+    cif_reader = CifReader("SiO2.cif")
+    assert len(cif_reader.symmetry_ops) == 6
+
+
+def test_generate_correct_number_of_symmetry_ops_for_YBCO():
+    cif_reader = CifReader("YBa2Cu3O7-x.cif")
+    assert len(cif_reader.symmetry_ops) == 8
+
+
+
+
+
 if __name__ == "__main__":
     print(CIF_PATH)
