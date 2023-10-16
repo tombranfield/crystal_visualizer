@@ -29,7 +29,7 @@ class CifReader:
 
     
     def __get_symmetry_ops(self) -> SpaceGroupSymOps:
-                
+        symmetry_ops = SpaceGroupSymOps()
         with open(self.file_path, "r") as file_obj:
             lines = file_obj.readlines()
             is_reading = False
@@ -40,6 +40,8 @@ class CifReader:
                 if is_reading:
                     if not line or line[0] in ["loop", "loop_"] or line[0][0] == "_":
                         is_reading = False
+                        return symmetry_ops
+
 
                 if not line: continue
 
@@ -55,8 +57,8 @@ class CifReader:
                     for index, element in enumerate(line):
                         if element[0] == "+":
                             line[index] = element[1:]
+                        symmetry_ops.add_sym_op(line)
                     
-
 
     def __get_lattice_parameters(self) -> LatticeParameters:
         """Gets the lattice parameters from the cif file"""
@@ -214,4 +216,4 @@ class CifReader:
 if __name__ == "__main__":
     cif_reader = CifReader("Cu.cif")
     print(cif_reader._get_atom_site_type())
-    # print(len(cif_reader.symmetry_ops))
+    print(len(cif_reader.symmetry_ops))
