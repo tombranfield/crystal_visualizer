@@ -60,7 +60,8 @@ class GeneralPositionGenerator:
         try:
             return float(fraction_str)
         except ValueError:
-            print("yo")
+            nom, denom = fraction_str.split("/")
+            return float(nom) / float(denom)
 
     
     def print_new_pos(self, new_pos_array):
