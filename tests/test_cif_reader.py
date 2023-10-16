@@ -221,6 +221,10 @@ def test_generate_correct_lattice_parameters_for_YBCO():
     assert cif_reader.lattice_parameters.angle_gamma == 90
 
 
+def test_generate_correct_number_of_symmetry_ops_for_Cu():
+    cif_reader = CifReader("Cu.cif")
+    assert len(cif_reader.symmetry_ops) == 192 
+
 
 if __name__ == "__main__":
     print(CIF_PATH)
