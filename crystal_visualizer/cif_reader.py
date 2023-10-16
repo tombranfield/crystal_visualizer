@@ -36,23 +36,10 @@ class CifReader:
             for line in lines:
                 line = line.rstrip().split()
 
-                # Check if the symmetry block has ended while reading it
+                # Handle reading the symmetry ops block
                 if is_reading:
                     if not line or line[0] in ["loop", "loop_"] or line[0][0] == "_":
-                        is_reading = False
                         return symmetry_ops
-
-
-                if not line: continue
-
-                # Check for the start of the symmetry ops block
-                if line[0] in ["_symmetry_equiv_pos_as_xyz",
-                               "_space_group_symop_operation_xyz"]:
-                    is_reading = True
-                    continue
-
-                # Read from the symmetry block
-                if is_reading:
                     if len(line) > 1:
                         sym_ops_string = line[1]
                     else:
@@ -62,7 +49,15 @@ class CifReader:
                         if element[0] == "+":
                             line[index] = element[1:]
                     symmetry_ops.add_sym_op(line)
-                    
+
+                # Need this line so don't get indexing error below
+                if not line: continue
+
+                # Check for the start of the symmetry ops block
+                if line[0] in ["_symmetry_equiv_pos_as_xyz",
+                               "_space_group_symop_operation_xyz"]:
+                    is_reading = True
+
 
     def __get_lattice_parameters(self) -> LatticeParameters:
         """Gets the lattice parameters from the cif file"""
@@ -74,6 +69,7 @@ class CifReader:
             for line in lines:
                 line = line.rstrip().split()
                 if not line: continue
+                # Below could be refactored, but this way is simplier :)
                 if line[0] == "_cell_length_a":
                     len_a = self.__float_from_string_with_brackets(line[1])
                 if line[0] == "_cell_length_b":
@@ -218,7 +214,7 @@ class CifReader:
 
 
 if __name__ == "__main__":
-    cif_reader = CifReader("NaCl.cif")
+    cif_reader = CifReader("Cu.cif")
     print(cif_reader._get_atom_site_type())
     for sym_op in cif_reader.symmetry_ops.sym_ops:
         print(sym_op)
