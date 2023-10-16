@@ -14,8 +14,6 @@ class SpaceGroupSymOps:
         return self._sym_ops
 
 
-
-
 if __name__ == "__main__":
     ops = [["x", "y", "z"], ["-x", "y", "z"]]
     my_sym_ops = SpaceGroupSymOps(ops)

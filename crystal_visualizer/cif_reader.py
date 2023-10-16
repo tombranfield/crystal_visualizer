@@ -11,6 +11,7 @@ import re
 
 from crystal_visualizer.atom import Atom
 from crystal_visualizer.lattice_parameters import LatticeParameters
+from crystal_visualizer.space_group_symmetry_ops import SpaceGroupSymOps
 
 
 class CifReader:
@@ -24,6 +25,22 @@ class CifReader:
         self.file_path = self.PATH + "/" + filename
         self.lattice_parameters = self.__get_lattice_parameters()
         self.atoms = self.__get_atoms()
+        self.symmetry_ops = self.__get_symmetry_ops()
+
+    
+    def __get_symmetry_ops(self) -> SpaceGroupSymOps:
+        with open(self.file_path, "r") as file_obj:
+            lines = file_obj.readlines()
+            is_reading = False
+            for line in lines:
+                line = line.rstrip().split()
+                if line[0] in ["_symmetry_equiv_pos_as_xyz",
+                               "_space_group_symop_operation_xyz"]:
+                    is_reading = True
+                    continue
+                    # If is_reading, and blank line or other line, stop
+
+
 
     def __get_lattice_parameters(self) -> LatticeParameters:
         """Gets the lattice parameters from the cif file"""
