@@ -29,17 +29,33 @@ class CifReader:
 
     
     def __get_symmetry_ops(self) -> SpaceGroupSymOps:
+                
         with open(self.file_path, "r") as file_obj:
             lines = file_obj.readlines()
             is_reading = False
             for line in lines:
                 line = line.rstrip().split()
+
+                # Check if the symmetry block has ended while reading it
+                if is_reading:
+                    if not line or line[0] in ["loop", "loop_"] or line[0][0] == "_":
+                        is_reading = False
+
+                if not line: continue
+
+                # Check for the start of the symmetry ops block
                 if line[0] in ["_symmetry_equiv_pos_as_xyz",
                                "_space_group_symop_operation_xyz"]:
                     is_reading = True
                     continue
-                    # If is_reading, and blank line or other line, stop
 
+                # Read from the symmetry block
+                if is_reading:
+                    line = line[0].split(",")
+                    for index, element in enumerate(line):
+                        if element[0] == "+":
+                            line[index] = element[1:]
+                    
 
 
     def __get_lattice_parameters(self) -> LatticeParameters:
@@ -72,7 +88,6 @@ class CifReader:
     def __get_atoms(self) -> Atom:
         atoms = []
         atom_site_type = self._get_atom_site_type()
-        print(atom_site_type)
         is_reading = False
         with open(self.file_path, "r") as file_obj:
             lines = file_obj.readlines()
@@ -136,9 +151,7 @@ class CifReader:
 
 
     def _read_line_atom_site_calc_flag(self, line) -> Atom:
-        print(line)
         element_symbol = line[0]
-        print("element symbol", element_symbol)
         first_digit_match = re.search(r"\d+", element_symbol)
         if first_digit_match:
             element_symbol = element_symbol[:first_digit_match.start()]
@@ -199,4 +212,6 @@ class CifReader:
 
 
 if __name__ == "__main__":
-    pass
+    cif_reader = CifReader("Cu.cif")
+    print(cif_reader._get_atom_site_type())
+    # print(len(cif_reader.symmetry_ops))
