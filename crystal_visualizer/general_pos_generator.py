@@ -27,7 +27,9 @@ class GeneralPositionGenerator:
         orig_atom_pos = self.atom.position_vector()
         print("orig pos:", orig_atom_pos)
         atom_positions = []
-        for sym_op in self.symmetry_ops[:1]:
+        # TODO
+        # Adjust slicing to choose different parts
+        for sym_op in self.symmetry_ops[:10]:
             x_op, y_op, z_op = sym_op[0], sym_op[1], sym_op[2]
             new_x = self._sym_op_str_to_pos(orig_atom_pos, x_op)
             new_y = self._sym_op_str_to_pos(orig_atom_pos, y_op)
@@ -45,6 +47,8 @@ class GeneralPositionGenerator:
 
     # TODO this doesn't work - need to parse correctly
     def _sym_op_str_to_pos(self, orig_atom_pos, sym_op_str) -> float:
+        # TODO read negative numbers
+        # TODO read negative numbers with fractions
         x, y, z = orig_atom_pos[0], orig_atom_pos[1], orig_atom_pos[2]
         output = 0.0
         if "+" in sym_op_str:
