@@ -26,7 +26,7 @@ class CifReader:
         self.lattice_parameters = self.__get_lattice_parameters()
         self.atoms = self.__get_atoms()
         self.symmetry_ops = self.__get_symmetry_ops()
-        self.new_atoms = self.__new_get_atoms()
+        # self.new_atoms = self.__new_get_atoms()
     
     def __get_symmetry_ops(self) -> SpaceGroupSymOps:
         symmetry_ops = SpaceGroupSymOps()
@@ -87,7 +87,7 @@ class CifReader:
             len_a, len_b, len_c, angle_alpha, angle_beta, angle_gamma)
 
 
-    def __new_get_atoms(self) -> Atom:
+    def __get_atoms(self) -> Atom:
         atoms = []
         is_reading = False
         atom_site_index = 0
@@ -128,11 +128,11 @@ class CifReader:
                     y = self.__float_from_string_with_brackets(line[fract_y])
                     z = self.__float_from_string_with_brackets(line[fract_z])
                     atom = Atom(element_symbol, x, y, z)
-                    print(element_symbol, x, y, z)
                     atoms.append(atom)
+        return atoms
 
 
-    def __get_atoms(self) -> Atom:
+    def __old_get_atoms(self) -> Atom:
         atoms = []
         atom_site_type = self._get_atom_site_type()
         is_reading = False
@@ -259,7 +259,7 @@ class CifReader:
 
 
 if __name__ == "__main__":
-    cif_reader = CifReader("SrTiO3.cif")
+    cif_reader = CifReader("Cu.cif")
     # print(cif_reader._get_atom_site_type())
     # for sym_op in cif_reader.symmetry_ops.sym_ops:
     #    print(sym_op)

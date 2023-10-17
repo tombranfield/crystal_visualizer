@@ -133,7 +133,7 @@ def test_read_correct_atom_sites_for_YBCO():
     assert cif_reader.atoms[3].symbol == "Cu"
     assert np.array_equal(cif_reader.atoms[3].position_vector(), np.array([0., 0., 0.35501]))
     assert cif_reader.atoms[4].symbol == "O"
-    assert np.array_equal(cif_reader.atoms[4].position_vector(), np.array([0.5, 0., 0.910]))
+    assert np.array_equal(cif_reader.atoms[4].position_vector(), np.array([0., 0.5, 0.]))
     assert cif_reader.atoms[5].symbol == "O"
     assert np.array_equal(cif_reader.atoms[5].position_vector(), np.array([0.5, 0., 0.37819]))
     assert cif_reader.atoms[6].symbol == "O"
