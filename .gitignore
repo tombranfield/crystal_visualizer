@@ -138,4 +138,4 @@ dmypy.json
 TODO/
 
 # Fractional coordinates structure files
-.xtl
+*.xtl

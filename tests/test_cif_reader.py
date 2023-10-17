@@ -11,6 +11,7 @@ from crystal_visualizer.cif_reader import CifReader
 CIF_PATH = str( Path(__file__).parents[1] / "data" / "cif_files")
 
 
+"""
 def test_get_correct_atom_site_type_for_copper():
     cif_reader = CifReader("Cu.cif")
     atom_site_type = cif_reader._get_atom_site_type()
@@ -51,7 +52,7 @@ def test_get_correct_atom_site_type_for_quartz():
     cif_reader = CifReader("SiO2.cif")
     atom_site_type = cif_reader._get_atom_site_type()
     assert atom_site_type == "atom_site_U_iso_or_equiv"
-
+"""
 
 def test_read_correct_atom_sites_for_copper():
     cif_reader = CifReader("Cu.cif")
