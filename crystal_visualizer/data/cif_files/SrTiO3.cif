@@ -121,9 +121,9 @@ _atom_site_occupancy
 _atom_site_symmetry_multiplicity
 _atom_site_Wyckoff_symbol
 _atom_site_calc_flag
-sr Sr 0.5000 0.5000 0.5000 1.000 1 d
-ti Ti 0.0000 0.0000 0.0000 1.000 1 d
-o O 0.5000 0.0000 0.0000 1.000 3 d
+sr Sr 0.5000 0.5000 0.5000 1.000 1 b d
+ti Ti 0.0000 0.0000 0.0000 1.000 1 a d
+o O 0.5000 0.0000 0.0000 1.000 3 d d
 loop_
 _atom_type_symbol
 _atom_type_radius_bond

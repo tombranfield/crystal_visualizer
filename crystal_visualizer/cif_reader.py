@@ -26,7 +26,7 @@ class CifReader:
         self.lattice_parameters = self.__get_lattice_parameters()
         self.atoms = self.__get_atoms()
         self.symmetry_ops = self.__get_symmetry_ops()
-
+        self.new_atoms = self.__new_get_atoms()
     
     def __get_symmetry_ops(self) -> SpaceGroupSymOps:
         symmetry_ops = SpaceGroupSymOps()
@@ -85,6 +85,31 @@ class CifReader:
 
         return LatticeParameters(
             len_a, len_b, len_c, angle_alpha, angle_beta, angle_gamma)
+
+
+    def __new_get_atoms(self) -> Atom:
+        atoms = []
+        is_reading = False
+        atom_site_index = 0
+        with open(self.file_path, "r") as file_obj:
+            lines = file_obj.readlines()
+            for line in lines:
+                line = line.strip().split()
+                if not line: continue
+                if line[0] == "_atom_site_label":
+                    label = atom_site_index
+                    atom_site_index += 1
+                elif line[0] == "_atom_site_fract_x":
+                    fract_x = atom_site_index
+                    atom_site_index += 1
+                elif line[0] == "_atom_site_fract_y":
+                    fract_y = atom_site_index
+                    atom_site_index += 1
+                elif line[0] == "_atom_site_fract_z":
+                    fract_z = atom_site_index
+                    atom_site_index += 1
+                elif line[0][:10] == "_atom_site":
+                    atom_site_index += 1
 
 
     def __get_atoms(self) -> Atom:
@@ -215,7 +240,7 @@ class CifReader:
 
 if __name__ == "__main__":
     cif_reader = CifReader("Cu.cif")
-    print(cif_reader._get_atom_site_type())
-    for sym_op in cif_reader.symmetry_ops.sym_ops:
-        print(sym_op)
-    print(len(cif_reader.symmetry_ops))
+    # print(cif_reader._get_atom_site_type())
+    # for sym_op in cif_reader.symmetry_ops.sym_ops:
+    #    print(sym_op)
+    #print(len(cif_reader.symmetry_ops))
