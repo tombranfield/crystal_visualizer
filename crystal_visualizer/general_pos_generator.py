@@ -30,7 +30,11 @@ class GeneralPositionGenerator:
         # TODO
         # Adjust slicing to choose different parts
         for sym_op in self.symmetry_ops[:10]:
+            # Grab the symmetry op from the string. This works
             x_op, y_op, z_op = sym_op[0], sym_op[1], sym_op[2]
+
+            # Grab the new cood for each of x,y,z using the
+            # parsing method. This needs fixing
             new_x = self._sym_op_str_to_pos(orig_atom_pos, x_op)
             new_y = self._sym_op_str_to_pos(orig_atom_pos, y_op)
             new_z = self._sym_op_str_to_pos(orig_atom_pos, z_op)
@@ -51,6 +55,8 @@ class GeneralPositionGenerator:
         # TODO read negative numbers with fractions
         x, y, z = orig_atom_pos[0], orig_atom_pos[1], orig_atom_pos[2]
         output = 0.0
+
+        # Handle fraction included
         if "+" in sym_op_str:
             op_parts = sym_op_str.split("+")
             for op_part in op_parts:
@@ -58,18 +64,13 @@ class GeneralPositionGenerator:
                     output += self._fraction_str_to_float(op_part)
                 else:
                     sym_op_str = op_part
-        if "x" in sym_op_str:
-            output += x
-        if "y" in sym_op_str:
-            output += y
-        if "z" in sym_op_str:
-            output += z
-        if "-x" in sym_op_str:
-            output -= x
-        if "-y" in sym_op_str:
-            output -= y
-        if "-z" in sym_op_str:
-            output -= z
+
+        if "x" in sym_op_str: output += x
+        if "y" in sym_op_str: output += y
+        if "z" in sym_op_str: output += z
+        if "-x" in sym_op_str: output -= 2 * x
+        if "-y" in sym_op_str: output -= 2 * y
+        if "-z" in sym_op_str: output -= 2 * z
         return output
 
 
