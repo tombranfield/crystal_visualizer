@@ -11,48 +11,6 @@ from crystal_visualizer.cif_reader import CifReader
 CIF_PATH = str( Path(__file__).parents[1] / "data" / "cif_files")
 
 
-"""
-def test_get_correct_atom_site_type_for_copper():
-    cif_reader = CifReader("Cu.cif")
-    atom_site_type = cif_reader._get_atom_site_type()
-    assert atom_site_type == "atom_site_symmetry_multiplicity"
-
-
-def test_get_correct_atom_site_type_for_CaF2():
-    cif_reader = CifReader("CaF2.cif")
-    atom_site_type = cif_reader._get_atom_site_type()
-    assert atom_site_type == "atom_site_refinement_flags_occupancy"
-
-
-def test_get_correct_atom_site_type_for_NaCl():
-    cif_reader = CifReader("NaCl.cif")
-    atom_site_type = cif_reader._get_atom_site_type()
-    assert atom_site_type == "atom_site_calc_flag"
-
-
-def test_get_correct_atom_site_type_for_diamond():
-    cif_reader = CifReader("C.cif")
-    atom_site_type = cif_reader._get_atom_site_type()
-    assert atom_site_type == "atom_site_U_iso_or_equiv"
-
-
-def test_get_correct_atom_site_type_for_spinel():
-    cif_reader = CifReader("MgAl2O4.cif")
-    atom_site_type = cif_reader._get_atom_site_type()
-    assert atom_site_type == "atom_site_calc_flag"
-
-
-def test_get_correct_atom_site_type_for_perovskite():
-    cif_reader = CifReader("SrTiO3.cif")
-    atom_site_type = cif_reader._get_atom_site_type()
-    assert atom_site_type == "atom_site_calc_flag"
-
-
-def test_get_correct_atom_site_type_for_quartz():
-    cif_reader = CifReader("SiO2.cif")
-    atom_site_type = cif_reader._get_atom_site_type()
-    assert atom_site_type == "atom_site_U_iso_or_equiv"
-"""
 
 def test_read_correct_atom_sites_for_copper():
     cif_reader = CifReader("Cu.cif")
