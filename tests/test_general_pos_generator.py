@@ -24,14 +24,14 @@ def cu_general_pos_gen(cu_atoms, cu_sym_ops):
     
 
 def test_can_convert_single_digit_to_float(cu_general_pos_gen):
-    assert cu_general_pos_gen.fraction_str_to_float("3") == 3.0
+    assert cu_general_pos_gen._fraction_str_to_float("3") == 3.0
 
 
 def test_can_convert_fraction_str_to_float(cu_general_pos_gen):
-    assert cu_general_pos_gen.fraction_str_to_float("1/2") == 0.5
-    assert cu_general_pos_gen.fraction_str_to_float("3/4") == 0.75
+    assert cu_general_pos_gen._fraction_str_to_float("1/2") == 0.5
+    assert cu_general_pos_gen._fraction_str_to_float("3/4") == 0.75
 
 
 def test_can_convert_negative_fraction_str_to_float(cu_general_pos_gen):
-    assert cu_general_pos_gen.fraction_str_to_float("-1/2") == -0.5
-    assert cu_general_pos_gen.fraction_str_to_float("-3/4") == -0.75
+    assert cu_general_pos_gen._fraction_str_to_float("-1/2") == -0.5
+    assert cu_general_pos_gen._fraction_str_to_float("-3/4") == -0.75
