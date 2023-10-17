@@ -100,7 +100,6 @@ def test_read_correct_atom_sites_for_spinel():
     assert np.array_equal(cif_reader.atoms[2].position_vector(), np.array([0.3855, 0.3855, 0.3855]))
     
 
-@pytest.mark.skip
 def test_read_correct_atom_sites_for_perovskite():
     cif_reader = CifReader("SrTiO3.cif")
     assert len(cif_reader.atoms) == 3
@@ -202,7 +201,6 @@ def test_generate_correct_lattice_parameters_for_quartz():
     assert cif_reader.lattice_parameters.angle_beta == 90
     assert cif_reader.lattice_parameters.angle_gamma == 120
 
-@pytest.mark.skip
 def test_generate_correct_lattice_parameters_for_perovskite():
     cif_reader = CifReader("SrTiO3.cif")
     assert cif_reader.lattice_parameters.length_a == 3.899
@@ -242,7 +240,6 @@ def test_generate_correct_number_of_symmetry_ops_for_diamond():
     cif_reader = CifReader("C.cif")
     assert len(cif_reader.symmetry_ops) == 192 
 
-@pytest.mark.skip
 def test_generate_correct_number_of_symmetry_ops_for_perovskite():
     cif_reader = CifReader("SrTiO3.cif")
     assert len(cif_reader.symmetry_ops) == 48 
