@@ -27,7 +27,7 @@ class GeneralPositionGenerator:
         orig_atom_pos = self.atom.position_vector()
         atom_positions = []
         # TODO
-        # count = 1
+        count = 1
         for sym_op in self.symmetry_ops:
             x_op, y_op, z_op = sym_op[0], sym_op[1], sym_op[2]
 
@@ -38,8 +38,9 @@ class GeneralPositionGenerator:
             new_z = self._sym_op_str_to_pos(orig_atom_pos, z_op)
             
             new_pos = Position(new_x, new_y, new_z)
+
             #print(count, end=" ")
-            count += 1
+            #count += 1
             #print(sym_op, end=" ")
             #print(new_pos.coods())
             #print()
@@ -53,7 +54,6 @@ class GeneralPositionGenerator:
             # are outside unit cell when generated using the space group 
             # operations, but are inside the unit cell when translated
             trans_new_pos = []
-            trans_new_pos.append(Position(new_pos.x, new_pos.y, new_pos.z))
             trans_new_pos.append(Position(new_pos.x+1, new_pos.y, new_pos.z))
             trans_new_pos.append(Position(new_pos.x, new_pos.y+1, new_pos.z))
             trans_new_pos.append(Position(new_pos.x, new_pos.y, new_pos.z+1))
@@ -64,8 +64,7 @@ class GeneralPositionGenerator:
             for trans_pos in trans_new_pos:
                 if (self._is_pos_in_unit_cell(trans_pos)
                 and trans_pos not in atom_positions):
-                    atom_positions.append(new_pos)
-
+                    atom_positions.append(trans_pos)
 
         # Add edge atoms
         # TODO there is probably a cleaner way to do this
@@ -162,9 +161,9 @@ if __name__ == "__main__":
     ca_atom = cif_reader.atoms[0]
     f_atom = cif_reader.atoms[1]
     sym_ops = cif_reader.symmetry_ops.sym_ops
-    #print("Ca:")
-    #ca_general_positions = GeneralPositionGenerator(ca_atom, sym_ops)
-    #ca_general_positions.generate()
+    print("Ca:")
+    ca_general_positions = GeneralPositionGenerator(ca_atom, sym_ops)
+    ca_general_positions.generate()
     print("F:")
     f_general_positions = GeneralPositionGenerator(f_atom, sym_ops)
     f_general_positions.generate()
