@@ -99,6 +99,7 @@ class CifReader:
                 if line[0] == "_atom_site_label":
                     label = atom_site_index
                     atom_site_index += 1
+                    is_reading = True
                 elif line[0] == "_atom_site_fract_x":
                     fract_x = atom_site_index
                     atom_site_index += 1
@@ -108,8 +109,27 @@ class CifReader:
                 elif line[0] == "_atom_site_fract_z":
                     fract_z = atom_site_index
                     atom_site_index += 1
+                elif line[0][:16] == "_atom_site_aniso":
+                    continue
                 elif line[0][:10] == "_atom_site":
                     atom_site_index += 1
+                if is_reading:
+                    if line[0][:10] == "_atom_site": continue
+                    elif line[0] in ["loop", "loop_"] or line[0][0] == "_":
+                        is_reading = False
+                        continue
+                    # Get the element symbol
+                    element_symbol = line[label]
+                    first_digit_match = re.search(r"\d+", element_symbol)
+                    if first_digit_match:
+                        element_symbol = element_symbol[:first_digit_match.start()]
+                        element_symbol = element_symbol.title()
+                    x = self.__float_from_string_with_brackets(line[fract_x])
+                    y = self.__float_from_string_with_brackets(line[fract_y])
+                    z = self.__float_from_string_with_brackets(line[fract_z])
+                    atom = Atom(element_symbol, x, y, z)
+                    print(element_symbol, x, y, z)
+                    atoms.append(atom)
 
 
     def __get_atoms(self) -> Atom:
@@ -239,7 +259,7 @@ class CifReader:
 
 
 if __name__ == "__main__":
-    cif_reader = CifReader("Cu.cif")
+    cif_reader = CifReader("SrTiO3.cif")
     # print(cif_reader._get_atom_site_type())
     # for sym_op in cif_reader.symmetry_ops.sym_ops:
     #    print(sym_op)
