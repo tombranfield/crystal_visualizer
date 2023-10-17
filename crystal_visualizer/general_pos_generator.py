@@ -20,7 +20,7 @@ class GeneralPositionGenerator:
         self.atom = atom
         self.symmetry_ops = symmetry_ops
 
-    def generate(self) -> Atom:
+    def generate(self) -> Position:
         """
         Output
         """
@@ -89,7 +89,8 @@ class GeneralPositionGenerator:
             if edge_pos not in atom_positions:
                 atom_positions.append(edge_pos)
 
-        self.print_new_pos(atom_positions)
+        # self.print_new_pos(atom_positions)
+        return atom_positions
 
     def _sym_op_str_to_pos(self, orig_atom_pos, sym_op_str) -> float:
         x, y, z = orig_atom_pos[0], orig_atom_pos[1], orig_atom_pos[2]
@@ -133,7 +134,6 @@ class GeneralPositionGenerator:
 
 
 if __name__ == "__main__":
-    """
     # Copper test
     cif_reader = CifReader("Cu.cif")
     atom = cif_reader.atoms[0]
@@ -141,7 +141,12 @@ if __name__ == "__main__":
     print("Cu")
     general_positions = GeneralPositionGenerator(atom, sym_ops)
     general_positions.generate()
+    new_positions = general_positions.generate()
+    for new_pos in new_positions:
+        print(new_pos.coods())
+    print(len(new_positions))
 
+    """
     # NaCl test
     cif_reader = CifReader("NaCl.cif")
     na_atom = cif_reader.atoms[0]
@@ -166,7 +171,7 @@ if __name__ == "__main__":
     f_general_positions = GeneralPositionGenerator(f_atom, sym_ops)
     f_general_positions.generate()
 
-    """
+    
     # Diamond test
     cif_reader = CifReader("C.cif")
     atom = cif_reader.atoms[0]
@@ -175,3 +180,4 @@ if __name__ == "__main__":
     print("C")
     general_positions = GeneralPositionGenerator(atom, sym_ops)
     general_positions.generate()
+    """

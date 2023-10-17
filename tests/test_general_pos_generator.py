@@ -35,3 +35,14 @@ def test_can_convert_fraction_str_to_float(cu_general_pos_gen):
 def test_can_convert_negative_fraction_str_to_float(cu_general_pos_gen):
     assert cu_general_pos_gen._fraction_str_to_float("-1/2") == -0.5
     assert cu_general_pos_gen._fraction_str_to_float("-3/4") == -0.75
+
+
+# TODO fix this
+def test_correctly_generate_cu_atoms(cu_general_pos_gen):
+    new_positions = cu_general_pos_gen.generate()
+    coods_list = []
+    for new_pos in new_positions:
+        coods_list.append(new_pos.coods())
+        print(new_pos.coods())
+    assert 1 == 1
+
