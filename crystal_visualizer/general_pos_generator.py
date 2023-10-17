@@ -29,8 +29,7 @@ class GeneralPositionGenerator:
         atom_positions = []
         # TODO
         # Adjust slicing to choose different parts
-        for sym_op in self.symmetry_ops[:10]:
-            # Grab the symmetry op from the string. This works
+        for sym_op in self.symmetry_ops:
             x_op, y_op, z_op = sym_op[0], sym_op[1], sym_op[2]
 
             # Grab the new cood for each of x,y,z using the
@@ -44,27 +43,19 @@ class GeneralPositionGenerator:
 #            if (self._is_pos_in_unit_cell(new_position)
             print(sym_op, end=" ")
             print(new_position.coods())
+            print()
 
             if new_position not in atom_positions:
                 atom_positions.append(new_position)
 #        self.print_new_pos(atom_positions)
 
-    # TODO this doesn't work - need to parse correctly
     def _sym_op_str_to_pos(self, orig_atom_pos, sym_op_str) -> float:
-        # TODO read negative numbers
-        # TODO read negative numbers with fractions
         x, y, z = orig_atom_pos[0], orig_atom_pos[1], orig_atom_pos[2]
         output = 0.0
-
-        # Handle fraction included
         if "/" in sym_op_str:
-            op_parts = sym_op_str.split("+")
-            for op_part in op_parts:
-                if "/" in op_part:
-                    output += self._fraction_str_to_float(op_part)
-                else:
-                    sym_op_str = op_part
-
+            slash_index = sym_op_str.find("/")
+            fraction = sym_op_str[slash_index-1:slash_index+2]
+            output += self._fraction_str_to_float(fraction)
         if "x" in sym_op_str: output += x
         if "y" in sym_op_str: output += y
         if "z" in sym_op_str: output += z
