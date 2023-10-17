@@ -25,7 +25,6 @@ class GeneralPositionGenerator:
         Output
         """
         orig_atom_pos = self.atom.position_vector()
-        print("orig pos:", orig_atom_pos)
         atom_positions = []
         # TODO
         # Adjust slicing to choose different parts
@@ -39,13 +38,36 @@ class GeneralPositionGenerator:
             new_z = self._sym_op_str_to_pos(orig_atom_pos, z_op)
             
             new_position = Position(new_x, new_y, new_z)
-            # TODO eliminate positions outside unit cell
             #print(sym_op, end=" ")
             #print(new_position.coods())
             #print()
             if (self._is_pos_in_unit_cell(new_position)
                 and new_position not in atom_positions):
                 atom_positions.append(new_position)
+
+        # Add edge atoms
+        # TODO there is probably a cleaner way to do this
+        # But let's generate the correct positions first, then clean
+        edge_positions = []
+        for pos in atom_positions:
+            if pos.x == pos.y == pos.z == 0.0:
+                edge_positions.append(Position(0.0, 0.0, 1.0))
+                edge_positions.append(Position(0.0, 1.0, 0.0))
+                edge_positions.append(Position(0.0, 1.0, 1.0))
+                edge_positions.append(Position(1.0, 0.0, 0.0))
+                edge_positions.append(Position(1.0, 0.0, 1.0))
+                edge_positions.append(Position(1.0, 1.0, 0.0))
+                edge_positions.append(Position(1.0, 1.0, 1.0))
+            if pos.x == 0.0:
+                edge_positions.append(Position(1.0, pos.y, pos.z))
+            if pos.y == 0.0:
+                edge_positions.append(Position(pos.x, 1.0, pos.z))
+            if pos.z == 0.0:
+                edge_positions.append(Position(pos.x, pos.y, 1.0))
+        for edge_pos in edge_positions:
+            if edge_pos not in atom_positions:
+                atom_positions.append(edge_pos)
+
         self.print_new_pos(atom_positions)
 
     def _sym_op_str_to_pos(self, orig_atom_pos, sym_op_str) -> float:
@@ -72,9 +94,9 @@ class GeneralPositionGenerator:
             return float(nom) / float(denom)
 
     def _is_pos_in_unit_cell(self, position):
-        if (position.x < 0 or position.x >= 1.0 or
-            position.y < 0 or position.y >= 1.0 or
-            position.z < 0 or position.z >= 1.0):
+        if (position.x < 0 or position.x > 1.0 or
+            position.y < 0 or position.y > 1.0 or
+            position.z < 0 or position.z > 1.0):
             return False
         return True
 
@@ -90,26 +112,36 @@ class GeneralPositionGenerator:
 
 
 if __name__ == "__main__":
-    """
     # Copper test
     cif_reader = CifReader("Cu.cif")
     atom = cif_reader.atoms[0]
     sym_ops = cif_reader.symmetry_ops.sym_ops
+    print("Cu")
     general_positions = GeneralPositionGenerator(atom, sym_ops)
     general_positions.generate()
+
     """
-    
-
-
     # NaCl test
     cif_reader = CifReader("NaCl.cif")
     na_atom = cif_reader.atoms[0]
     cl_atom = cif_reader.atoms[1]
     sym_ops = cif_reader.symmetry_ops.sym_ops
-
     print("Na:")
     na_general_positions = GeneralPositionGenerator(na_atom, sym_ops)
     na_general_positions.generate()
     print("Cl:")
     cl_general_positions = GeneralPositionGenerator(cl_atom, sym_ops)
     cl_general_positions.generate()
+
+    # CaF2 test
+    cif_reader = CifReader("CaF2.cif")
+    ca_atom = cif_reader.atoms[0]
+    f_atom = cif_reader.atoms[1]
+    sym_ops = cif_reader.symmetry_ops.sym_ops
+    print("Ca:")
+    ca_general_positions = GeneralPositionGenerator(ca_atom, sym_ops)
+    ca_general_positions.generate()
+    print("F:")
+    f_general_positions = GeneralPositionGenerator(f_atom, sym_ops)
+    f_general_positions.generate()
+    """
