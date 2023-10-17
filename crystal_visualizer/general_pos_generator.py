@@ -133,7 +133,7 @@ class GeneralPositionGenerator:
 
 
 if __name__ == "__main__":
-    """
+
     # Copper test
     cif_reader = CifReader("Cu.cif")
     atom = cif_reader.atoms[0]
@@ -142,6 +142,7 @@ if __name__ == "__main__":
     general_positions = GeneralPositionGenerator(atom, sym_ops)
     general_positions.generate()
 
+    """
     # NaCl test
     cif_reader = CifReader("NaCl.cif")
     na_atom = cif_reader.atoms[0]

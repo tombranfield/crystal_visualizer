@@ -136,3 +136,6 @@ dmypy.json
 
 # TODO/ folder
 TODO/
+
+# Fractional coordinates structure files
+.xtl
