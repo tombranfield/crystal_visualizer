@@ -57,7 +57,7 @@ class GeneralPositionGenerator:
         output = 0.0
 
         # Handle fraction included
-        if "+" in sym_op_str:
+        if "/" in sym_op_str:
             op_parts = sym_op_str.split("+")
             for op_part in op_parts:
                 if "/" in op_part:
