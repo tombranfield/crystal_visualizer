@@ -40,14 +40,13 @@ class GeneralPositionGenerator:
             
             new_position = Position(new_x, new_y, new_z)
             # TODO eliminate positions outside unit cell
-#            if (self._is_pos_in_unit_cell(new_position)
-            print(sym_op, end=" ")
-            print(new_position.coods())
-            print()
-
-            if new_position not in atom_positions:
+            #print(sym_op, end=" ")
+            #print(new_position.coods())
+            #print()
+            if (self._is_pos_in_unit_cell(new_position)
+                and new_position not in atom_positions):
                 atom_positions.append(new_position)
-#        self.print_new_pos(atom_positions)
+        self.print_new_pos(atom_positions)
 
     def _sym_op_str_to_pos(self, orig_atom_pos, sym_op_str) -> float:
         x, y, z = orig_atom_pos[0], orig_atom_pos[1], orig_atom_pos[2]
@@ -73,9 +72,9 @@ class GeneralPositionGenerator:
             return float(nom) / float(denom)
 
     def _is_pos_in_unit_cell(self, position):
-        if (position.x >= 1.0 or
-            position.y >= 1.0 or
-            position.z >= 1.0):
+        if (position.x < 0 or position.x >= 1.0 or
+            position.y < 0 or position.y >= 1.0 or
+            position.z < 0 or position.z >= 1.0):
             return False
         return True
 
@@ -108,9 +107,9 @@ if __name__ == "__main__":
     cl_atom = cif_reader.atoms[1]
     sym_ops = cif_reader.symmetry_ops.sym_ops
 
-#    print("Na:")
+    print("Na:")
     na_general_positions = GeneralPositionGenerator(na_atom, sym_ops)
-#    na_general_positions.generate()
+    na_general_positions.generate()
     print("Cl:")
     cl_general_positions = GeneralPositionGenerator(cl_atom, sym_ops)
     cl_general_positions.generate()
