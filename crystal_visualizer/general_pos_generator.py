@@ -134,50 +134,28 @@ class GeneralPositionsGenerator:
 
 
 if __name__ == "__main__":
-    # Copper test
-    cif_reader = CifReader("Cu.cif")
-    atom = cif_reader.atoms[0]
+    # SrTiO3 test
+    cif_reader = CifReader("SrTiO3.cif")
+    Sr_atom = cif_reader.atoms[0]
+    Ti_atom = cif_reader.atoms[1]
+    O_atom = cif_reader.atoms[2]
     sym_ops = cif_reader.symmetry_ops.sym_ops
-    print("Cu")
-    general_positions = GeneralPositionsGenerator(atom, sym_ops)
-    general_positions.generate()
-    new_positions = general_positions.generate()
-    for new_pos in new_positions:
-        print(new_pos.coods())
-    print(len(new_positions))
+    print("SrTiO3")
 
-    """
-    # NaCl test
-    cif_reader = CifReader("NaCl.cif")
-    na_atom = cif_reader.atoms[0]
-    cl_atom = cif_reader.atoms[1]
-    sym_ops = cif_reader.symmetry_ops.sym_ops
-    print("Na:")
-    na_general_positions = GeneralPositionGenerator(na_atom, sym_ops)
-    na_general_positions.generate()
-    print("Cl:")
-    cl_general_positions = GeneralPositionGenerator(cl_atom, sym_ops)
-    cl_general_positions.generate()
+    Sr_pos_gen = GeneralPositionsGenerator(Sr_atom, sym_ops)
+    Sr_positions = Sr_pos_gen.generate()
+    for Sr_pos in Sr_positions:
+        print(Sr_pos.coods())
+    print(len(Sr_positions))
 
-    # CaF2 test
-    cif_reader = CifReader("CaF2.cif")
-    ca_atom = cif_reader.atoms[0]
-    f_atom = cif_reader.atoms[1]
-    sym_ops = cif_reader.symmetry_ops.sym_ops
-    print("Ca:")
-    ca_general_positions = GeneralPositionGenerator(ca_atom, sym_ops)
-    ca_general_positions.generate()
-    print("F:")
-    f_general_positions = GeneralPositionGenerator(f_atom, sym_ops)
-    f_general_positions.generate()
+    Ti_pos_gen = GeneralPositionsGenerator(Ti_atom, sym_ops)
+    Ti_positions = Ti_pos_gen.generate()
+    for Ti_pos in Ti_positions:
+        print(Ti_pos.coods())
+    print(len(Ti_positions))
 
-    
-    # Diamond test
-    cif_reader = CifReader("C.cif")
-    atom = cif_reader.atoms[0]
-    sym_ops = cif_reader.symmetry_ops.sym_ops
-    print(len(sym_ops))
-    print("C")
-    general_positions = GeneralPositionGenerator(atom, sym_ops)
-    general_positions.generate()
-    """
+    O_pos_gen = GeneralPositionsGenerator(O_atom, sym_ops)
+    O_positions = O_pos_gen.generate()
+    for O_pos in O_positions:
+        print(O_pos.coods())
+    print(len(O_positions))

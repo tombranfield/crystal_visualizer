@@ -156,3 +156,28 @@ def test_correctly_generate_CaF2_atom_positions():
     assert [0.25, 0.25, 0.75] in F_coods
     assert [0.25, 0.25, 0.25] in F_coods
     assert [0.75, 0.75, 0.75] in F_coods
+
+
+
+def test_correctly_generate_SrTiO3_atom_positions():
+    cif_reader = CifReader("SrTiO3.cif")
+    Sr_atom = cif_reader.atoms[0]
+    Ti_atom = cif_reader.atoms[1]
+    O_atom = cif_reader.atoms[2]
+    sym_ops = cif_reader.symmetry_ops.sym_ops
+
+    Sr_pos_gen = GeneralPositionsGenerator(Sr_atom, sym_ops)
+    Sr_positions = Sr_pos_gen.generate()
+    Sr_coods = []
+    for Sr_pos in Sr_positions:
+        Sr_coods.append(Sr_pos.coods())
+    Sr_coods = [list(arr) for arr in Sr_coods]
+    assert len(Sr_positions) == 1
+    assert [0.5, 0.5, 0.5] in Sr_coods    
+
+    Ti_pos_gen = GeneralPositionsGenerator(Ti_atom, sym_ops)
+    Ti_positions = Ti_pos_gen.generate()
+
+    O_pos_gen = GeneralPositionsGenerator(O_atom, sym_ops)
+    O_positions = O_pos_gen.generate()
+
