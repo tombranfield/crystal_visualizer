@@ -62,3 +62,16 @@ def test_correctly_generate_cu_atoms():
     assert [0.5, 1.0, 0.5] in new_coods_list
     assert [0.5, 0.5, 0.] in new_coods_list
     assert [0.5, 0.5, 1.] in new_coods_list
+
+
+def test_correctly_generate_NaCl_atoms():
+    cif_reader = CifReader("NaCl.cif")
+    na_atom = cif_reader.atoms[0]
+    cl_atom = cif_reader.atoms[1]
+    sym_ops = cif_reader.symmetry_ops.sym_ops
+    na_general_positions = GeneralPositionsGenerator(na_atom, sym_ops)
+    na_positions = na_general_positions.generate()
+    cl_general_positions = GeneralPositionsGenerator(cl_atom, sym_ops)
+    cl_positions = cl_general_positions.generate()
+    assert len(na_positions) == 14
+    assert len(cl_positions) == 13
