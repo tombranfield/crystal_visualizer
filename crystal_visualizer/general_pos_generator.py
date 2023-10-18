@@ -40,10 +40,16 @@ class GeneralPositionsGenerator:
             new_pos = Position(new_x, new_y, new_z)
 
             #print(count, end=" ")
-            #count += 1
-            #print(sym_op, end=" ")
+            count += 1
+            #print(sym_op)
             #print(new_pos.coods())
-            #print()
+            if new_pos.x < 1: new_pos.x += 1
+            if new_pos.x > 1: new_pos.x -= 1
+            if new_pos.y < 1: new_pos.y += 1
+            if new_pos.y > 1: new_pos.y -= 1
+            if new_pos.z < 1: new_pos.z += 1
+            if new_pos.z > 1: new_pos.z -= 1
+
             if (self._is_pos_in_unit_cell(new_pos)
                 and new_pos not in atom_positions):
                 atom_positions.append(new_pos)
@@ -52,7 +58,9 @@ class GeneralPositionsGenerator:
             # translation
             # This is necessary to handle generated values which
             # are outside unit cell when generated using the space group 
-            # operations, but are inside the unit cell when translated
+            # operations, but are inside the unit cell when translated            
+
+            """
             trans_new_pos = []
             trans_new_pos.append(Position(new_pos.x+1, new_pos.y, new_pos.z))
             trans_new_pos.append(Position(new_pos.x, new_pos.y+1, new_pos.z))
@@ -61,10 +69,23 @@ class GeneralPositionsGenerator:
             trans_new_pos.append(Position(new_pos.x, new_pos.y+1, new_pos.z+1))
             trans_new_pos.append(Position(new_pos.x+1, new_pos.y, new_pos.z+1))
             trans_new_pos.append(Position(new_pos.x+1, new_pos.y+1, new_pos.z+1))
+
+            # TODO new
+            # Translate backwards
+            trans_new_pos.append(Position(new_pos.x-1, new_pos.y, new_pos.z))
+            trans_new_pos.append(Position(new_pos.x, new_pos.y-1, new_pos.z))
+            trans_new_pos.append(Position(new_pos.x, new_pos.y, new_pos.z-1))
+            trans_new_pos.append(Position(new_pos.x-1, new_pos.y-1, new_pos.z))
+            trans_new_pos.append(Position(new_pos.x, new_pos.y-1, new_pos.z-1))
+            trans_new_pos.append(Position(new_pos.x-1, new_pos.y, new_pos.z-1))
+            trans_new_pos.append(Position(new_pos.x-1, new_pos.y-1, new_pos.z-1))
+            
             for trans_pos in trans_new_pos:
                 if (self._is_pos_in_unit_cell(trans_pos)
                 and trans_pos not in atom_positions):
                     atom_positions.append(trans_pos)
+            """
+
 
         # Add edge atoms
         # TODO there is probably a cleaner way to do this
@@ -134,28 +155,32 @@ class GeneralPositionsGenerator:
 
 
 if __name__ == "__main__":
-    # SrTiO3 test
-    cif_reader = CifReader("SrTiO3.cif")
-    Sr_atom = cif_reader.atoms[0]
-    Ti_atom = cif_reader.atoms[1]
+    # MgAl2O4 test
+    cif_reader = CifReader("MgAl2O4.cif")
+    Mg_atom = cif_reader.atoms[0]
+    Al_atom = cif_reader.atoms[1]
     O_atom = cif_reader.atoms[2]
     sym_ops = cif_reader.symmetry_ops.sym_ops
-    print("SrTiO3")
 
-    Sr_pos_gen = GeneralPositionsGenerator(Sr_atom, sym_ops)
-    Sr_positions = Sr_pos_gen.generate()
-    for Sr_pos in Sr_positions:
-        print(Sr_pos.coods())
-    print(len(Sr_positions))
+    print("\nMg")
+    Mg_pos_gen = GeneralPositionsGenerator(Mg_atom, sym_ops)
+    Mg_positions = Mg_pos_gen.generate()
+    for Mg_pos in Mg_positions:
+        print(Mg_pos.coods())
+    print(len(Mg_positions), "(expected: 18)")
 
-    Ti_pos_gen = GeneralPositionsGenerator(Ti_atom, sym_ops)
-    Ti_positions = Ti_pos_gen.generate()
-    for Ti_pos in Ti_positions:
-        print(Ti_pos.coods())
-    print(len(Ti_positions))
+    """
+    print("\nAl")
+    Al_pos_gen = GeneralPositionsGenerator(Al_atom, sym_ops)
+    Al_positions = Al_pos_gen.generate()
+    for Al_pos in Al_positions:
+        print(Al_pos.coods())
+    print(len(Al_positions), "(expected: 16)")
 
+    print("\nO")
     O_pos_gen = GeneralPositionsGenerator(O_atom, sym_ops)
     O_positions = O_pos_gen.generate()
     for O_pos in O_positions:
         print(O_pos.coods())
-    print(len(O_positions))
+    print(len(O_positions), "(expected: 32)")
+    """
