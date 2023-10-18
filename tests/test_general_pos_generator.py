@@ -66,12 +66,50 @@ def test_correctly_generate_cu_atoms():
 
 def test_correctly_generate_NaCl_atoms():
     cif_reader = CifReader("NaCl.cif")
-    na_atom = cif_reader.atoms[0]
-    cl_atom = cif_reader.atoms[1]
+    Na_atom = cif_reader.atoms[0]
+    Cl_atom = cif_reader.atoms[1]
     sym_ops = cif_reader.symmetry_ops.sym_ops
-    na_general_positions = GeneralPositionsGenerator(na_atom, sym_ops)
-    na_positions = na_general_positions.generate()
-    cl_general_positions = GeneralPositionsGenerator(cl_atom, sym_ops)
-    cl_positions = cl_general_positions.generate()
-    assert len(na_positions) == 14
-    assert len(cl_positions) == 13
+    Na_general_positions = GeneralPositionsGenerator(Na_atom, sym_ops)
+    Na_positions = Na_general_positions.generate()
+    assert len(Na_positions) == 14
+    Na_coods= []
+    for Na_pos in Na_positions:
+        Na_coods.append(Na_pos.coods())
+    Na_coods = [list(arr) for arr in Na_coods]
+    assert [0., 0., 0.] in Na_coods
+    assert [0., 0., 1.] in Na_coods
+    assert [0., 1., 0.] in Na_coods
+    assert [0., 1., 1.] in Na_coods
+    assert [1., 0., 0.] in Na_coods
+    assert [1., 0., 1.] in Na_coods
+    assert [1., 1., 0.] in Na_coods
+    assert [1., 1., 1.] in Na_coods
+    assert [0., 0.5, 0.5] in Na_coods
+    assert [1., 0.5, 0.5] in Na_coods
+    assert [0.5, 0., 0.5] in Na_coods
+    assert [0.5, 1., 0.5] in Na_coods
+    assert [0.5, 0.5, 0.] in Na_coods
+    assert [0.5, 0.5, 1.] in Na_coods
+    
+
+
+    Cl_general_positions = GeneralPositionsGenerator(Cl_atom, sym_ops)
+    Cl_positions = Cl_general_positions.generate()
+    assert len(Cl_positions) == 13
+    Cl_coods= []
+    for Cl_pos in Cl_positions:
+        Cl_coods.append(Cl_pos.coods())
+    Cl_coods = [list(arr) for arr in Cl_coods]
+    assert [0.5, 0.5, 0.5] in Cl_coods
+    assert [0.5, 0., 0.] in Cl_coods
+    assert [0.5, 0., 1.] in Cl_coods
+    assert [0.5, 1., 0.] in Cl_coods
+    assert [0.5, 1., 1.] in Cl_coods
+    assert [0., 0.5, 0.] in Cl_coods
+    assert [0., 0.5, 1.] in Cl_coods
+    assert [1., 0.5, 0.] in Cl_coods
+    assert [1., 0.5, 1.] in Cl_coods
+    assert [0., 0., 0.5] in Cl_coods
+    assert [0., 1., 0.5] in Cl_coods
+    assert [1., 0., 0.5] in Cl_coods
+    assert [1., 1., 0.5] in Cl_coods
