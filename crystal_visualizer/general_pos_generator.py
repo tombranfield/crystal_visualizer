@@ -43,11 +43,11 @@ class GeneralPositionsGenerator:
             count += 1
             #print(sym_op)
             #print(new_pos.coods())
-            if new_pos.x < 1: new_pos.x += 1
+            if new_pos.x < 0: new_pos.x += 1
             if new_pos.x > 1: new_pos.x -= 1
-            if new_pos.y < 1: new_pos.y += 1
+            if new_pos.y < 0: new_pos.y += 1
             if new_pos.y > 1: new_pos.y -= 1
-            if new_pos.z < 1: new_pos.z += 1
+            if new_pos.z < 0: new_pos.z += 1
             if new_pos.z > 1: new_pos.z -= 1
 
             if (self._is_pos_in_unit_cell(new_pos)
@@ -169,7 +169,6 @@ if __name__ == "__main__":
         print(Mg_pos.coods())
     print(len(Mg_positions), "(expected: 18)")
 
-    """
     print("\nAl")
     Al_pos_gen = GeneralPositionsGenerator(Al_atom, sym_ops)
     Al_positions = Al_pos_gen.generate()
@@ -183,4 +182,3 @@ if __name__ == "__main__":
     for O_pos in O_positions:
         print(O_pos.coods())
     print(len(O_positions), "(expected: 32)")
-    """
