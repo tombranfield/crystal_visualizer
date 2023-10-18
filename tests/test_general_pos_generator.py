@@ -317,3 +317,24 @@ def test_correctly_generate_MgAl2O4_atom_positions():
     assert [0.8855, 0.8855, 0.3855] in O_coods
     assert [0.3645, 0.3645, 0.8645] in O_coods
 
+
+
+def test_correctly_generate_diamond_atom_positions():
+    cif_reader = CifReader("C.cif")
+    c_atom = cif_reader.atoms[0]
+    sym_ops = cif_reader.symmetry_ops.sym_ops
+    general_positions = GeneralPositionsGenerator(c_atom, sym_ops)
+    new_positions = general_positions.generate()
+    new_coods_list = []
+    for new_pos in new_positions:
+        new_coods_list.append(new_pos.coods())
+    new_coods_list = [list(arr) for arr in new_coods_list]
+    assert len(new_coods_list) == 8
+    assert [0.125, 0.125, 0.125] in new_coods_list
+    assert [0.375, 0.375, 0.875] in new_coods_list
+    assert [0.875, 0.375, 0.375] in new_coods_list
+    assert [0.375, 0.875, 0.375] in new_coods_list
+    assert [0.125, 0.625, 0.625] in new_coods_list
+    assert [0.625, 0.125, 0.625] in new_coods_list
+    assert [0.625, 0.625, 0.125] in new_coods_list
+    assert [0.875, 0.875, 0.875] in new_coods_list

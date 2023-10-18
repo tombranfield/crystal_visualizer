@@ -161,8 +161,8 @@ class GeneralPositionsGenerator:
 
 
 if __name__ == "__main__":
-    # MgAl2O4 test
-    cif_reader = CifReader("new_C.cif")
+
+    cif_reader = CifReader("C.cif")
     C_atom = cif_reader.atoms[0]
     sym_ops = cif_reader.symmetry_ops.sym_ops
 
