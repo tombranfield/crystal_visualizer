@@ -37,7 +37,7 @@ def test_can_convert_negative_fraction_str_to_float(cu_general_pos_gen):
     assert cu_general_pos_gen._fraction_str_to_float("-3/4") == -0.75
 
 
-def test_correctly_generate_cu_atoms():
+def test_correctly_generate_Cu_atom_positions():
     cif_reader = CifReader("Cu.cif")
     cu_atom = cif_reader.atoms[0]
     sym_ops = cif_reader.symmetry_ops.sym_ops
@@ -64,7 +64,7 @@ def test_correctly_generate_cu_atoms():
     assert [0.5, 0.5, 1.] in new_coods_list
 
 
-def test_correctly_generate_NaCl_atoms():
+def test_correctly_generate_NaCl_atom_positions():
     cif_reader = CifReader("NaCl.cif")
     Na_atom = cif_reader.atoms[0]
     Cl_atom = cif_reader.atoms[1]
@@ -91,8 +91,6 @@ def test_correctly_generate_NaCl_atoms():
     assert [0.5, 0.5, 0.] in Na_coods
     assert [0.5, 0.5, 1.] in Na_coods
     
-
-
     Cl_general_positions = GeneralPositionsGenerator(Cl_atom, sym_ops)
     Cl_positions = Cl_general_positions.generate()
     assert len(Cl_positions) == 13
@@ -113,3 +111,48 @@ def test_correctly_generate_NaCl_atoms():
     assert [0., 1., 0.5] in Cl_coods
     assert [1., 0., 0.5] in Cl_coods
     assert [1., 1., 0.5] in Cl_coods
+
+
+
+
+def test_correctly_generate_CaF2_atom_positions():
+    cif_reader = CifReader("CaF2.cif")
+    Ca_atom = cif_reader.atoms[0]
+    F_atom = cif_reader.atoms[1]
+    sym_ops = cif_reader.symmetry_ops.sym_ops
+    Ca_general_positions = GeneralPositionsGenerator(Ca_atom, sym_ops)
+    Ca_positions = Ca_general_positions.generate()
+    assert len(Ca_positions) == 13
+    Ca_coods= []
+    for Ca_pos in Ca_positions:
+        Ca_coods.append(Ca_pos.coods())
+    Ca_coods = [list(arr) for arr in Ca_coods]
+    assert [0.5, 0.5, 0.5] in Ca_coods
+    assert [0.5, 0., 0.] in Ca_coods
+    assert [0.5, 0., 1.] in Ca_coods
+    assert [0.5, 1., 0.] in Ca_coods
+    assert [0.5, 1., 1.] in Ca_coods
+    assert [0., 0.5, 0.] in Ca_coods
+    assert [0., 0.5, 1.] in Ca_coods
+    assert [1., 0.5, 0.] in Ca_coods
+    assert [1., 0.5, 1.] in Ca_coods
+    assert [0., 0., 0.5] in Ca_coods
+    assert [0., 1., 0.5] in Ca_coods
+    assert [1., 0., 0.5] in Ca_coods
+    assert [1., 1., 0.5] in Ca_coods
+
+    F_general_positions = GeneralPositionsGenerator(F_atom, sym_ops)
+    F_positions = F_general_positions.generate()
+    assert len(F_positions) == 8
+    F_coods= []
+    for F_pos in F_positions:
+        F_coods.append(F_pos.coods())
+    F_coods = [list(arr) for arr in F_coods]
+    assert [0.25, 0.75, 0.75] in F_coods
+    assert [0.75, 0.25, 0.25] in F_coods
+    assert [0.75, 0.25, 0.75] in F_coods
+    assert [0.25, 0.75, 0.25] in F_coods
+    assert [0.75, 0.75, 0.25] in F_coods
+    assert [0.25, 0.25, 0.75] in F_coods
+    assert [0.25, 0.25, 0.25] in F_coods
+    assert [0.75, 0.75, 0.75] in F_coods
