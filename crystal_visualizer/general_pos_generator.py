@@ -162,29 +162,14 @@ class GeneralPositionsGenerator:
 
 if __name__ == "__main__":
     # MgAl2O4 test
-    cif_reader = CifReader("MgAl2O4.cif")
-    Mg_atom = cif_reader.atoms[0]
-    Al_atom = cif_reader.atoms[1]
-    O_atom = cif_reader.atoms[2]
+    cif_reader = CifReader("new_C.cif")
+    C_atom = cif_reader.atoms[0]
     sym_ops = cif_reader.symmetry_ops.sym_ops
 
-    print("\nMg")
-    Mg_pos_gen = GeneralPositionsGenerator(Mg_atom, sym_ops)
-    Mg_positions = Mg_pos_gen.generate()
-    for Mg_pos in Mg_positions:
-        print(Mg_pos.coods())
-    print(len(Mg_positions), "(expected: 18)")
+    print("\nC")
+    C_pos_gen = GeneralPositionsGenerator(C_atom, sym_ops)
+    C_positions = C_pos_gen.generate()
+    for C_pos in C_positions:
+        print(C_pos.coods())
+    print(len(C_positions), "(expected: 8)")
 
-    print("\nAl")
-    Al_pos_gen = GeneralPositionsGenerator(Al_atom, sym_ops)
-    Al_positions = Al_pos_gen.generate()
-    for Al_pos in Al_positions:
-        print(Al_pos.coods())
-    print(len(Al_positions), "(expected: 16)")
-
-    print("\nO")
-    O_pos_gen = GeneralPositionsGenerator(O_atom, sym_ops)
-    O_positions = O_pos_gen.generate()
-    for O_pos in O_positions:
-        print(O_pos.coods())
-    print(len(O_positions), "(expected: 32)")

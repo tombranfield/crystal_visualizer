@@ -44,7 +44,7 @@ def test_read_correct_atom_sites_for_diamond():
     cif_reader = CifReader("C.cif")
     assert len(cif_reader.atoms) == 1
     assert cif_reader.atoms[0].symbol == "C"
-    assert np.array_equal(cif_reader.atoms[0].position_vector(), np.array([0.96, 0.96, 0.96]))
+    assert np.array_equal(cif_reader.atoms[0].position_vector(), np.array([0.125, 0.125, 0.125]))
    
 
 def test_read_correct_atom_sites_for_spinel():
@@ -132,9 +132,9 @@ def test_generate_correct_lattice_parameters_for_CaF2():
 
 def test_generate_correct_lattice_parameters_for_diamond():
     cif_reader = CifReader("C.cif")
-    assert cif_reader.lattice_parameters.length_a == 3.54
-    assert cif_reader.lattice_parameters.length_b == 3.54
-    assert cif_reader.lattice_parameters.length_c == 3.54
+    assert cif_reader.lattice_parameters.length_a == 3.566636
+    assert cif_reader.lattice_parameters.length_b == 3.566636
+    assert cif_reader.lattice_parameters.length_c == 3.566636
     assert cif_reader.lattice_parameters.angle_alpha == 90
     assert cif_reader.lattice_parameters.angle_beta == 90
     assert cif_reader.lattice_parameters.angle_gamma == 90
