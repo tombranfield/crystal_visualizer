@@ -230,6 +230,45 @@ def test_correctly_generate_MgAl2O4_atom_positions():
     Mg_coods = [list(arr) for arr in Mg_coods]
     assert len(Mg_positions) == 18
     assert [0., 0., 0.] in Mg_coods    
+    assert [0., 0., 1.] in Mg_coods
+    assert [0., 1., 0.] in Mg_coods
+    assert [0., 1., 1.] in Mg_coods
+    assert [1., 0., 0.] in Mg_coods
+    assert [1., 0., 1.] in Mg_coods
+    assert [1., 1., 0.] in Mg_coods
+    assert [1., 1., 1.] in Mg_coods
+    assert [0., 0.5, 0.5] in Mg_coods
+    assert [1., 0.5, 0.5] in Mg_coods
+    assert [0.5, 0.5, 0.] in Mg_coods
+    assert [0.5, 0.5, 1.] in Mg_coods
+    assert [0.5, 0., 0.5] in Mg_coods
+    assert [0.5, 1., 0.5] in Mg_coods
+    assert [0.75, 0.25, 0.75] in Mg_coods
+    assert [0.25, 0.25, 0.25] in Mg_coods
+    assert [0.25, 0.75, 0.75] in Mg_coods
+    assert [0.75, 0.75, 0.25] in Mg_coods
 
-
-
+    Al_pos_gen = GeneralPositionsGenerator(Al_atom, sym_ops)
+    Al_positions = Al_pos_gen.generate()
+    Al_coods = []
+    for Al_pos in Al_positions:
+        Al_coods.append(Al_pos.coods())
+    Al_coods = [list(arr) for arr in Al_coods]
+    assert len(Al_positions) == 16
+    assert [0.625, 0.625, 0.625] in Al_coods    
+    assert [0.625, 0.625, 0.625] in Al_coods
+    assert [0.375, 0.875, 0.125] in Al_coods
+    assert [0.875, 0.125, 0.375] in Al_coods
+    assert [0.125, 0.375, 0.875] in Al_coods
+    assert [0.875, 0.375, 0.125] in Al_coods
+    assert [0.375, 0.125, 0.875] in Al_coods
+    assert [0.125, 0.875, 0.375] in Al_coods
+    assert [0.625, 0.125, 0.125] in Al_coods
+    assert [0.375, 0.375, 0.625] in Al_coods
+    assert [0.875, 0.625, 0.875] in Al_coods
+    assert [0.875, 0.875, 0.625] in Al_coods
+    assert [0.375, 0.625, 0.375] in Al_coods
+    assert [0.125, 0.625, 0.125] in Al_coods
+    assert [0.625, 0.375, 0.375] in Al_coods
+    assert [0.625, 0.875, 0.875] in Al_coods
+    assert [0.125, 0.125, 0.625] in Al_coods
