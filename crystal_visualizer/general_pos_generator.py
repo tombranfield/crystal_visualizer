@@ -7,7 +7,7 @@ from crystal_visualizer.position import Position
 from crystal_visualizer.space_group_symmetry_ops import SpaceGroupSymOps
 
 
-class GeneralPositionGenerator:
+class GeneralPositionsGenerator:
     """
     Generate a set of general positions given some starting atoms
     and a set of symmetry operations.
@@ -139,7 +139,7 @@ if __name__ == "__main__":
     atom = cif_reader.atoms[0]
     sym_ops = cif_reader.symmetry_ops.sym_ops
     print("Cu")
-    general_positions = GeneralPositionGenerator(atom, sym_ops)
+    general_positions = GeneralPositionsGenerator(atom, sym_ops)
     general_positions.generate()
     new_positions = general_positions.generate()
     for new_pos in new_positions:
