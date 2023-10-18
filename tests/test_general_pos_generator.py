@@ -212,7 +212,6 @@ def test_correctly_generate_SrTiO3_atom_positions():
     assert [1., 1., 0.5] in O_coods
 
 
-
 def test_correctly_generate_MgAl2O4_atom_positions():
     cif_reader = CifReader("MgAl2O4.cif")
 
@@ -272,3 +271,49 @@ def test_correctly_generate_MgAl2O4_atom_positions():
     assert [0.625, 0.375, 0.375] in Al_coods
     assert [0.625, 0.875, 0.875] in Al_coods
     assert [0.125, 0.125, 0.625] in Al_coods
+
+    O_pos_gen = GeneralPositionsGenerator(O_atom, sym_ops)
+    O_positions = O_pos_gen.generate()
+    O_coods = []
+    for O_pos in O_positions:
+        O_coods.append(O_pos.coods())
+    O_coods = [list(arr) for arr in O_coods]
+    for tup in O_coods:
+        tup[0] = round(tup[0], 4)
+        tup[1] = round(tup[1], 4)
+        tup[2] = round(tup[2], 4)
+    print(O_coods)
+    assert len(O_positions) == 32
+    assert [0.3855, 0.3855, 0.3855] in O_coods
+    assert [0.6145, 0.1145, 0.8855] in O_coods
+    assert [0.1145, 0.8855, 0.6145] in O_coods
+    assert [0.8855, 0.6145, 0.1145] in O_coods
+    assert [0.1355, 0.6355, 0.3645] in O_coods
+    assert [0.8645, 0.8645, 0.8645] in O_coods
+    assert [0.6355, 0.3645, 0.1355] in O_coods
+    assert [0.3645, 0.1355, 0.6355] in O_coods
+    assert [0.6355, 0.1355, 0.3645] in O_coods
+    assert [0.1355, 0.3645, 0.6355] in O_coods  
+    assert [0.3645, 0.6355, 0.1355] in O_coods
+    assert [0.1145, 0.6145, 0.8855] in O_coods
+    assert [0.6145, 0.8855, 0.1145] in O_coods
+    assert [0.8855, 0.1145, 0.6145] in O_coods
+    assert [0.3855, 0.8855, 0.8855] in O_coods
+    assert [0.6145, 0.6145, 0.3855] in O_coods
+    assert [0.1145, 0.3855, 0.1145] in O_coods
+    assert [0.1355, 0.1355, 0.8645] in O_coods
+    assert [0.8645, 0.3645, 0.3645] in O_coods
+    assert [0.6355, 0.8645, 0.6355] in O_coods
+    assert [0.6355, 0.6355, 0.8645] in O_coods
+    assert [0.1355, 0.8645, 0.1355] in O_coods
+    assert [0.1145, 0.1145, 0.3855] in O_coods
+    assert [0.6145, 0.3855, 0.6145] in O_coods
+    assert [0.8855, 0.3855, 0.8855] in O_coods
+    assert [0.3855, 0.6145, 0.6145] in O_coods
+    assert [0.3645, 0.8645, 0.3645] in O_coods
+    assert [0.8645, 0.1355, 0.1355] in O_coods
+    assert [0.8645, 0.6355, 0.6355] in O_coods
+    assert [0.3855, 0.1145, 0.1145] in O_coods
+    assert [0.8855, 0.8855, 0.3855] in O_coods
+    assert [0.3645, 0.3645, 0.8645] in O_coods
+
