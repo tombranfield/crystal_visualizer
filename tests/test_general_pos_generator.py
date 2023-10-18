@@ -158,7 +158,6 @@ def test_correctly_generate_CaF2_atom_positions():
     assert [0.75, 0.75, 0.75] in F_coods
 
 
-
 def test_correctly_generate_SrTiO3_atom_positions():
     cif_reader = CifReader("SrTiO3.cif")
     Sr_atom = cif_reader.atoms[0]
@@ -197,6 +196,7 @@ def test_correctly_generate_SrTiO3_atom_positions():
     for O_pos in O_positions:
         O_coods.append(O_pos.coods())
     O_coods = [list(arr) for arr in O_coods]
+    print(O_coods)
     assert len(O_positions) == 12
     assert [0.5, 0., 0.] in O_coods
     assert [0.5, 0., 1.] in O_coods
@@ -210,4 +210,26 @@ def test_correctly_generate_SrTiO3_atom_positions():
     assert [0., 1., 0.5] in O_coods
     assert [1., 0., 0.5] in O_coods
     assert [1., 1., 0.5] in O_coods
+
+
+
+def test_correctly_generate_MgAl2O4_atom_positions():
+    cif_reader = CifReader("MgAl2O4.cif")
+
+    # TODO rewrite below
+    Mg_atom = cif_reader.atoms[0]
+    Al_atom = cif_reader.atoms[1]
+    O_atom = cif_reader.atoms[2]
+    sym_ops = cif_reader.symmetry_ops.sym_ops
+
+    Mg_pos_gen = GeneralPositionsGenerator(Mg_atom, sym_ops)
+    Mg_positions = Mg_pos_gen.generate()
+    Mg_coods = []
+    for Mg_pos in Mg_positions:
+        Mg_coods.append(Mg_pos.coods())
+    Mg_coods = [list(arr) for arr in Mg_coods]
+    assert len(Mg_positions) == 18
+    assert [0., 0., 0.] in Mg_coods    
+
+
 

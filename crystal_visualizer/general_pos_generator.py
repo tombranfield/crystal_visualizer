@@ -100,6 +100,13 @@ class GeneralPositionsGenerator:
                 edge_positions.append(Position(1.0, 0.0, 1.0))
                 edge_positions.append(Position(1.0, 1.0, 0.0))
                 edge_positions.append(Position(1.0, 1.0, 1.0))
+            if pos.x == pos.y == 0.0:
+                edge_positions.append(Position(1.0, 1.0, pos.z))
+            if pos.x == pos.z == 0.0:
+                edge_positions.append(Position(1.0, pos.y, 1.0))
+            if pos.y == pos.z == 0.0:
+                edge_positions.append(Position(pos.x, 1.0, 1.0))
+
             if pos.x == 0.0:
                 edge_positions.append(Position(1.0, pos.y, pos.z))
             if pos.y == 0.0:
