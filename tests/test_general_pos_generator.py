@@ -177,7 +177,37 @@ def test_correctly_generate_SrTiO3_atom_positions():
 
     Ti_pos_gen = GeneralPositionsGenerator(Ti_atom, sym_ops)
     Ti_positions = Ti_pos_gen.generate()
+    Ti_coods = []
+    for Ti_pos in Ti_positions:
+        Ti_coods.append(Ti_pos.coods())
+    Ti_coods = [list(arr) for arr in Ti_coods]
+    assert len(Ti_positions) == 8
+    assert [0., 0., 0.] in Ti_coods
+    assert [0., 0., 1.] in Ti_coods
+    assert [0., 1., 0.] in Ti_coods
+    assert [0., 1., 1.] in Ti_coods
+    assert [1., 0., 0.] in Ti_coods
+    assert [1., 0., 1.] in Ti_coods
+    assert [1., 1., 0.] in Ti_coods
+    assert [1., 1., 1.] in Ti_coods
 
     O_pos_gen = GeneralPositionsGenerator(O_atom, sym_ops)
     O_positions = O_pos_gen.generate()
+    O_coods = []
+    for O_pos in O_positions:
+        O_coods.append(O_pos.coods())
+    O_coods = [list(arr) for arr in O_coods]
+    assert len(O_positions) == 12
+    assert [0.5, 0., 0.] in O_coods
+    assert [0.5, 0., 1.] in O_coods
+    assert [0.5, 1., 0.] in O_coods
+    assert [0.5, 1., 1.] in O_coods
+    assert [0., 0.5, 0.] in O_coods
+    assert [0., 0.5, 1.] in O_coods
+    assert [1., 0.5, 0.] in O_coods
+    assert [1., 0.5, 1.] in O_coods
+    assert [0., 0., 0.5] in O_coods
+    assert [0., 1., 0.5] in O_coods
+    assert [1., 0., 0.5] in O_coods
+    assert [1., 1., 0.5] in O_coods
 
