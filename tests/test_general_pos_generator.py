@@ -5,19 +5,27 @@ import pytest
 
 from crystal_visualizer.cif_reader import CifReader
 from crystal_visualizer.general_pos_generator import GeneralPositionsGenerator
-
+from crystal_visualizer.position import Position
 
 
 def generate_and_test_pos(atom, sym_ops, expected_positions):
     pos_gen = GeneralPositionsGenerator(atom, sym_ops)
     gen_positions = pos_gen.generate_positions()
-    gen_coods = []
-    for gen_pos in gen_positions:
-        gen_coods.append(gen_pos.coods())
-    gen_coods = [list(arr) for arr in gen_coods]
-    assert len(gen_coods) == len(expected_positions)
+    assert len(gen_positions) == len(expected_positions)
     for expected_pos in expected_positions:
-        assert expected_pos in gen_coods
+        expected_pos = Position(expected_pos[0], expected_pos[1], expected_pos[2])
+        assert is_position_in_position_list(expected_pos, gen_positions)
+
+
+def is_position_in_position_list(position, positions_list):
+    tol = 0.0001
+    for existing_pos in positions_list:
+        if (abs(position.x - existing_pos.x) <= tol and
+            abs(position.y - existing_pos.y) <= tol and
+            abs(position.z - existing_pos.z) <= tol
+        ):
+            return True
+    return False
 
 
 @pytest.fixture
@@ -226,3 +234,25 @@ def test_generate_correct_quartz_atom_positions():
 
     generate_and_test_pos(Si_atom, sym_ops, expected_Si_positions)
     generate_and_test_pos(O_atom, sym_ops, expected_O_positions)
+
+
+def test_generate_correct_YBCO_atom_positions():
+    cif_reader = CifReader("YBa2Cu3O7-x.cif")
+    Y_atom = cif_reader.atoms[0]
+    Ba_atom = cif_reader.atoms[1]
+    Cu_atom = cif_reader.atoms[2]
+    O_atom = cif_reader.atoms[3]
+    sym_ops = cif_reader.symmetry_ops.sym_ops
+
+    expected_Y_positions = [[0.5, 0.5, 0.5]]
+
+    expected_Ba_positions = [
+        [0.5, 0.5, 0.1839],  [0.5, 0.5, 0.8161]
+    ]
+
+
+    generate_and_test_pos(Y_atom, sym_ops, expected_Y_positions)
+    generate_and_test_pos(Ba_atom, sym_ops, expected_Ba_positions)
+    #generate_and_test_pos(Y_atom, sym_ops, expected_Y_positions)
+    #generate_and_test_pos(Y_atom, sym_ops, expected_Y_positions)
+        
