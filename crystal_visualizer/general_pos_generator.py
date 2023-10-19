@@ -20,8 +20,6 @@ class GeneralPositionsGenerator:
         self.atom = atom
         self.symmetry_ops = symmetry_ops
 
-
-#    def generate(self) -> Position:
     def generate_positions(self) -> Position:
         """
         Output
@@ -144,10 +142,6 @@ class GeneralPositionsGenerator:
         for new_pos in new_pos_array:
             print(new_pos.coods())
         print(len(new_pos_array))
-
-
-    def remove_duplicate_pos(self, new_pos_array):
-        pass
 
 
 if __name__ == "__main__":

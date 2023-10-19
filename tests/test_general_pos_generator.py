@@ -357,17 +357,21 @@ def test_generate_correct_quartz_atom_positions():
     assert len(O_positions) == 6
     assert [0.4130, 0.2711, 0.2172] in O_coods    
     assert [0.7289, 0.1419, 0.5505] in O_coods
+    assert [0.8581, 0.5870, 0.8839] in O_coods
+    assert [0.2711, 0.4130, 0.7828] in O_coods
+    assert [0.1419, 0.7289, 0.4495] in O_coods
+    assert [0.5870, 0.8581, 0.1161] in O_coods
 
-
-"""
-O            0.858100   0.587000   0.883867
-O            0.271100   0.413000   0.782800
-O            0.141900   0.728900   0.449467
-O            0.587000   0.858100   0.116133
-Si           0.467300   0.000000   0.333333
-Si           0.467300   1.000000   0.333333
-Si           0.000000   0.467300   0.666667
-Si           1.000000   0.467300   0.666667
-Si           0.532700   0.532700   0.000000
-Si           0.532700   0.532700   1.000000
-"""
+    Si_pos_gen = GeneralPositionsGenerator(Si_atom, sym_ops)
+    Si_positions = Si_pos_gen.generate_positions()
+    Si_coods = []
+    for Si_pos in Si_positions:
+        Si_coods.append(Si_pos.coods())
+    Si_coods = [list(arr) for arr in Si_coods]
+    assert len(Si_positions) == 6
+    assert [0.4673, 0.0000, 0.3333] in Si_coods
+    assert [0.4673, 1.0000, 0.3333] in Si_coods
+    assert [0.0000, 0.4673, 0.6666] in Si_coods
+    assert [1.0000, 0.4673, 0.6666] in Si_coods
+    assert [0.5327, 0.5327, 0.0000] in Si_coods
+    assert [0.5327, 0.5327, 1.0000] in Si_coods
