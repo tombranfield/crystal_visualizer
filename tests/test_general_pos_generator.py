@@ -7,6 +7,19 @@ from crystal_visualizer.cif_reader import CifReader
 from crystal_visualizer.general_pos_generator import GeneralPositionsGenerator
 
 
+
+def generate_and_test_pos(atom, sym_ops, expected_positions):
+    pos_gen = GeneralPositionsGenerator(atom, sym_ops)
+    gen_positions = pos_gen.generate_positions()
+    gen_coods = []
+    for gen_pos in gen_positions:
+        gen_coods.append(gen_pos.coods())
+    gen_coods = [list(arr) for arr in gen_coods]
+    assert len(gen_coods) == len(expected_positions)
+    for expected_pos in expected_positions:
+        assert expected_pos in gen_coods
+
+
 @pytest.fixture
 def cu_atoms():
     cif_reader = CifReader("Cu.cif")
@@ -348,6 +361,14 @@ def test_generate_correct_quartz_atom_positions():
     Si_atom = cif_reader.atoms[1]
     sym_ops = cif_reader.symmetry_ops.sym_ops
 
+    expected_O_positions = [
+        [0.4130, 0.2711, 0.2172], [0.7289, 0.1419, 0.5505],
+        [0.8581, 0.5870, 0.8839], [0.2711, 0.4130, 0.7828],
+        [0.1419, 0.7289, 0.4495], [0.5870, 0.8581, 0.1161],
+    ]
+    generate_and_test_pos(O_atom, sym_ops, expected_O_positions)
+
+    """
     O_pos_gen = GeneralPositionsGenerator(O_atom, sym_ops)
     O_positions = O_pos_gen.generate_positions()
     O_coods = []
@@ -361,6 +382,7 @@ def test_generate_correct_quartz_atom_positions():
     assert [0.2711, 0.4130, 0.7828] in O_coods
     assert [0.1419, 0.7289, 0.4495] in O_coods
     assert [0.5870, 0.8581, 0.1161] in O_coods
+    """
 
     Si_pos_gen = GeneralPositionsGenerator(Si_atom, sym_ops)
     Si_positions = Si_pos_gen.generate_positions()
