@@ -9,7 +9,7 @@ from crystal_visualizer.space_group_symmetry_ops import SpaceGroupSymOps
 
 class GeneralPositionsGenerator:
     """
-    Generate a set of general positions given some starting atoms
+    Generate a set of general positions given an atom 
     and a set of symmetry operations.
 
     In:
@@ -20,7 +20,9 @@ class GeneralPositionsGenerator:
         self.atom = atom
         self.symmetry_ops = symmetry_ops
 
-    def generate(self) -> Position:
+
+#    def generate(self) -> Position:
+    def generate_positions(self) -> Position:
         """
         Output
         """
@@ -59,7 +61,6 @@ class GeneralPositionsGenerator:
         except ValueError:
             nom, denom = fraction_str.split("/")
             return float(nom) / float(denom)
-
 
 
     def _generate_new_pos(self, orig_pos, sym_op):

@@ -42,7 +42,7 @@ def test_correctly_generate_Cu_atom_positions():
     cu_atom = cif_reader.atoms[0]
     sym_ops = cif_reader.symmetry_ops.sym_ops
     general_positions = GeneralPositionsGenerator(cu_atom, sym_ops)
-    new_positions = general_positions.generate()
+    new_positions = general_positions.generate_positions()
     new_coods_list = []
     for new_pos in new_positions:
         new_coods_list.append(new_pos.coods())
@@ -70,7 +70,7 @@ def test_correctly_generate_NaCl_atom_positions():
     Cl_atom = cif_reader.atoms[1]
     sym_ops = cif_reader.symmetry_ops.sym_ops
     Na_general_positions = GeneralPositionsGenerator(Na_atom, sym_ops)
-    Na_positions = Na_general_positions.generate()
+    Na_positions = Na_general_positions.generate_positions()
     assert len(Na_positions) == 14
     Na_coods= []
     for Na_pos in Na_positions:
@@ -92,7 +92,7 @@ def test_correctly_generate_NaCl_atom_positions():
     assert [0.5, 0.5, 1.] in Na_coods
     
     Cl_general_positions = GeneralPositionsGenerator(Cl_atom, sym_ops)
-    Cl_positions = Cl_general_positions.generate()
+    Cl_positions = Cl_general_positions.generate_positions()
     assert len(Cl_positions) == 13
     Cl_coods= []
     for Cl_pos in Cl_positions:
@@ -121,7 +121,7 @@ def test_correctly_generate_CaF2_atom_positions():
     F_atom = cif_reader.atoms[1]
     sym_ops = cif_reader.symmetry_ops.sym_ops
     Ca_general_positions = GeneralPositionsGenerator(Ca_atom, sym_ops)
-    Ca_positions = Ca_general_positions.generate()
+    Ca_positions = Ca_general_positions.generate_positions()
     assert len(Ca_positions) == 13
     Ca_coods= []
     for Ca_pos in Ca_positions:
@@ -142,7 +142,7 @@ def test_correctly_generate_CaF2_atom_positions():
     assert [1., 1., 0.5] in Ca_coods
 
     F_general_positions = GeneralPositionsGenerator(F_atom, sym_ops)
-    F_positions = F_general_positions.generate()
+    F_positions = F_general_positions.generate_positions()
     assert len(F_positions) == 8
     F_coods= []
     for F_pos in F_positions:
@@ -166,7 +166,7 @@ def test_correctly_generate_SrTiO3_atom_positions():
     sym_ops = cif_reader.symmetry_ops.sym_ops
 
     Sr_pos_gen = GeneralPositionsGenerator(Sr_atom, sym_ops)
-    Sr_positions = Sr_pos_gen.generate()
+    Sr_positions = Sr_pos_gen.generate_positions()
     Sr_coods = []
     for Sr_pos in Sr_positions:
         Sr_coods.append(Sr_pos.coods())
@@ -175,7 +175,7 @@ def test_correctly_generate_SrTiO3_atom_positions():
     assert [0.5, 0.5, 0.5] in Sr_coods    
 
     Ti_pos_gen = GeneralPositionsGenerator(Ti_atom, sym_ops)
-    Ti_positions = Ti_pos_gen.generate()
+    Ti_positions = Ti_pos_gen.generate_positions()
     Ti_coods = []
     for Ti_pos in Ti_positions:
         Ti_coods.append(Ti_pos.coods())
@@ -191,7 +191,7 @@ def test_correctly_generate_SrTiO3_atom_positions():
     assert [1., 1., 1.] in Ti_coods
 
     O_pos_gen = GeneralPositionsGenerator(O_atom, sym_ops)
-    O_positions = O_pos_gen.generate()
+    O_positions = O_pos_gen.generate_positions()
     O_coods = []
     for O_pos in O_positions:
         O_coods.append(O_pos.coods())
@@ -222,7 +222,7 @@ def test_correctly_generate_MgAl2O4_atom_positions():
     sym_ops = cif_reader.symmetry_ops.sym_ops
 
     Mg_pos_gen = GeneralPositionsGenerator(Mg_atom, sym_ops)
-    Mg_positions = Mg_pos_gen.generate()
+    Mg_positions = Mg_pos_gen.generate_positions()
     Mg_coods = []
     for Mg_pos in Mg_positions:
         Mg_coods.append(Mg_pos.coods())
@@ -248,7 +248,7 @@ def test_correctly_generate_MgAl2O4_atom_positions():
     assert [0.75, 0.75, 0.25] in Mg_coods
 
     Al_pos_gen = GeneralPositionsGenerator(Al_atom, sym_ops)
-    Al_positions = Al_pos_gen.generate()
+    Al_positions = Al_pos_gen.generate_positions()
     Al_coods = []
     for Al_pos in Al_positions:
         Al_coods.append(Al_pos.coods())
@@ -273,7 +273,7 @@ def test_correctly_generate_MgAl2O4_atom_positions():
     assert [0.125, 0.125, 0.625] in Al_coods
 
     O_pos_gen = GeneralPositionsGenerator(O_atom, sym_ops)
-    O_positions = O_pos_gen.generate()
+    O_positions = O_pos_gen.generate_positions()
     O_coods = []
     for O_pos in O_positions:
         O_coods.append(O_pos.coods())
@@ -324,7 +324,7 @@ def test_correctly_generate_diamond_atom_positions():
     c_atom = cif_reader.atoms[0]
     sym_ops = cif_reader.symmetry_ops.sym_ops
     general_positions = GeneralPositionsGenerator(c_atom, sym_ops)
-    new_positions = general_positions.generate()
+    new_positions = general_positions.generate_positions()
     new_coods_list = []
     for new_pos in new_positions:
         new_coods_list.append(new_pos.coods())
@@ -349,7 +349,7 @@ def test_generate_correct_quartz_atom_positions():
     sym_ops = cif_reader.symmetry_ops.sym_ops
 
     O_pos_gen = GeneralPositionsGenerator(O_atom, sym_ops)
-    O_positions = O_pos_gen.generate()
+    O_positions = O_pos_gen.generate_positions()
     O_coods = []
     for O_pos in O_positions:
         O_coods.append(O_pos.coods())
