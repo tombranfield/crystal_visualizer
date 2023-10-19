@@ -146,22 +146,33 @@ class GeneralPositionsGenerator:
 
 if __name__ == "__main__":
 
-    cif_reader = CifReader("SiO2.cif")
 
-    O_atom = cif_reader.atoms[0]
-    Si_atom = cif_reader.atoms[1]
+    cif_reader = CifReader("YBa2Cu3O7-x.cif")
+    Y_atom = cif_reader.atoms[0]
+    Ba_atom = cif_reader.atoms[1]
+    Cu_atom_1 = cif_reader.atoms[2]
+    Cu_atom_2 = cif_reader.atoms[3]
+    O_atom = cif_reader.atoms[4]
+    O_atom = cif_reader.atoms[5]
+    O_atom = cif_reader.atoms[6]
+    O_atom = cif_reader.atoms[7]
     sym_ops = cif_reader.symmetry_ops.sym_ops
 
-    print("\nSi")
-    Si_pos_gen = GeneralPositionsGenerator(Si_atom, sym_ops)
-    Si_positions = Si_pos_gen.generate()
-    for Si_pos in Si_positions:
-        print(Si_pos.coods())
-    print(len(Si_positions), "(expected: 6)")
 
-    print("\nO")
-    O_pos_gen = GeneralPositionsGenerator(O_atom, sym_ops)
-    O_positions = O_pos_gen.generate()
-    for O_pos in O_positions:
-        print(O_pos.coods())
-    print(len(O_positions), "(expected: 6)")
+    for atom in cif_reader.atoms:
+        print(atom.symbol)
+        print(atom.position_vector())
+
+    print("\nCu 1")
+    pos_gen = GeneralPositionsGenerator(Cu_atom_1, sym_ops)
+    positions = pos_gen.generate_positions()
+    for pos in positions:
+        print(pos.coods())
+    print(len(positions))
+
+    print("\nCu 2")
+    pos_gen = GeneralPositionsGenerator(Cu_atom_2, sym_ops)
+    positions = pos_gen.generate_positions()
+    for pos in positions:
+        print(pos.coods())
+    print(len(positions))
