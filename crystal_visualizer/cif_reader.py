@@ -1,3 +1,5 @@
+#TODO refactor this module
+
 """
 The crystallographic information file (CIF) is the standard archival format
 for storing the information of crystal structures.
