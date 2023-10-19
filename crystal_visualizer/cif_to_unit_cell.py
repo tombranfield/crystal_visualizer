@@ -27,8 +27,8 @@ def cif_to_unit_cell(cif_filename) -> UnitCell:
 
 if __name__ == "__main__":
     cif_file = "Cu.cif"
-    unit_cell = CifToUnitCell(cif_file)
-
+    unit_cell = cif_to_unit_cell(cif_file)
+    unit_cell.print_info()
 
 
 

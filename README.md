@@ -1,7 +1,8 @@
 # crystal_visualizer
 
-A program for examining crystal structures
+A program for generating and examining crystal structures
 
-Load .cif files
-Display crystal structure
-Calculate bond lengths and angles
+The program loads a .cif file, parses it, then uses space group 
+information to generate the crystal structure using symmetry. Bond
+lengths and angle are calculated using metric tensor methods with 
+numpy and the final structure is displayed using matplotlib.

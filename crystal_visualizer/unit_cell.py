@@ -14,3 +14,9 @@ class UnitCell:
                  lattice_parameters: LatticeParameters):
         self.atoms = atoms_list
         self.lattice_parameters = LatticeParameters
+
+    def print_info(self):
+        for atom in self.atoms:
+            print(atom.symbol, atom.position_vector())
+        for lattice_parameter in self.lattice_parameters:
+            print(lattice_parameter)
