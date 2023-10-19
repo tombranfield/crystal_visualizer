@@ -8,13 +8,16 @@ from crystal_visualizer.general_pos_generator import GeneralPositionsGenerator
 from crystal_visualizer.position import Position
 
 
-def generate_and_test_pos(atom, sym_ops, expected_positions):
+def generate_pos(atom, sym_ops):
     pos_gen = GeneralPositionsGenerator(atom, sym_ops)
-    gen_positions = pos_gen.generate_positions()
-    assert len(gen_positions) == len(expected_positions)
-    for expected_pos in expected_positions:
-        expected_pos = Position(expected_pos[0], expected_pos[1], expected_pos[2])
+    return pos_gen.generate_positions()
+
+
+def check_generated_positions(gen_positions, expected_coods):
+    for expected_cood in expected_coods:
+        expected_pos = Position(expected_cood[0], expected_cood[1], expected_cood[2])
         assert is_position_in_position_list(expected_pos, gen_positions)
+
 
 
 def is_position_in_position_list(position, positions_list):
@@ -70,8 +73,8 @@ def test_correctly_generate_Cu_atom_positions():
         [1.0, 0.5, 0.5], [0.5, 0., 0.5], [0.5, 1.0, 0.5],
         [0.5, 0.5, 0.],  [0.5, 0.5, 1.] 
     ]
-
-    generate_and_test_pos(Cu_atom, sym_ops, expected_Cu_positions)
+    generated_Cu_positions = generate_pos(Cu_atom, sym_ops)
+    check_generated_positions(generated_Cu_positions, expected_Cu_positions)
 
 
 def test_correctly_generate_NaCl_atom_positions():
@@ -95,8 +98,14 @@ def test_correctly_generate_NaCl_atom_positions():
         [1., 1., 0.5]
     ]
 
-    generate_and_test_pos(Na_atom, sym_ops, expected_Na_positions)
-    generate_and_test_pos(Cl_atom, sym_ops, expected_Cl_positions)
+    generated_Na_positions = generate_pos(Na_atom, sym_ops)
+    generated_Cl_positions = generate_pos(Cl_atom, sym_ops)
+
+    check_generated_positions(generated_Na_positions, expected_Na_positions)
+    check_generated_positions(generated_Cl_positions, expected_Cl_positions)
+
+
+
 
 
 
@@ -120,8 +129,13 @@ def test_correctly_generate_CaF2_atom_positions():
         [0.25, 0.25, 0.25], [0.75, 0.75, 0.75]
     ]
 
-    generate_and_test_pos(Ca_atom, sym_ops, expected_Ca_positions)
-    generate_and_test_pos(F_atom, sym_ops, expected_F_positions)
+    generated_Ca_positions = generate_pos(Ca_atom, sym_ops)
+    generated_F_positions = generate_pos(F_atom, sym_ops)
+
+    check_generated_positions(generated_Ca_positions, expected_Ca_positions)
+    check_generated_positions(generated_F_positions, expected_F_positions)
+
+
 
 
 def test_correctly_generate_SrTiO3_atom_positions():
@@ -144,9 +158,17 @@ def test_correctly_generate_SrTiO3_atom_positions():
         [0., 1., 0.5], [1., 0., 0.5], [1., 1., 0.5]
     ]
 
-    generate_and_test_pos(Sr_atom, sym_ops, expected_Sr_positions)
-    generate_and_test_pos(Ti_atom, sym_ops, expected_Ti_positions)
-    generate_and_test_pos(O_atom, sym_ops, expected_O_positions)
+    generated_Sr_positions = generate_pos(Sr_atom, sym_ops)
+    generated_Ti_positions = generate_pos(Ti_atom, sym_ops)
+    generated_O_positions = generate_pos(O_atom, sym_ops)
+
+    check_generated_positions(generated_Sr_positions, expected_Sr_positions)
+    check_generated_positions(generated_Ti_positions, expected_Ti_positions)
+    check_generated_positions(generated_O_positions, expected_O_positions)
+
+
+
+
 
 
 def test_correctly_generate_MgAl2O4_atom_positions():
@@ -193,9 +215,15 @@ def test_correctly_generate_MgAl2O4_atom_positions():
         [0.8855, 0.8855, 0.3855], [0.3645, 0.3645, 0.8645]
     ]
 
-    generate_and_test_pos(Mg_atom, sym_ops, expected_Mg_positions)
-    generate_and_test_pos(Al_atom, sym_ops, expected_Al_positions)
-    generate_and_test_pos(O_atom, sym_ops, expected_O_positions)
+    generated_Mg_positions = generate_pos(Mg_atom, sym_ops)
+    generated_Al_positions = generate_pos(Al_atom, sym_ops)
+    generated_O_positions = generate_pos(O_atom, sym_ops)
+
+    check_generated_positions(generated_Mg_positions, expected_Mg_positions)
+    check_generated_positions(generated_Al_positions, expected_Al_positions)
+    check_generated_positions(generated_O_positions, expected_O_positions)
+
+
 
 
 
@@ -211,7 +239,10 @@ def test_correctly_generate_diamond_atom_positions():
         [0.625, 0.625, 0.125], [0.875, 0.875, 0.875]
     ]
 
-    generate_and_test_pos(C_atom, sym_ops, expected_C_positions)
+    generated_C_positions = generate_pos(C_atom, sym_ops)
+
+    check_generated_positions(generated_C_positions, expected_C_positions)
+
 
 
 
@@ -232,16 +263,23 @@ def test_generate_correct_quartz_atom_positions():
         [0.5327, 0.5327, 0.0000], [0.5327, 0.5327, 1.0000],
     ]
 
-    generate_and_test_pos(Si_atom, sym_ops, expected_Si_positions)
-    generate_and_test_pos(O_atom, sym_ops, expected_O_positions)
+    generated_Si_positions = generate_pos(Si_atom, sym_ops)
+    generated_O_positions = generate_pos(O_atom, sym_ops)
+
+    check_generated_positions(generated_Si_positions, expected_Si_positions)
+    check_generated_positions(generated_O_positions, expected_O_positions)
 
 
 def test_generate_correct_YBCO_atom_positions():
     cif_reader = CifReader("YBa2Cu3O7-x.cif")
     Y_atom = cif_reader.atoms[0]
     Ba_atom = cif_reader.atoms[1]
-    Cu_atom = cif_reader.atoms[2]
-    O_atom = cif_reader.atoms[3]
+    Cu_atom_1 = cif_reader.atoms[2]
+    Cu_atom_2 = cif_reader.atoms[3]
+    O_atom_1 = cif_reader.atoms[4]
+    O_atom_2 = cif_reader.atoms[5]
+    O_atom_3 = cif_reader.atoms[6]
+    O_atom_4 = cif_reader.atoms[7]
     sym_ops = cif_reader.symmetry_ops.sym_ops
 
     expected_Y_positions = [[0.5, 0.5, 0.5]]
@@ -274,8 +312,21 @@ def test_generate_correct_YBCO_atom_positions():
         [1.0000, 0.0000, 0.8416], [1.0000, 1.0000, 0.8416],
     ]
 
-    generate_and_test_pos(Y_atom, sym_ops, expected_Y_positions)
-    generate_and_test_pos(Ba_atom, sym_ops, expected_Ba_positions)
-    generate_and_test_pos(Cu_atom, sym_ops, expected_Cu_positions)
-    generate_and_test_pos(O_atom, sym_ops, expected_O_positions)
-        
+    generated_Y_positions = generate_pos(Y_atom, sym_ops)
+    generated_Ba_positions = generate_pos(Ba_atom, sym_ops)
+
+    generated_Cu_positions = []
+    for atom in [Cu_atom_1, Cu_atom_2]:
+        generated_pos = generate_pos(atom, sym_ops)
+        generated_Cu_positions.extend(generated_pos)
+
+    generated_O_positions = []
+    for atom in [O_atom_1, O_atom_2, O_atom_3, O_atom_4]:
+        generated_pos = generate_pos(atom, sym_ops)
+        generated_O_positions.extend(generated_pos)
+
+    check_generated_positions(generated_Y_positions, expected_Y_positions)
+    check_generated_positions(generated_Ba_positions, expected_Ba_positions)
+    check_generated_positions(generated_Cu_positions, expected_Cu_positions)
+    check_generated_positions(generated_O_positions, expected_O_positions)
+
