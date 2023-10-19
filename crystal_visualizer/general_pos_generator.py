@@ -42,13 +42,20 @@ class GeneralPositionsGenerator:
             #print(count, end=" ")
             count += 1
             #print(sym_op)
-            #print(new_pos.coods())
             if new_pos.x < 0: new_pos.x += 1
             if new_pos.x > 1: new_pos.x -= 1
             if new_pos.y < 0: new_pos.y += 1
             if new_pos.y > 1: new_pos.y -= 1
             if new_pos.z < 0: new_pos.z += 1
             if new_pos.z > 1: new_pos.z -= 1
+
+            # Round results 
+            new_pos.x = round(new_pos.x, 3)
+            new_pos.y = round(new_pos.y, 3)
+            new_pos.z = round(new_pos.z, 3)
+
+            #print(new_pos.coods())
+
 
             if (self._is_pos_in_unit_cell(new_pos)
                 and new_pos not in atom_positions):
@@ -59,33 +66,6 @@ class GeneralPositionsGenerator:
             # This is necessary to handle generated values which
             # are outside unit cell when generated using the space group 
             # operations, but are inside the unit cell when translated            
-
-            """
-            trans_new_pos = []
-            trans_new_pos.append(Position(new_pos.x+1, new_pos.y, new_pos.z))
-            trans_new_pos.append(Position(new_pos.x, new_pos.y+1, new_pos.z))
-            trans_new_pos.append(Position(new_pos.x, new_pos.y, new_pos.z+1))
-            trans_new_pos.append(Position(new_pos.x+1, new_pos.y+1, new_pos.z))
-            trans_new_pos.append(Position(new_pos.x, new_pos.y+1, new_pos.z+1))
-            trans_new_pos.append(Position(new_pos.x+1, new_pos.y, new_pos.z+1))
-            trans_new_pos.append(Position(new_pos.x+1, new_pos.y+1, new_pos.z+1))
-
-            # TODO new
-            # Translate backwards
-            trans_new_pos.append(Position(new_pos.x-1, new_pos.y, new_pos.z))
-            trans_new_pos.append(Position(new_pos.x, new_pos.y-1, new_pos.z))
-            trans_new_pos.append(Position(new_pos.x, new_pos.y, new_pos.z-1))
-            trans_new_pos.append(Position(new_pos.x-1, new_pos.y-1, new_pos.z))
-            trans_new_pos.append(Position(new_pos.x, new_pos.y-1, new_pos.z-1))
-            trans_new_pos.append(Position(new_pos.x-1, new_pos.y, new_pos.z-1))
-            trans_new_pos.append(Position(new_pos.x-1, new_pos.y-1, new_pos.z-1))
-            
-            for trans_pos in trans_new_pos:
-                if (self._is_pos_in_unit_cell(trans_pos)
-                and trans_pos not in atom_positions):
-                    atom_positions.append(trans_pos)
-            """
-
 
         # Add edge atoms
         # TODO there is probably a cleaner way to do this
@@ -114,6 +94,8 @@ class GeneralPositionsGenerator:
                 edge_positions.append(Position(pos.x, pos.y, 1.0))
         for edge_pos in edge_positions:
             if edge_pos not in atom_positions:
+                #TODO
+                print("Added", edge_pos.x, edge_pos.y, edge_pos.z)
                 atom_positions.append(edge_pos)
 
         # self.print_new_pos(atom_positions)
@@ -162,14 +144,22 @@ class GeneralPositionsGenerator:
 
 if __name__ == "__main__":
 
-    cif_reader = CifReader("C.cif")
-    C_atom = cif_reader.atoms[0]
+    cif_reader = CifReader("SiO2.cif")
+
+    O_atom = cif_reader.atoms[0]
+    Si_atom = cif_reader.atoms[1]
     sym_ops = cif_reader.symmetry_ops.sym_ops
 
-    print("\nC")
-    C_pos_gen = GeneralPositionsGenerator(C_atom, sym_ops)
-    C_positions = C_pos_gen.generate()
-    for C_pos in C_positions:
-        print(C_pos.coods())
-    print(len(C_positions), "(expected: 8)")
+    print("\nSi")
+    Si_pos_gen = GeneralPositionsGenerator(Si_atom, sym_ops)
+    Si_positions = Si_pos_gen.generate()
+    for Si_pos in Si_positions:
+        print(Si_pos.coods())
+    print(len(Si_positions), "(expected: 6)")
 
+    print("\nO")
+    O_pos_gen = GeneralPositionsGenerator(O_atom, sym_ops)
+    O_positions = O_pos_gen.generate()
+    for O_pos in O_positions:
+        print(O_pos.coods())
+    print(len(O_positions), "(expected: 6)")
