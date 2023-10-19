@@ -3,7 +3,6 @@
 
 from crystal_visualizer.atom import Atom
 from crystal_visualizer.lattice_parameters import LatticeParameters
-from crystal_visualizer.space_group import SpaceGroup
 
 
 class UnitCell:

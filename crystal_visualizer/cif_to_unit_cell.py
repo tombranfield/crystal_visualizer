@@ -1,17 +1,34 @@
 """cif_to_unit_cell.py"""
 
 
+from crystal_visualizer.atom import Atom
 from crystal_visualizer.cif_reader import CifReader
+from crystal_visualizer.general_pos_generator import GeneralPositionsGenerator
+from crystal_visualizer.unit_cell import UnitCell
 
 
-class CifToUnitCell:
+def CifToUnitCell(cif_filename) -> UnitCell:
     """
     Takes a cif and generates a unit cell
     """
-    def __init__(self, cif_file):
-        self._cif_file = cif_file
-        cif_reader = CifReader(self._cif_file)
-        cif_atoms = cif_reader.atoms
-        symmetry_ops = cif_reader.symmetry_ops
+    cif_reader = CifReader(cif_filename)
+    cif_atoms = cif_reader.atoms
+    symmetry_ops = cif_reader.symmetry_ops.sym_ops
+    atoms = []
+    for atom in cif_atoms:
+        pos_gen = GeneralPositionsGenerator(atom, symmetry_ops)
+        gen_positions = pos_gen.generate_positions()
+        for gen_pos in gen_positions:
+            atoms.append(Atom(atom.symbol, gen_pos.x, gen_pos.y, gen_pos.z))
+    unit_cell = UnitCell(atoms, cif_reader.lattice_parameters)
+    return unit_cell
 
-    def unit_cell(self):
+
+
+if __name__ == "__main__":
+    cif_file = "Cu.cif"
+    unit_cell = CifToUnitCell(cif_file)
+
+
+
+
