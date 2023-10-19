@@ -338,3 +338,21 @@ def test_correctly_generate_diamond_atom_positions():
     assert [0.625, 0.125, 0.625] in new_coods_list
     assert [0.625, 0.625, 0.125] in new_coods_list
     assert [0.875, 0.875, 0.875] in new_coods_list
+
+
+
+def test_generate_correct_quartz_atom_positions():
+    cif_reader = CifReader("SiO2.cif")
+
+    O_atom = cif_reader.atoms[0]
+    Si_atom = cif_reader.atoms[1]
+    sym_ops = cif_reader.symmetry_ops.sym_ops
+
+    O_pos_gen = GeneralPositionsGenerator(O_atom, sym_ops)
+    O_positions = O_pos_gen.generate()
+    O_coods = []
+    for O_pos in O_positions:
+        O_coods.append(O_pos.coods())
+    O_coods = [list(arr) for arr in O_coods]
+    assert len(O_positions) == 18
+    assert [0.413, 0.271, 0.2172] in O_coods    
