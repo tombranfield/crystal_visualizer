@@ -7,7 +7,7 @@ from crystal_visualizer.general_pos_generator import GeneralPositionsGenerator
 from crystal_visualizer.unit_cell import UnitCell
 
 
-def CifToUnitCell(cif_filename) -> UnitCell:
+def cif_to_unit_cell(cif_filename) -> UnitCell:
     """
     Takes a cif and generates a unit cell
     """
