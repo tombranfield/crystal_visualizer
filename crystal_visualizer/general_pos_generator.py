@@ -45,15 +45,7 @@ class GeneralPositionsGenerator:
             count += 1
             #print(sym_op)
 
-            # Replace with translate_into_unit_cell()
-            if new_pos.x < 0: new_pos.x += 1
-            if new_pos.x > 1: new_pos.x -= 1
-            if new_pos.y < 0: new_pos.y += 1
-            if new_pos.y > 1: new_pos.y -= 1
-            if new_pos.z < 0: new_pos.z += 1
-            if new_pos.z > 1: new_pos.z -= 1
-
-            # Round Position
+            new_pos = self._translate_pos_into_unit_cell(new_pos)
             new_pos = self._round_position(new_pos, 4)
 
             if (self._is_pos_in_unit_cell(new_pos)
@@ -125,13 +117,14 @@ class GeneralPositionsGenerator:
 
 
     def _translate_pos_into_unit_cell(self, position):
+        new_pos = position
         if new_pos.x < 0: new_pos.x += 1
         if new_pos.x > 1: new_pos.x -= 1
         if new_pos.y < 0: new_pos.y += 1
         if new_pos.y > 1: new_pos.y -= 1
         if new_pos.z < 0: new_pos.z += 1
         if new_pos.z > 1: new_pos.z -= 1
-
+        return new_pos
 
 
     def _round_position(self, position, num_dp):
