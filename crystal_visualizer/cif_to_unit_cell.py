@@ -14,4 +14,4 @@ class CifToUnitCell:
         cif_atoms = cif_reader.atoms
         symmetry_ops = cif_reader.symmetry_ops
 
-    def generate_atoms(self):
+    def unit_cell(self):
