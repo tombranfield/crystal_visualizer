@@ -30,50 +30,12 @@ class GeneralPositionsGenerator:
             new_pos = self._generate_new_pos(orig_pos, sym_op)
             new_pos = self._translate_pos_into_unit_cell(new_pos)
             new_pos = self._round_position(new_pos, 4)
-
             if (self._is_pos_in_unit_cell(new_pos)
                 and not self._is_pos_already_generated(new_pos, atom_positions)):
                 atom_positions.append(new_pos)
-
-            # For the generated position, make new positions by
-            # translation
-            # This is necessary to handle generated values which
-            # are outside unit cell when generated using the space group 
-            # operations, but are inside the unit cell when translated            
-
-        # Add edge atoms
-        # TODO there is probably a cleaner way to do this
-        # But let's generate the correct positions first, then clean
-        edge_positions = []
-        for pos in atom_positions:
-            if pos.x == pos.y == pos.z == 0.0:
-                edge_positions.append(Position(0.0, 0.0, 1.0))
-                edge_positions.append(Position(0.0, 1.0, 0.0))
-                edge_positions.append(Position(0.0, 1.0, 1.0))
-                edge_positions.append(Position(1.0, 0.0, 0.0))
-                edge_positions.append(Position(1.0, 0.0, 1.0))
-                edge_positions.append(Position(1.0, 1.0, 0.0))
-                edge_positions.append(Position(1.0, 1.0, 1.0))
-            if pos.x == pos.y == 0.0:
-                edge_positions.append(Position(1.0, 1.0, pos.z))
-            if pos.x == pos.z == 0.0:
-                edge_positions.append(Position(1.0, pos.y, 1.0))
-            if pos.y == pos.z == 0.0:
-                edge_positions.append(Position(pos.x, 1.0, 1.0))
-            if pos.x == 0.0:
-                edge_positions.append(Position(1.0, pos.y, pos.z))
-            if pos.y == 0.0:
-                edge_positions.append(Position(pos.x, 1.0, pos.z))
-            if pos.z == 0.0:
-                edge_positions.append(Position(pos.x, pos.y, 1.0))
-        for edge_pos in edge_positions:
-            if edge_pos not in atom_positions:
-                #TODO
-                print("Added", edge_pos.x, edge_pos.y, edge_pos.z)
-                atom_positions.append(edge_pos)
-
-        # self.print_new_pos(atom_positions)
+        self._generate_edge_pos(atom_positions)
         return atom_positions
+
 
     def _sym_op_str_to_pos(self, orig_atom_pos, sym_op_str) -> float:
         x, y, z = orig_atom_pos[0], orig_atom_pos[1], orig_atom_pos[2]
@@ -145,6 +107,36 @@ class GeneralPositionsGenerator:
             ):
                 return True
         return False
+
+
+    def _generate_edge_pos(self, atom_positions):
+        #TODO simplify
+        edge_positions = []
+        for pos in atom_positions:
+            if pos.x == pos.y == pos.z == 0.0:
+                edge_positions.append(Position(0.0, 0.0, 1.0))
+                edge_positions.append(Position(0.0, 1.0, 0.0))
+                edge_positions.append(Position(0.0, 1.0, 1.0))
+                edge_positions.append(Position(1.0, 0.0, 0.0))
+                edge_positions.append(Position(1.0, 0.0, 1.0))
+                edge_positions.append(Position(1.0, 1.0, 0.0))
+                edge_positions.append(Position(1.0, 1.0, 1.0))
+            if pos.x == pos.y == 0.0:
+                edge_positions.append(Position(1.0, 1.0, pos.z))
+            if pos.x == pos.z == 0.0:
+                edge_positions.append(Position(1.0, pos.y, 1.0))
+            if pos.y == pos.z == 0.0:
+                edge_positions.append(Position(pos.x, 1.0, 1.0))
+            if pos.x == 0.0:
+                edge_positions.append(Position(1.0, pos.y, pos.z))
+            if pos.y == 0.0:
+                edge_positions.append(Position(pos.x, 1.0, pos.z))
+            if pos.z == 0.0:
+                edge_positions.append(Position(pos.x, pos.y, 1.0))
+        for edge_pos in edge_positions:
+            if edge_pos not in atom_positions:
+                atom_positions.append(edge_pos)
+
 
     
     def print_new_pos(self, new_pos_array):
