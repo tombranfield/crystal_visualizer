@@ -24,27 +24,10 @@ class GeneralPositionsGenerator:
         """
         Output
         """
-        orig_atom_pos = self.atom.position_vector()
+        orig_pos = self.atom.position_vector()
         atom_positions = []
-        # TODO
-        count = 1
         for sym_op in self.symmetry_ops:
-            x_op, y_op, z_op = sym_op[0], sym_op[1], sym_op[2]
-
-            # Grab the new cood for each of x,y,z using the
-            # parsing method. This needs fixing
-
-            # replace with new_position(orig, sym_ops)
-            new_x = self._sym_op_str_to_pos(orig_atom_pos, x_op)
-            new_y = self._sym_op_str_to_pos(orig_atom_pos, y_op)
-            new_z = self._sym_op_str_to_pos(orig_atom_pos, z_op)
-            
-            new_pos = Position(new_x, new_y, new_z)
-
-            #print(count, end=" ")
-            count += 1
-            #print(sym_op)
-
+            new_pos = self._generate_new_pos(orig_pos, sym_op)
             new_pos = self._translate_pos_into_unit_cell(new_pos)
             new_pos = self._round_position(new_pos, 4)
 
@@ -114,6 +97,16 @@ class GeneralPositionsGenerator:
         except ValueError:
             nom, denom = fraction_str.split("/")
             return float(nom) / float(denom)
+
+
+
+    def _generate_new_pos(self, orig_pos, sym_op):
+        x_op, y_op, z_op = sym_op[0], sym_op[1], sym_op[2]
+        new_x = self._sym_op_str_to_pos(orig_pos, x_op)
+        new_y = self._sym_op_str_to_pos(orig_pos, y_op)
+        new_z = self._sym_op_str_to_pos(orig_pos, z_op)
+        new_pos = Position(new_x, new_y, new_z)
+        return new_pos
 
 
     def _translate_pos_into_unit_cell(self, position):
