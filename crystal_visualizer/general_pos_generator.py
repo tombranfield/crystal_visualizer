@@ -53,23 +53,8 @@ class GeneralPositionsGenerator:
             if new_pos.z < 0: new_pos.z += 1
             if new_pos.z > 1: new_pos.z -= 1
 
-            # Round results 
-            # replace with round_position()
-            #new_pos.x = round(new_pos.x, 3)
-            #new_pos.y = round(new_pos.y, 3)
-            #new_pos.z = round(new_pos.z, 3)
-
-            #print(new_pos.coods())
-
-            # new_pos in atom_positions is key phrase
-            # let's remove the rounding
-            # but only add if outside some tolerance
-
-            """
-            if (self._is_pos_in_unit_cell(new_pos)
-                and new_pos not in atom_positions):
-                atom_positions.append(new_pos)
-            """
+            # Round Position
+            new_pos = self._round_position(new_pos, 4)
 
             if (self._is_pos_in_unit_cell(new_pos)
                 and not self._is_pos_already_generated(new_pos, atom_positions)):
@@ -138,12 +123,31 @@ class GeneralPositionsGenerator:
             nom, denom = fraction_str.split("/")
             return float(nom) / float(denom)
 
+
+    def _translate_pos_into_unit_cell(self, position):
+        if new_pos.x < 0: new_pos.x += 1
+        if new_pos.x > 1: new_pos.x -= 1
+        if new_pos.y < 0: new_pos.y += 1
+        if new_pos.y > 1: new_pos.y -= 1
+        if new_pos.z < 0: new_pos.z += 1
+        if new_pos.z > 1: new_pos.z -= 1
+
+
+
+    def _round_position(self, position, num_dp):
+        new_x = round(position.x, num_dp)
+        new_y = round(position.y, num_dp)
+        new_z = round(position.z, num_dp)
+        return Position(new_x, new_y, new_z)
+
+
     def _is_pos_in_unit_cell(self, position):
         if (position.x < 0 or position.x > 1.0 or
             position.y < 0 or position.y > 1.0 or
             position.z < 0 or position.z > 1.0):
             return False
         return True
+
 
     def _is_pos_already_generated(self, new_pos, atom_positions):
         tol = 0.0001

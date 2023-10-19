@@ -354,5 +354,20 @@ def test_generate_correct_quartz_atom_positions():
     for O_pos in O_positions:
         O_coods.append(O_pos.coods())
     O_coods = [list(arr) for arr in O_coods]
-    assert len(O_positions) == 18
-    assert [0.413, 0.271, 0.2172] in O_coods    
+    assert len(O_positions) == 6
+    assert [0.4130, 0.2711, 0.2172] in O_coods    
+    assert [0.7289, 0.1419, 0.5505] in O_coods
+
+
+"""
+O            0.858100   0.587000   0.883867
+O            0.271100   0.413000   0.782800
+O            0.141900   0.728900   0.449467
+O            0.587000   0.858100   0.116133
+Si           0.467300   0.000000   0.333333
+Si           0.467300   1.000000   0.333333
+Si           0.000000   0.467300   0.666667
+Si           1.000000   0.467300   0.666667
+Si           0.532700   0.532700   0.000000
+Si           0.532700   0.532700   1.000000
+"""
