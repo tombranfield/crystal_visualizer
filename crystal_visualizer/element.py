@@ -138,7 +138,7 @@ elements = {
     "Pr": ElementProperties(59, "Pr", "praesodymium", 2.47, "#FCE105"),
     "Nd": ElementProperties(60, "Nd", "neodymium", 2.06, "#FB8D06"),
     "Pm": ElementProperties(61, "Pm", "promethium", 2.05, "#0000F4"),
-    "Sm": ElementProperties(62, "Sm", "samarium", 2.38), "#FC067D")
+    "Sm": ElementProperties(62, "Sm", "samarium", 2.38, "#FC067D"),
     "Eu": ElementProperties(63, "Eu", "europium", 2.31, "#FA07D5"),
     "Gd": ElementProperties(64, "Gd", "gadolinium", 2.33, "#C003FF"),
     "Tb": ElementProperties(65, "Tb", "terbium", 2.25, "#7104FE"),
