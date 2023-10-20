@@ -63,36 +63,36 @@ class Element:
             raise ValueError("Not a valid chemical element symbol")
 
 
-ElementProperties = namedtuple("Element", ["atomic_number", "symbol", "name", "atomic_radius"])
+ElementProperties = namedtuple("Element", ["atomic_number", "symbol", "name", "atomic_radius", "colour_code"])
 
 elements = {
     # Period 1
-    "H": ElementProperties(1, "H", "hydrogen", 0.53),
-    "He": ElementProperties(2, "He", "helium", 0.31),
+    "H": ElementProperties(1, "H", "hydrogen", 0.53, "#FFCCCC"),
+    "He": ElementProperties(2, "He", "helium", 0.31, "#FCE8CE"),
 
     # Period 2
-    "Li": ElementProperties(3, "Li", "lithium", 1.67),
-    "Be": ElementProperties(4, "Be", "beryllium", 1.12),
-    "B": ElementProperties(5, "B", "boron", 0.87),
-    "C": ElementProperties(6, "C", "carbon", 0.67),
-    "N": ElementProperties(7, "N", "nitrogen", 0.56),
-    "O": ElementProperties(8, "O", "oxygen", 0.58),
-    "F": ElementProperties(9, "F", "fluorine", 0.42),
-    "Ne": ElementProperties(10, "Ne", "neon", 0.38),
+    "Li": ElementProperties(3, "Li", "lithium", 1.67, "#86E074"),
+    "Be": ElementProperties(4, "Be", "beryllium", 1.12, "#5ED77B"),
+    "B": ElementProperties(5, "B", "boron", 0.87, "#1FA20F"),
+    "C": ElementProperties(6, "C", "carbon", 0.67, "#804929"),
+    "N": ElementProperties(7, "N", "nitrogen", 0.56, "#B0B9E6"),
+    "O": ElementProperties(8, "O", "oxygen", 0.58, "#FE0300"),
+    "F": ElementProperties(9, "F", "fluorine", 0.42, "#B0B9E6"),
+    "Ne": ElementProperties(10, "Ne", "neon", 0.38, "#FE37B5"),
 
     # Period 3
-    "Na": ElementProperties(11, "Na", "sodium", 1.90),
-    "Mg": ElementProperties(12, "Mg", "magnesium", 1.45),
-    "Al": ElementProperties(13, "Al", "aluminium", 1.18),
-    "Si": ElementProperties(14, "Si", "silicon", 1.11),
-    "P": ElementProperties(15, "P", "phosphorus", 0.98),
-    "S": ElementProperties(16, "S", "sulphur", 0.88),
-    "Cl": ElementProperties(17, "Cl", "chlorine", 0.79),
-    "Ar": ElementProperties(18, "Ar", "argon", 0.71),
+    "Na": ElementProperties(11, "Na", "sodium", 1.90, "#F9DC3C"),
+    "Mg": ElementProperties(12, "Mg", "magnesium", 1.45, "#FB7B15"),
+    "Al": ElementProperties(13, "Al", "aluminium", 1.18, "##81B2D6"),
+    "Si": ElementProperties(14, "Si", "silicon", 1.11, "#1B3BFA"),
+    "P": ElementProperties(15, "P", "phosphorus", 0.98, "#C09CC2"),
+    "S": ElementProperties(16, "S", "sulphur", 0.88, "#FFFA00"),
+    "Cl": ElementProperties(17, "Cl", "chlorine", 0.79, "#31FC02"),
+    "Ar": ElementProperties(18, "Ar", "argon", 0.71, "#CFFEC4"),
 
     # Period 4
-    "K": ElementProperties(19, "K", "potassium", 2.43),
-    "Ca": ElementProperties(20, "Ca", "calcium", 1.94),
+    "K": ElementProperties(19, "K", "potassium", 2.43, "#A121F6"),
+    "Ca": ElementProperties(20, "Ca", "calcium", 1.94, "#5A96BD"),
     "Sc": ElementProperties(21, "Sc", "scandium", 1.84),
     "Ti": ElementProperties(22, "Ti", "titanium", 1.76),
     "V": ElementProperties(23, "V", "vanadium", 1.71),
