@@ -29,6 +29,7 @@ class Element:
         self._name = elements[self.symbol].name
         self._atomic_number = elements[self.symbol].atomic_number
         self._atomic_radius = elements[self.symbol].atomic_radius
+        self._colour = elements[self.symbol].colour
 
     @property
     def symbol(self) -> str:
@@ -49,6 +50,11 @@ class Element:
     def atomic_radius(self) -> float:
         """Returns the atomic radius of the element"""
         return self._atomic_radius
+
+    @property
+    def colour(self) -> str:
+        """Returns the hex colour code of the element"""
+        return self._colour
 
     # Note we do not use a property setter as symbol must be read-only
     def __verify_symbol(self, chemical_symbol: str):
