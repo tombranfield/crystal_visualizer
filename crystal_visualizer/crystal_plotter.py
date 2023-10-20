@@ -1,3 +1,7 @@
+#TODO draw the unit cell edges
+#TODO handle non-orthogonal coordinates
+
+
 """crystal_plotter.py"""
 
 
@@ -18,12 +22,16 @@ class CrystalPlotter:
 
     def plot(self):
         fig = plt.figure()
-        ax = fig.add_subplot(projection="3d")
+        ax = fig.add_subplot(aspect="equal", projection="3d")
         for atom in self.unit_cell.atoms:
             radius = 0.5 * atom.element.atomic_radius
             a = self.unit_cell.lattice_param.length_a
-            b = self.unit_cell.lattice_param.length_a
-            c = self.unit_cell.lattice_param.length_a
+            b = self.unit_cell.lattice_param.length_b
+            c = self.unit_cell.lattice_param.length_c
+            alpha = self.unit_cell.lattice_param.angle_alpha
+            beta = self.unit_cell.lattice_param.angle_beta
+            gamma = self.unit_cell.lattice_param.angle_gamma
+
             u, v = np.mgrid[0:2*np.pi:50j, 0:np.pi:50j]
             x = radius * np.cos(u) * np.sin(v)
             y = radius * np.sin(u) * np.sin(v)
@@ -32,6 +40,8 @@ class CrystalPlotter:
                             y - b * atom.position.y,
                             z - c * atom.position.z,
                             color=atom.element.colour)
+        z_stretch_ratio = c / a
+        ax.set_box_aspect((1, 1, z_stretch_ratio))
         plt.show()
 
 
