@@ -41,42 +41,24 @@ class CrystalPlotter:
             y = radius * np.sin(u) * np.sin(v)
             z = radius * np.cos(v)
             ax.plot_surface(a * atom.position.x - x,
-                            b * atom.position.y - x,
+                            b * atom.position.y - y,
                             c * atom.position.z - z,
                             color=atom.element.colour)
         
-        # Plot cell edges (lines)
-        # Start with a single line in orthogonal space
-        # This is important for getting SiO2 working
-        # Each line has three tuples of start-> begin for x,y,z
+        # Plot the edges of the unit cell
         lines = [
-            [(0, a), (0, 0), (0, 0)],
-            [(0, 0), (0, b), (0, 0)],
-            [(a, a), (0, b), (0, 0)],
-            [(0, a), (b, b), (0, 0)],
-
-            [(0, 0), (0, 0), (0, c)],
-            [(0, 0), (b, b), (0, c)],
-            [(a, a), (0, 0), (0, c)],
-            [(a, a), (b, b), (0, c)],
-
-            [(0, a), (0, 0), (c, c)],
-            [(0, 0), (0, b), (c, c)],
-            [(a, a), (0, b), (c, c)],
-            [(0, a), (b, b), (c, c)],
-
+            [(0, a), (0, 0), (0, 0)],  [(0, 0), (0, b), (0, 0)],
+            [(a, a), (0, b), (0, 0)],  [(0, a), (b, b), (0, 0)],
+            [(0, 0), (0, 0), (0, c)],  [(0, 0), (b, b), (0, c)],
+            [(a, a), (0, 0), (0, c)],  [(a, a), (b, b), (0, c)],
+            [(0, a), (0, 0), (c, c)],  [(0, 0), (0, b), (c, c)],
+            [(a, a), (0, b), (c, c)],  [(0, a), (b, b), (c, c)],
         ]
-
         for line in lines:
             x, y, z = line[0], line[1], line[2]
             ax.plot3D(x, y, z, color="red")
 
-        """
-        x = np.array([0, a])
-        y = np.array([0, 0])
-        z = np.array([0, 0])
-        ax.plot3D(x, y, z)
-        """
+
         # Plot appearance
         z_stretch_ratio = c / a
         ax.set_box_aspect((1, 1, z_stretch_ratio))
@@ -90,6 +72,6 @@ class CrystalPlotter:
 
 
 if __name__ == "__main__":
-    unit_cell = cif_to_unit_cell("SrTiO3.cif")
+    unit_cell = cif_to_unit_cell("Cu.cif")
     crystal_plotter = CrystalPlotter(unit_cell)
     crystal_plotter.plot()
