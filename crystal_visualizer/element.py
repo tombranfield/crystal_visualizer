@@ -89,7 +89,7 @@ elements = {
     # Period 3
     "Na": ElementProperties(11, "Na", "sodium", 1.90, "#F9DC3C"),
     "Mg": ElementProperties(12, "Mg", "magnesium", 1.45, "#FB7B15"),
-    "Al": ElementProperties(13, "Al", "aluminium", 1.18, "##81B2D6"),
+    "Al": ElementProperties(13, "Al", "aluminium", 1.18, "#81B2D6"),
     "Si": ElementProperties(14, "Si", "silicon", 1.11, "#1B3BFA"),
     "P": ElementProperties(15, "P", "phosphorus", 0.98, "#C09CC2"),
     "S": ElementProperties(16, "S", "sulphur", 0.88, "#FFFA00"),
