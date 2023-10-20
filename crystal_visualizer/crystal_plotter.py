@@ -38,6 +38,6 @@ class CrystalPlotter:
 
 
 if __name__ == "__main__":
-    unit_cell = cif_to_unit_cell("MgAl2O4.cif")
+    unit_cell = cif_to_unit_cell("YBa2Cu3O7-x.cif")
     crystal_plotter = CrystalPlotter(unit_cell)
     crystal_plotter.plot()
