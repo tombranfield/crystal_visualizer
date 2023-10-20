@@ -21,13 +21,13 @@ class CrystalPlotter:
         self.unit_cell = unit_cell
 
     def plot(self):
-        fig = plt.figure()
+        fig = plt.figure(figsize=(8, 8))
         ax = fig.add_subplot(aspect="equal", projection="3d")
 
         # TODO refactor this, obviously
         # Plot the spheres
         for atom in self.unit_cell.atoms:
-            radius_scale = 0.2
+            radius_scale = 0.35
             radius = radius_scale * atom.element.atomic_radius
             a = self.unit_cell.lattice_param.length_a
             b = self.unit_cell.lattice_param.length_b
@@ -72,6 +72,6 @@ class CrystalPlotter:
 
 
 if __name__ == "__main__":
-    unit_cell = cif_to_unit_cell("Cu.cif")
+    unit_cell = cif_to_unit_cell("SrTiO3.cif")
     crystal_plotter = CrystalPlotter(unit_cell)
     crystal_plotter.plot()
