@@ -28,7 +28,6 @@ class CifReader:
         self.lattice_parameters = self.__get_lattice_parameters()
         self.atoms = self.__get_atoms()
         self.symmetry_ops = self.__get_symmetry_ops()
-        # self.new_atoms = self.__new_get_atoms()
     
     def __get_symmetry_ops(self) -> SpaceGroupSymOps:
         symmetry_ops = SpaceGroupSymOps()
@@ -71,7 +70,6 @@ class CifReader:
             for line in lines:
                 line = line.rstrip().split()
                 if not line: continue
-                # Below could be refactored, but this way is simplier :)
                 if line[0] == "_cell_length_a":
                     len_a = self.__float_from_string_with_brackets(line[1])
                 if line[0] == "_cell_length_b":
