@@ -10,6 +10,7 @@ class BasisVectors:
     """
     Basis vectors for the lattice
     """
+
     def __init__(self, lattice_parameters: LatticeParameters):
         self._len_a = lattice_parameters.length_a
         self._len_b = lattice_parameters.length_b
@@ -18,6 +19,7 @@ class BasisVectors:
         self._alpha = np.deg2rad(lattice_parameters.angle_alpha)
         self._beta = np.deg2rad(lattice_parameters.angle_alpha)
         self._gamma = np.deg2rad(lattice_parameters.angle_alpha)
+        self._NUM_DP = 8
 
     @property
     def a(self):
@@ -28,6 +30,8 @@ class BasisVectors:
         b1 = self._len_b * np.cos(self._gamma)
         b2 = self._len_b * np.sin(self._gamma)
         b3 = 0.0
+        b1 = round(b1, self._NUM_DP)
+        b2 = round(b2, self._NUM_DP)
         return np.array([b1, b2, b3])
 
     @property
@@ -39,6 +43,9 @@ class BasisVectors:
         bracketed = ((np.cos(self._alpha) - np.cos(self._beta) * np.cos(self._gamma))
                     / np.sin(self._gamma))
         c3 = self._len_c * np.sqrt(1 - np.cos(self._beta) ** 2 - bracketed ** 2)
+        c1 = round(c1, self._NUM_DP)
+        c2 = round(c2, self._NUM_DP)
+        c3 = round(c3, self._NUM_DP)
         return np.array([c1, c2, c3])
 
 
