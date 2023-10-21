@@ -51,6 +51,7 @@ class CrystalPlotter:
 
 
         # Plot the spheres
+        """
         for atom in self.unit_cell.atoms:
             radius_scale = 0.4
             radius = radius_scale * atom.element.atomic_radius
@@ -69,10 +70,31 @@ class CrystalPlotter:
                             len_b * atom.position.y - y,
                             len_c * atom.position.z - z,
                             color=atom.element.colour)
-        
+        """
+
+        for atom in self.unit_cell.atoms:
+            radius_scale = 0.4
+            radius = radius_scale * atom.element.atomic_radius
+            fract_pos = list(atom.position_vector())
+            pos = np.dot([a, b, c], fract_pos)
+            atom_x = pos[0]
+            atom_y = pos[1]
+            atom_z = pos[2]
+
+            u, v = np.mgrid[0:2*np.pi:50j, 0:np.pi:50j]
+            x = radius * np.cos(u) * np.sin(v)
+            y = radius * np.sin(u) * np.sin(v)
+            z = radius * np.cos(v)
+            ax.plot_surface(pos[0] - x,
+                            pos[1] - y,
+                            pos[2] - z,
+                            color=atom.element.colour)
+
 
         # Plot appearance
-        z_stretch_ratio = len_c / len_a
+
+
+        z_stretch_ratio = np.linalg.norm(c) / np.linalg.norm(a)
         ax.set_box_aspect((1, 1, z_stretch_ratio))
         ax.set_xlabel("a / $\AA$")
         ax.set_ylabel("b / $\AA$")
@@ -84,6 +106,6 @@ class CrystalPlotter:
 
 
 if __name__ == "__main__":
-    unit_cell = cif_to_unit_cell("SrTiO3.cif")
+    unit_cell = cif_to_unit_cell("SiO2.cif")
     crystal_plotter = CrystalPlotter(unit_cell)
     crystal_plotter.plot()
