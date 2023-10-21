@@ -44,6 +44,10 @@ class CrystalPlotter:
         b = list(self.basis_vectors.b)
         c = list(self.basis_vectors.c)
 
+        print("basis vector a", a)
+        print("basis vector b", b)
+        print("basis vector c", c)
+
         lines = [
             [(0, 1), (0, 0), (0, 0)],  [(0, 0), (0, 1), (0, 0)],
             [(1, 1), (0, 1), (0, 0)],  [(0, 1), (1, 1), (0, 0)],
@@ -61,6 +65,13 @@ class CrystalPlotter:
             x = (r_before[0], r_after[0])
             y = (r_before[1], r_after[1])
             z = (r_before[2], r_after[2])
+            """
+            print("\n------------")
+            print("x", x)
+            print("y", y)
+            print("z", z)
+            print("------------\n")
+            """
             ax.plot3D(x, y, z, color="red")
 
 

@@ -3,6 +3,7 @@
 
 import numpy as np
 
+from crystal_visualizer.cif_reader import CifReader
 from crystal_visualizer.lattice_parameters import LatticeParameters
 
 
@@ -17,8 +18,8 @@ class BasisVectors:
         self._len_c = lattice_parameters.length_c
         # Numpy uses radians, not degrees
         self._alpha = np.deg2rad(lattice_parameters.angle_alpha)
-        self._beta = np.deg2rad(lattice_parameters.angle_alpha)
-        self._gamma = np.deg2rad(lattice_parameters.angle_alpha)
+        self._beta = np.deg2rad(lattice_parameters.angle_beta)
+        self._gamma = np.deg2rad(lattice_parameters.angle_gamma)
         self._NUM_DP = 8
 
     @property
@@ -50,8 +51,16 @@ class BasisVectors:
 
 
 if __name__ == "__main__":
-    lp = LatticeParameters(3.8, 3.9, 4.0, 90.0, 90.0, 90.0)
+    cif_reader = CifReader("SiO2.cif")
+    lp = cif_reader.lattice_parameters
     basis_vectors = BasisVectors(lp)
+
+    print(lp.length_a)
+    print(lp.length_b)
+    print(lp.length_c)
+    print(lp.angle_alpha)
+    print(lp.angle_beta)
+    print(lp.angle_gamma)
 
     print(basis_vectors.a)
     print(basis_vectors.b)
