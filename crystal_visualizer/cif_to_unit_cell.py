@@ -9,7 +9,7 @@ from crystal_visualizer.unit_cell import UnitCell
 
 def cif_to_unit_cell(cif_filename) -> UnitCell:
     """
-    Takes a cif and generates a unit cell
+    Takes a cif file as input and returns a unit cell as output
     """
     cif_reader = CifReader(cif_filename)
     cif_atoms = cif_reader.atoms

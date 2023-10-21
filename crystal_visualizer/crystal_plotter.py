@@ -1,6 +1,3 @@
-#TODO handle non-orthogonal coordinates
-#TODO refactor
-
 """crystal_plotter.py"""
 
 
@@ -51,27 +48,6 @@ class CrystalPlotter:
 
 
         # Plot the spheres
-        """
-        for atom in self.unit_cell.atoms:
-            radius_scale = 0.4
-            radius = radius_scale * atom.element.atomic_radius
-            len_a = self.unit_cell.lattice_param.length_a
-            len_b = self.unit_cell.lattice_param.length_b
-            len_c = self.unit_cell.lattice_param.length_c
-            alpha = self.unit_cell.lattice_param.angle_alpha
-            beta = self.unit_cell.lattice_param.angle_beta
-            gamma = self.unit_cell.lattice_param.angle_gamma
-
-            u, v = np.mgrid[0:2*np.pi:50j, 0:np.pi:50j]
-            x = radius * np.cos(u) * np.sin(v)
-            y = radius * np.sin(u) * np.sin(v)
-            z = radius * np.cos(v)
-            ax.plot_surface(len_a * atom.position.x - x,
-                            len_b * atom.position.y - y,
-                            len_c * atom.position.z - z,
-                            color=atom.element.colour)
-        """
-
         for atom in self.unit_cell.atoms:
             radius_scale = 0.4
             radius = radius_scale * atom.element.atomic_radius
@@ -92,8 +68,6 @@ class CrystalPlotter:
 
 
         # Plot appearance
-
-
         z_stretch_ratio = np.linalg.norm(c) / np.linalg.norm(a)
         ax.set_box_aspect((1, 1, z_stretch_ratio))
         ax.set_xlabel("a / $\AA$")

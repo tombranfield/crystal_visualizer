@@ -6,17 +6,16 @@ import numpy as np
 from crystal_visualizer.element import Element
 from crystal_visualizer.position import Position
 
+
 class Atom:
     """
     A class representing an atom.
 
     Args:
         in_chemical_symbol: a one or two-letter string corresponding to the
-        symbol of a chemical element as represented in the periodic table.
-        Elements 1 to 118 can be chosen.
-        x, y, z: floating point numbers between 0
-        (inclusive) and 1 (exclusive) representing the fractional coordinates
-        of the atom within the unit cell.
+        symbol of a chemical element in the periodic table. eg "Ba" or "He"
+        x, y, z: floating point numbers between 0 and 1 inclusive representing 
+        the fractional coordinateso f the atom within the unit cell.
 
     Returns:
         an instance of Atom representing a single atom.
@@ -35,7 +34,7 @@ class Atom:
         """Returns the chemical element of atom.
 
         Note this returns an instance of the Element class, and so can be used to
-        access the properties of that element if required.
+        access the properties of that element if required
         """
         return self._element
 
