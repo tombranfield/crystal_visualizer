@@ -1,6 +1,5 @@
-#TODO draw the unit cell edges
 #TODO handle non-orthogonal coordinates
-
+#TODO refactor
 
 """crystal_plotter.py"""
 
@@ -21,10 +20,9 @@ class CrystalPlotter:
         self.unit_cell = unit_cell
 
     def plot(self):
-        fig = plt.figure(figsize=(8, 8))
+        fig = plt.figure(figsize=(8, 6))
         ax = fig.add_subplot(aspect="equal", projection="3d")
 
-        # TODO refactor this, obviously
         # Plot the spheres
         for atom in self.unit_cell.atoms:
             radius_scale = 0.35
@@ -65,7 +63,7 @@ class CrystalPlotter:
         ax.set_xlabel("a / r’$\AA$’")
         ax.set_ylabel("b / r’$\AA$’")
         ax.set_zlabel("c / r’$\AA$’")
-
+        fig.tight_layout()
         plt.show()
 
 
