@@ -20,7 +20,6 @@ def test_generate_correct_basis_vectors_for_SrTiO3():
 
 # SiO2 has non-orthogonal axes
 # We calculate the correct expected values by hand
-@pytest.mark.current
 def test_generate_correct_basis_vectors_for_SiO2():
     cif_reader = CifReader("SiO2.cif")
     basis_vectors = BasisVectors(cif_reader.lattice_parameters)
