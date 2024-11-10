@@ -21,7 +21,7 @@ class Atom:
         an instance of Atom representing a single atom.
     """
     def __init__(self,  in_chemical_symbol: str,
-                        x: float, 
+                        x: float,
                         y: float,
                         z: float):
         """Initializes the Atom class."""
@@ -45,8 +45,9 @@ class Atom:
 
     @property
     def position_vector(self):
+        """Returns the position vector of the atom"""
         return self.position.coods
-    
+
     @property
     def label(self):
         """Returns the label of the atom"""
