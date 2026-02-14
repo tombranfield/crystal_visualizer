@@ -1,5 +1,3 @@
-#TODO refactor this module
-
 """
 The crystallographic information file (CIF) is the standard archival format
 for storing the information of crystal structures.
@@ -88,6 +86,7 @@ class CifReader:
 
 
     def __get_atoms(self) -> Atom:
+        """Reads and returns a list of atoms that are in the cif file"""
         atoms = []
         is_reading = False
         atom_site_index = 0
