@@ -139,3 +139,6 @@ TODO/
 
 # Fractional coordinates structure files
 *.xtl
+
+# Old requirements
+*old_requirements.txt
